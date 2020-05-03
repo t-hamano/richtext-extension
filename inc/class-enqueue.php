@@ -35,6 +35,8 @@ class Enqueue {
 	 * Enqueue block editor scripts
 	 */
 	public function enqueue_editor_scripts() {
+		wp_enqueue_style( 'richtext-extension-editor', RTEX_URL . '/css/style-editor.css', array(), RTEX_VERSION );
+
 		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( 'richtext-extension-editor', $inline_css );
 
