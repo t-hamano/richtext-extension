@@ -6,7 +6,7 @@
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "deploy": "gulp",
-		"po2json": "po2json languages/richtext-extension-ja.po languages/richtext-extension-ja-richtext-extension-editor.json -f jed"
+    "po2json": "po2json languages/richtext-extension-ja.po languages/richtext-extension-ja-richtext-extension-editor.json -f jed"
   },
   "devDependencies": {
     "@wordpress/scripts": "^8.0.1",

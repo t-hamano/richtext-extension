@@ -66,6 +66,7 @@ class Main {
 	 * Load classes
 	 */
 	private function load_classes() {
+		require_once( RTEX_PATH . '/inc/class-config.php' );
 		require_once( RTEX_PATH . '/inc/class-enqueue.php' );
 		require_once( RTEX_PATH . '/inc/class-options.php' );
 	}

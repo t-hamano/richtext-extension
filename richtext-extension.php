@@ -24,33 +24,6 @@ define( 'RTEX_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'RTEX_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'RTEX_BASENAME', plugin_basename( __FILE__ ) );
 
-// Default highlighter variation
-$rtex_config['highlighter'] = array(
-	array(
-		'color'     => '#ffff66',
-		'thickness' => 40,
-		'opacity'   => 80,
-	),
-	array(
-		'color'     => '#ff7f7f',
-		'thickness' => 40,
-		'opacity'   => 80,
-	),
-	array(
-		'color'     => '#ffff66',
-		'thickness' => 100,
-		'opacity'   => 80,
-	),
-	array(
-		'color'     => '#ff7f7f',
-		'thickness' => 100,
-		'opacity'   => 80,
-	),
-);
-
-// Default font size variation
-$rtex_config['font_size'] = array( 80, 90, 130, 160 );
-
 require_once RTEX_PATH . '/inc/class-main.php';
 
 new richtext_extension\Main();
