@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RichText Extension\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2020-05-03 14:40+0900\n"
+"POT-Creation-Date: 2020-05-03 20:46+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Tetsuaki Hamano <tetsuaki.hamano@gmail.com>\n"
 "Language-Team: Tetsuaki hamano>\n"
@@ -24,39 +24,39 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: css\n"
 "X-Poedit-SearchPathExcluded-3: src\n"
 
-#: inc/class-enqueue.php:115 inc/class-options.php:280
+#: inc/class-enqueue.php:123 inc/class-options.php:280
 msgid "Marker (Yellow)"
 msgstr "マーカー（黄）"
 
-#: inc/class-enqueue.php:116 inc/class-options.php:281
+#: inc/class-enqueue.php:124 inc/class-options.php:281
 msgid "Marker (Red)"
 msgstr "マーカー（赤）"
 
-#: inc/class-enqueue.php:117 inc/class-options.php:282
+#: inc/class-enqueue.php:125 inc/class-options.php:282
 msgid "Background (Yellow)"
 msgstr "文字背景（黄）"
 
-#: inc/class-enqueue.php:118 inc/class-options.php:283
+#: inc/class-enqueue.php:126 inc/class-options.php:283
 msgid "Background (Red)"
 msgstr "文字背景（赤）"
 
-#: inc/class-enqueue.php:131 inc/class-options.php:356
+#: inc/class-enqueue.php:139 inc/class-options.php:356
 msgid "Extra small"
 msgstr "極小"
 
-#: inc/class-enqueue.php:132 inc/class-options.php:357
+#: inc/class-enqueue.php:140 inc/class-options.php:357
 msgid "Small"
 msgstr "小"
 
-#: inc/class-enqueue.php:133 inc/class-options.php:358
+#: inc/class-enqueue.php:141 inc/class-options.php:358
 msgid "Large"
 msgstr "大"
 
-#: inc/class-enqueue.php:134 inc/class-options.php:359
+#: inc/class-enqueue.php:142 inc/class-options.php:359
 msgid "Extra large"
 msgstr "極大"
 
-#: inc/class-main.php:44
+#: inc/class-main.php:47
 #, php-format
 msgid ""
 "<p>Sorry, RichText Extension requires PHP %1$s or later (PHP version on this "
@@ -65,7 +65,7 @@ msgstr ""
 "<p>申し訳ありませんが、RichText ExtensionはPHP%1$s以降が必要です。(このサイト"
 "のPHPバージョン: %2$s)</p>。"
 
-#: inc/class-main.php:54
+#: inc/class-main.php:57
 #, php-format
 msgid ""
 "<p>Sorry, RichText Extension requires WordPress %1$s or later (WordPress "
@@ -74,13 +74,7 @@ msgstr ""
 "<p>申し訳ありませんが、RichText ExtensionはWordPress%1$s以降が必要です。(この"
 "サイトのWordPressバージョン: %2$s)</p>。"
 
-#: inc/class-main.php:61
-msgid "<p>Sorry, RichText Extension requires gutenberg to be enabled</p>"
-msgstr ""
-"<p>申し訳ありませんが、RichText Extensionではgutenbergを有効にする必要があり"
-"ます</ p>"
-
-#: inc/class-main.php:77
+#: inc/class-main.php:78
 msgid "Settings"
 msgstr "設定"
 
@@ -164,6 +158,11 @@ msgstr "こんにちはこの世界！"
 #: inc/class-options.php:420 inc/class-options.php:433
 msgid "Enable"
 msgstr "有効"
+
+#~ msgid "<p>Sorry, RichText Extension requires gutenberg to be enabled</p>"
+#~ msgstr ""
+#~ "<p>申し訳ありませんが、RichText Extensionではgutenbergを有効にする必要があ"
+#~ "ります</ p>"
 
 #~ msgid "Label"
 #~ msgstr "ラベル"
