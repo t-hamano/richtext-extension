@@ -1,0 +1,40 @@
+=== RichText Extension ===
+Contributors: wildworks
+Tags: gutenberg,rich text,highlighter,formatting
+Donate link: https://www.paypal.me/thamanoJP
+Requires at least: 5.4
+Tested up to: 5.4
+Requires PHP: 7.3
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+Adds useful decoration features to the Gutenberg RichText editor toolbar.
+
+== Description ==
+RichText Extension adds useful decorating features to gutenberg rich text editor.
+
+= Highlighter =
+
+Draw a marker on the inline text.
+You can set the color, thickness, and opacity of the marker to you can create various marker styles.
+Up to four types of settings can be made.
+
+
+= Font size =
+
+Change inline text size.
+The size is specified as a percentage of the base font size, and up to four types of settings can be made.
+
+= Underline =
+Create underline.
+
+= Clear format =
+Removes all formatting.
+
+== Installation ==
+1. Upload the `add-richtext-toolbar-button` folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the \'Plugins\' menu in WordPress.
+
+== Changelog ==
+= 1.0.0 =
+* Initial release.
