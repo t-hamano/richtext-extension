@@ -59,9 +59,6 @@ class Main {
 					$php_version
 				)
 			);
-		} elseif ( ! ( function_exists( 'is_gutenberg_page' ) && is_gutenberg_page() ) ) {
-			deactivate_plugins( RTEX_BASENAME );
-			wp_die( __( '<p>Sorry, RichText Extension requires gutenberg to be enabled</p>', 'richtext-extension' ) );
 		}
 	}
 
