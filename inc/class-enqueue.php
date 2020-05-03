@@ -79,26 +79,30 @@ class Enqueue {
 
 		// Generate highlighter style
 		for ( $i = 0; $i <= 3; $i++ ) {
-			$thickness  = 100 - get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
-			$color      = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
-			$color_rgba = 'transparent';
+			if ( get_option( 'rtex_highlighter_active_' . $i ) ) {
+				$thickness  = 100 - get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
+				$color      = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
+				$color_rgba = 'transparent';
 
-			// Generate linear-gradient value
-			if ( preg_match( '/^#[0-9a-fA-F]{6}$/', $color ) ) {
-				$r          = hexdec( substr( $color, 1, 2 ) );
-				$g          = hexdec( substr( $color, 3, 2 ) );
-				$b          = hexdec( substr( $color, 5, 2 ) );
-				$opacity    = get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ) / 100;
-				$color_rgba = "rgba(${r}, ${g}, ${b}, ${opacity})";
+				// Generate linear-gradient value
+				if ( preg_match( '/^#[0-9a-fA-F]{6}$/', $color ) ) {
+					$r          = hexdec( substr( $color, 1, 2 ) );
+					$g          = hexdec( substr( $color, 3, 2 ) );
+					$b          = hexdec( substr( $color, 5, 2 ) );
+					$opacity    = get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ) / 100;
+					$color_rgba = "rgba(${r}, ${g}, ${b}, ${opacity})";
+				}
+
+				$css .= ".rtex-highlighter-${i}, #rtex-highlighter-preview-${i}{ background: linear-gradient(transparent ${thickness}%, ${color_rgba} ${thickness}%);}";
 			}
-
-			$css .= ".rtex-highlighter-${i}, #rtex-highlighter-preview-${i}{ background: linear-gradient(transparent ${thickness}%, ${color_rgba} ${thickness}%);}";
 		}
 
 		// Generate font size style
 		for ( $i = 0; $i <= 3; $i++ ) {
-			$font_size = get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ) / 100;
-			$css      .= ".rtex-font-size-${i}, #rtex-font-size-preview-${i}{ font-size: ${font_size}em;}";
+			if ( get_option( 'rtex_font_size_active_' . $i ) ) {
+				$font_size = get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ) / 100;
+				$css      .= ".rtex-font-size-${i}, #rtex-font-size-preview-${i}{ font-size: ${font_size}em;}";
+			}
 		}
 
 		return $css;
