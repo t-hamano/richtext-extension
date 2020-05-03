@@ -7,6 +7,7 @@ module.exports = {
 	...defaultConfig,
   entry: {
     'js/format': './src/format/index.js',
+		'css/style': './src/sass/style-editor.scss',
 		'css/style-editor': './src/sass/style-editor.scss',
 		'css/style-option': './src/sass/style-option.scss',
   },
@@ -46,6 +47,8 @@ module.exports = {
       filename: './[name].css',
     }),
 		new IgnoreEmitPlugin([
+			'style.js',
+			'style.asset.php',
 			'style-editor.js',
 			'style-editor.asset.php',
 			'style-option.js',

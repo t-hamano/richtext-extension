@@ -27,6 +27,8 @@ class Enqueue {
 	 * Enqueue front-end scripts
 	 */
 	public function enqueue_scripts() {
+		wp_enqueue_style( 'richtext-extension', RTEX_URL . '/css/style.css', array(), RTEX_VERSION );
+
 		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( 'richtext-extension', $inline_css );
 	}
