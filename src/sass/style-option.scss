@@ -1,0 +1,172 @@
+
+.rtex {
+
+	&-inside {
+
+		ul {
+			margin-top: 0.5em;
+			margin-left: 1.5em;
+			list-style: outside disc;
+		}
+	}
+
+	&-table {
+
+		th,
+		td {
+			box-sizing: border-box;
+			padding: 0.5em 1em;
+			background: #fff;
+			border: 1px solid #ccd0d4;
+		}
+
+		th {
+			background: #f9f9f9;
+		}
+
+		[type="text"] {
+			width: 100%;
+			min-width: 10em;
+		}
+
+		.wp-picker-container {
+			position: relative;
+
+			.wp-picker-input-wrap {
+				vertical-align: middle;
+			}
+
+			.wp-picker-holder {
+				position: absolute;
+				z-index: 1;
+			}
+
+			.wp-color-result.button {
+				margin-bottom: 0;
+				vertical-align: middle;
+			}
+		}
+	}
+
+	&-range {
+		display: flex;
+		align-items: center;
+
+		[type="range"] {
+			width: 6em;
+			margin-right: 1em;
+			vertical-align: middle;
+		}
+	}
+
+	&-input {
+		display: inline-flex;
+		align-items: stretch;
+
+		input {
+			max-width: 100%;
+			margin: 0;
+			border-radius: 0;
+
+			&[type="number"] {
+				width: 4em;
+			}
+
+			&:focus {
+				box-shadow: none;
+			}
+
+			&.rtex-is-prepend {
+				border-radius: 0 4px 4px 0;
+
+			}
+
+			&.rtex-is-append {
+				border-radius: 4px 0 0 4px;
+			}
+
+			&.rtex-is-prepend.rtex-is-append {
+				border-radius: 0;
+			}
+		}
+
+		&-prepend,
+		&-append {
+			display: flex;
+			align-items: center;
+			padding: 0 8px;
+			background: #f5f5f5;
+			border: #7e8993 solid 1px;
+		}
+
+		&-prepend {
+			border-right: none;
+			border-radius: 4px 0 0 4px;
+		}
+
+		&-append {
+			border-left: none;
+			border-radius: 0 4px 4px 0;
+		}
+	}
+
+	&-switch {
+		position: relative;
+
+		&-track {
+			display: inline-block;
+			box-sizing: border-box;
+			width: 48px;
+			height: 24px;
+			vertical-align: top;
+			background-color: #fff;
+			border: 2px solid #7e8993;
+			border-radius: 12px;
+			transition: 0.3s ease;
+		}
+
+		&-thumb {
+			position: absolute;
+			top: 6px;
+			left: 6px;
+			width: 14px;
+			height: 14px;
+			background-color: #7e8993;
+			border-radius: 50%;
+			transition: 0.3s ease;
+		}
+
+		input {
+			display: none;
+
+			&:checked ~ .rtex-switch-thumb {
+				left: 28px;
+				background-color: #fff;
+			}
+
+			&:checked ~ .rtex-switch-track {
+				background-color: #11a0d2;
+				border-color: #11a0d2;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 782px) {
+
+	.rtex {
+
+		&-table-wrap {
+			overflow-x: scroll;
+		}
+
+		&-table {
+			min-width: 1200px;
+
+			th,
+			td {
+				display: table-cell;
+			}
+		}
+	}
+}
