@@ -19,7 +19,7 @@ Up to four types of settings can be made.
 
 ![Font size](https://github.com/t-hamano/richtext-extension/blob/images/fontsize_option.png)
 
-![Font size](https://github.com/t-hamano/richtext-extension/blob/images/fontsize_option.png)
+![Font size](https://github.com/t-hamano/richtext-extension/blob/images/fontsize_editor.png)
 
 Change inline text size.
 
