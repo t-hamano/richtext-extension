@@ -23,7 +23,7 @@ function copyFiles() {
 			'!webpack.config.js',
 			'!src',
 			'!src/**',
-			'!phpcs.ruleset.xml',
+			'!phpcs.ruleset.xml'
 		],
 		{ base: './' }
 	)
@@ -31,7 +31,7 @@ function copyFiles() {
 }
 
 function zip() {
-	return gulp.src( 'richtext-extension/**', { base: '.' } )
+	return gulp.src( 'richtext-extension/**', { base: '.' })
 		.pipe( gulpZip( 'richtext-extension.zip' ) )
 		.pipe( gulp.dest( 'release' ) );
 }

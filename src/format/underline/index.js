@@ -11,10 +11,10 @@ if ( rtexConf.underlineActive ) {
 		tagName: 'u',
 		className: null,
 
-		edit( { isActive, value, onChange } ) {
+		edit({ isActive, value, onChange }) {
 			const onToggle = () => onChange( toggleFormat( value, {
 				type: formatName
-			} ) );
+			}) );
 
 			return (
 				<RichTextToolbarButton

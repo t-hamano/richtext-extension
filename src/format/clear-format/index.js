@@ -13,15 +13,15 @@ if ( rtexConf.clearFormatActive ) {
 		tagName: 'span',
 		className: 'rtex-clear-format',
 
-		edit( { isActive, value, onChange } ) {
+		edit({ isActive, value, onChange }) {
 			const onToggle = () => {
 				const formatTypes = select( 'core/rich-text' ).getFormatTypes();
 				if ( 0 < formatTypes.length ) {
 					let newValue = value;
 					map( formatTypes, ( activeFormat ) => {
 						newValue = removeFormat( newValue, activeFormat.name );
-					} );
-					onChange( { ...newValue } );
+					});
+					onChange({ ...newValue });
 				}
 			};
 

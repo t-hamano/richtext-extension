@@ -14,7 +14,7 @@ const Dropdown = () => <BlockFormatControls>
 					{ fills => <DropdownMenu
 						icon='admin-appearance'
 						label={ __( 'Highlighter', 'richtext-extension' ) }
-						controls={ fills.map( ( [ { props } ] ) => props ) }
+						controls={ fills.map( ([ { props } ]) => props ) }
 					/> }
 				</DropdownControls.Slot>
 			</Toolbar>
