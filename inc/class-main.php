@@ -20,19 +20,22 @@ class Main {
 		load_plugin_textdomain( 'richtext-extension', false, dirname( RTEX_BASENAME ) . '/languages' );
 
 		// Check the environment required for the plugin
-		$this->activation_check();
+		register_activation_hook( RTEX_BASENAME, array( $this, 'activation_check' ) );
+
+		// Uninstallation process
+		register_uninstall_hook( RTEX_BASENAME, array( $this, 'uninstall_richtext_extension' ) );
 
 		// Add a Link to this plugin settings page in plugin list
 		add_filter( 'plugin_action_links_' . RTEX_BASENAME, array( $this, 'add_action_links' ) );
 
 		// Load classes
-		$this->require();
+		$this->load_classes();
 	}
 
 	/**
 	 * Check the environment required for the plugin
 	 */
-	private function activation_check() {
+	public function activation_check() {
 		global $wp_version;
 		$php_version = phpversion();
 
@@ -43,7 +46,7 @@ class Main {
 					// translators: %1$s: required PHP version, %2$s: PHP version on this site
 					__( '<p>Sorry, RichText Extension requires PHP %1$s or later (PHP version on this site: %2$s).</p>', 'richtext-extension' ),
 					self::REQ_PHP_VERSION,
-					$php_version,
+					$php_version
 				)
 			);
 		} elseif ( version_compare( $wp_version, self::REQ_WP_VERSION, '<' ) ) {
@@ -53,10 +56,10 @@ class Main {
 					// translators: %1$s: required WordPress version, %2$s: WordPress version on this site
 					__( '<p>Sorry, RichText Extension requires WordPress %1$s or later (WordPress version on this site: %2$s).</p>', 'richtext-extension' ),
 					self::REQ_WP_VERSION,
-					$php_version,
+					$php_version
 				)
 			);
-		} elseif ( function_exists( 'is_gutenberg_page' ) && is_gutenberg_page() ) {
+		} elseif ( ! ( function_exists( 'is_gutenberg_page' ) && is_gutenberg_page() ) ) {
 			deactivate_plugins( RTEX_BASENAME );
 			wp_die( __( '<p>Sorry, RichText Extension requires gutenberg to be enabled</p>', 'richtext-extension' ) );
 		}
@@ -65,7 +68,7 @@ class Main {
 	/**
 	 * Load classes
 	 */
-	private function require() {
+	private function load_classes() {
 		require_once( RTEX_PATH . '/inc/class-enqueue.php' );
 		require_once( RTEX_PATH . '/inc/class-options.php' );
 	}
@@ -82,7 +85,7 @@ class Main {
 	/**
 	 * Uninstallation process
 	 */
-	public static function uninstall_richtext_extension() {
+	public function uninstall_richtext_extension() {
 		$options = array();
 
 		for ( $i = 0; $i <= 3; $i ++ ) {

@@ -25,37 +25,31 @@ define( 'RTEX_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'RTEX_BASENAME', plugin_basename( __FILE__ ) );
 
 // Default highlighter variation
-define(
-	'RTEX_HIGHLIGHTER',
+$rtex_config['highlighter'] = array(
 	array(
-		array(
-			'color'     => '#ffff66',
-			'thickness' => 40,
-			'opacity'   => 80,
-		),
-		array(
-			'color'     => '#ff7f7f',
-			'thickness' => 40,
-			'opacity'   => 80,
-		),
-		array(
-			'color'     => '#ffff66',
-			'thickness' => 100,
-			'opacity'   => 80,
-		),
-		array(
-			'color'     => '#ff7f7f',
-			'thickness' => 100,
-			'opacity'   => 80,
-		),
-	)
+		'color'     => '#ffff66',
+		'thickness' => 40,
+		'opacity'   => 80,
+	),
+	array(
+		'color'     => '#ff7f7f',
+		'thickness' => 40,
+		'opacity'   => 80,
+	),
+	array(
+		'color'     => '#ffff66',
+		'thickness' => 100,
+		'opacity'   => 80,
+	),
+	array(
+		'color'     => '#ff7f7f',
+		'thickness' => 100,
+		'opacity'   => 80,
+	),
 );
 
 // Default font size variation
-define( 'RTEX_FONT_SIZE', array( 80, 90, 130, 160 ) );
-
-// Uninstallation process
-register_uninstall_hook( __FILE__, array( '\richtext_extension\Main', 'uninstall_richtext_extension' ) );
+$rtex_config['font_size'] = array( 80, 90, 130, 160 );
 
 require_once RTEX_PATH . '/inc/class-main.php';
 

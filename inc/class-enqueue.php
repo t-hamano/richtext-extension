@@ -77,8 +77,8 @@ class Enqueue {
 
 		// Generate highlighter style
 		for ( $i = 0; $i <= 3; $i++ ) {
-			$thickness  = 100 - get_option( 'rtex_highlighter_thickness_' . $i, RTEX_HIGHLIGHTER[ $i ]['thickness'] );
-			$color      = get_option( 'rtex_highlighter_color_' . $i, RTEX_HIGHLIGHTER[ $i ]['color'] );
+			$thickness  = 100 - get_option( 'rtex_highlighter_thickness_' . $i, $rtex_config['highlighter'][ $i ]['thickness'] );
+			$color      = get_option( 'rtex_highlighter_color_' . $i, $rtex_config['highlighter'][ $i ]['color'] );
 			$color_rgba = 'transparent';
 
 			// Generate linear-gradient value
@@ -86,7 +86,7 @@ class Enqueue {
 				$r          = hexdec( substr( $color, 1, 2 ) );
 				$g          = hexdec( substr( $color, 3, 2 ) );
 				$b          = hexdec( substr( $color, 5, 2 ) );
-				$opacity    = get_option( 'rtex_highlighter_opacity_' . $i, RTEX_HIGHLIGHTER[ $i ]['opacity'] ) / 100;
+				$opacity    = get_option( 'rtex_highlighter_opacity_' . $i, $rtex_config['highlighter'][ $i ]['opacity'] ) / 100;
 				$color_rgba = "rgba(${r}, ${g}, ${b}, ${opacity})";
 			}
 
@@ -95,7 +95,7 @@ class Enqueue {
 
 		// Generate font size style
 		for ( $i = 0; $i <= 3; $i++ ) {
-			$font_size = get_option( 'rtex_font_size_size_' . $i, RTEX_FONT_SIZE[ $i ] ) / 100;
+			$font_size = get_option( 'rtex_font_size_size_' . $i, $rtex_config['font_size'][ $i ] ) / 100;
 			$css      .= ".rtex-font-size-${i}, #rtex-font-size-preview-${i}{ font-size: ${font_size}em;}";
 		}
 
