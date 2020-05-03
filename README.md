@@ -5,6 +5,10 @@ Adds useful decoration features to the Gutenberg RichText editor toolbar.
 
 ### Highlighter
 
+![Highlighter](https://github.com/t-hamano/richtext-extension/blob/images/highlighter_option.png)
+
+![Highlighter](https://github.com/t-hamano/richtext-extension/blob/images/highlighter_editor.png)
+
 Draw a marker on the inline text.
 
 You can set the color, thickness, and opacity of the marker to you can create various marker styles.
@@ -12,6 +16,10 @@ You can set the color, thickness, and opacity of the marker to you can create va
 Up to four types of settings can be made.
 
 ### Font size
+
+![Font size](https://github.com/t-hamano/richtext-extension/blob/images/fontsize_option.png)
+
+![Font size](https://github.com/t-hamano/richtext-extension/blob/images/fontsize_option.png)
 
 Change inline text size.
 
