@@ -19,6 +19,7 @@ function copyFiles() {
 			'!node_modules',
 			'!node_modules/**',
 			'!release',
+			'!release/**',
 			'!gulpfile.js',
 			'!package.json',
 			'!package-lock.json',

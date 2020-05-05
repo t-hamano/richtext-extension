@@ -1,23 +1,23 @@
+#, fuzzy
 msgid ""
 msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: RichText Extension\n"
-"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
 "POT-Creation-Date: 2020-05-05 12:25+0900\n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2020-05-05 12:22+0900\n"
 "Last-Translator: Tetsuaki Hamano\n"
-"Language-Team: Tetsuaki hamano\n"
-"Language: ja\n"
+"Language-Team: Tetsuaki Hamano\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
-"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
-"X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: richtext-extension.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: js\n"
@@ -26,35 +26,35 @@ msgstr ""
 
 #: inc/class-enqueue.php:123 inc/class-options.php:280
 msgid "Marker (Yellow)"
-msgstr "マーカー（黄）"
+msgstr ""
 
 #: inc/class-enqueue.php:124 inc/class-options.php:281
 msgid "Marker (Red)"
-msgstr "マーカー（赤）"
+msgstr ""
 
 #: inc/class-enqueue.php:125 inc/class-options.php:282
 msgid "Background (Yellow)"
-msgstr "文字背景（黄）"
+msgstr ""
 
 #: inc/class-enqueue.php:126 inc/class-options.php:283
 msgid "Background (Red)"
-msgstr "文字背景（赤）"
+msgstr ""
 
 #: inc/class-enqueue.php:139 inc/class-options.php:356
 msgid "Extra small"
-msgstr "極小"
+msgstr ""
 
 #: inc/class-enqueue.php:140 inc/class-options.php:357
 msgid "Small"
-msgstr "小"
+msgstr ""
 
 #: inc/class-enqueue.php:141 inc/class-options.php:358
 msgid "Large"
-msgstr "大"
+msgstr ""
 
 #: inc/class-enqueue.php:142 inc/class-options.php:359
 msgid "Extra large"
-msgstr "極大"
+msgstr ""
 
 #. translators: %1$s: required PHP version, %2$s: PHP version on this site
 #: inc/class-main.php:47
@@ -63,8 +63,6 @@ msgid ""
 "<p>Sorry, RichText Extension requires PHP %1$s or later (PHP version on this "
 "site: %2$s).</p>"
 msgstr ""
-"<p>申し訳ありませんが、RichText ExtensionはPHP%1$s以降が必要です。(このサイト"
-"のPHPバージョン: %2$s)</p>。"
 
 #. translators: %1$s: required WordPress version, %2$s: WordPress version on this site
 #: inc/class-main.php:57
@@ -73,115 +71,99 @@ msgid ""
 "<p>Sorry, RichText Extension requires WordPress %1$s or later (WordPress "
 "version on this site: %2$s).</p>"
 msgstr ""
-"<p>申し訳ありませんが、RichText ExtensionはWordPress%1$s以降が必要です。(この"
-"サイトのWordPressバージョン: %2$s)</p>。"
 
 #: inc/class-main.php:78
 msgid "Settings"
-msgstr "設定"
+msgstr ""
 
 #: inc/class-options.php:31 inc/class-options.php:189
 msgid "RichText Extension Setting"
-msgstr "RichText Extensionの設定"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 #: inc/class-options.php:32
 msgid "RichText Extension"
-msgstr "RichText Extension"
+msgstr ""
 
 #: inc/class-options.php:154
 msgid "Highlighter"
-msgstr "マーカー"
+msgstr ""
 
 #: inc/class-options.php:161
 msgid "Font size"
-msgstr "フォントサイズ"
+msgstr ""
 
 #: inc/class-options.php:168
 msgid "Underline"
-msgstr "アンダーライン"
+msgstr ""
 
 #: inc/class-options.php:175
 msgid "Clear format"
-msgstr "書式のクリア"
+msgstr ""
 
 #: inc/class-options.php:288
 msgid "If the highlighter makes it hard to see the text, lower the opacity."
-msgstr "マーカーのせいで文字が見づらい場合は、透明度を下げてください。"
+msgstr ""
 
 #: inc/class-options.php:289 inc/class-options.php:365
 msgid ""
 "If you change each setting, the style you're already applying to your "
 "content will also change."
 msgstr ""
-"それぞれの設定を変更すると、すでにコンテンツに適用しているスタイルも変わりま"
-"す。"
 
 #: inc/class-options.php:295 inc/class-options.php:371
 msgid "Status"
-msgstr "ステータス"
+msgstr ""
 
 #: inc/class-options.php:296 inc/class-options.php:372
 msgid "Title"
-msgstr "タイトル"
+msgstr ""
 
 #: inc/class-options.php:297
 msgid "Color"
-msgstr "カラー"
+msgstr ""
 
 #: inc/class-options.php:298
 msgid "Thickness"
-msgstr "太さ"
+msgstr ""
 
 #: inc/class-options.php:299
 msgid "Opacity"
-msgstr "透明度"
+msgstr ""
 
 #: inc/class-options.php:300 inc/class-options.php:374
 msgid "Preview"
-msgstr "プレビュー"
+msgstr ""
 
 #: inc/class-options.php:340 inc/class-options.php:402
 msgid "Hello World!"
-msgstr "こんにちは世界！"
+msgstr ""
 
 #: inc/class-options.php:364
 msgid "The size is specified as a percentage of the base font size."
 msgstr ""
-"サイズは、ベースとなるフォントサイズに対するパーセンテージで指定して下さい。"
 
 #: inc/class-options.php:373
 msgid "Size"
-msgstr "サイズ"
+msgstr ""
 
 #: inc/class-options.php:402
 msgid "Hello This World!"
-msgstr "こんにちはこの世界！"
+msgstr ""
 
 #: inc/class-options.php:420 inc/class-options.php:433
 msgid "Enable"
-msgstr "有効"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
 "Adds useful decoration features to the Gutenberg RichText editor toolbar."
-msgstr "Gutenberg RichTextエディタのツールバーに便利な装飾機能を追加します。"
+msgstr ""
 
 #. Author of the plugin/theme
 msgid "Tetsuaki Hamano"
-msgstr "Tetsuaki Hamano"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://github.com/t-hamano"
-msgstr "https://github.com/t-hamano"
-
-#~ msgid "<p>Sorry, RichText Extension requires gutenberg to be enabled</p>"
-#~ msgstr ""
-#~ "<p>申し訳ありませんが、RichText Extensionではgutenbergを有効にする必要があ"
-#~ "ります</ p>"
-
-#~ msgid "Label"
-#~ msgstr "ラベル"
-
-#~ msgid "Active"
-#~ msgstr "有効"
+msgstr ""
