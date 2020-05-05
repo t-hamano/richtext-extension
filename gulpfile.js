@@ -1,5 +1,6 @@
 const gulp = require( 'gulp' );
 const gulpZip = require( 'gulp-zip' );
+const gulpChmod = require( 'gulp-chmod' );
 const del = require( 'del' );
 
 function cleanFiles( cb ) {
@@ -17,6 +18,7 @@ function copyFiles() {
 			'!.gitignore',
 			'!node_modules',
 			'!node_modules/**',
+			'!release',
 			'!gulpfile.js',
 			'!package.json',
 			'!package-lock.json',
@@ -32,7 +34,8 @@ function copyFiles() {
 
 function zip() {
 	return gulp.src( 'richtext-extension/**', { base: '.' })
-		.pipe( gulpZip( 'richtext-extension.zip' ) )
+	.pipe( gulpChmod( 0o755, 0o755 ) )
+	.pipe( gulpZip( 'richtext-extension.zip' ) )
 		.pipe( gulp.dest( 'release' ) );
 }
 

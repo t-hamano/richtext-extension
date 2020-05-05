@@ -9,7 +9,6 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: richtext-extension
  * Domain Path: languages
-
  * @package richtext-extension
  * @author Tetsuaki Hamano
  * @license GPL-2.0+
