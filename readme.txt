@@ -36,5 +36,10 @@ Removes all formatting.
 2. Activate the plugin through the \'Plugins\' menu in WordPress.
 
 == Changelog ==
+
+= 1.0.1 =
+* Update: build process
+* Update: translation
+
 = 1.0.0 =
 * Initial release.
