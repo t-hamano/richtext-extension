@@ -4,7 +4,7 @@ Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 5.4
 Tested up to: 5.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,16 +38,19 @@ Removes all formatting.
 
 == Changelog ==
 
+= 1.1.1 =
+* Fix: Problem about uninstallation process
+
 = 1.1.0 =
 * Remove: activation check
 
 = 1.0.2 =
 * Fix: Problem that style is not reflected on first installation
-* Fix: Problem that preview does not switch when status is changed.
+* Fix: Problem that preview does not switch when status is changed
 
 = 1.0.1 =
 * Update: build process
 * Update: translation
 
 = 1.0.0 =
-* Initial release.
+* Initial release
