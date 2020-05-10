@@ -8,19 +8,12 @@
 namespace richtext_extension;
 
 class Main {
-	// Environment required for this plugin
-	const REQ_WP_VERSION  = '5.4';
-	const REQ_PHP_VERSION = '7.3';
-
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		// Load translated strings
 		load_plugin_textdomain( 'richtext-extension', false, dirname( RTEX_BASENAME ) . '/languages' );
-
-		// Check the environment required for the plugin
-		register_activation_hook( RTEX_BASENAME, array( $this, 'activation_check' ) );
 
 		// Uninstallation process
 		register_uninstall_hook( RTEX_BASENAME, array( $this, 'uninstall_richtext_extension' ) );
@@ -30,36 +23,6 @@ class Main {
 
 		// Load classes
 		$this->load_classes();
-	}
-
-	/**
-	 * Check the environment required for the plugin
-	 */
-	public function activation_check() {
-		global $wp_version;
-		$php_version = phpversion();
-
-		if ( version_compare( $php_version, self::REQ_PHP_VERSION, '<' ) ) {
-			deactivate_plugins( RTEX_BASENAME );
-			wp_die(
-				sprintf(
-					// translators: %1$s: required PHP version, %2$s: PHP version on this site
-					__( '<p>Sorry, RichText Extension requires PHP %1$s or later (PHP version on this site: %2$s).</p>', 'richtext-extension' ),
-					self::REQ_PHP_VERSION,
-					$php_version
-				)
-			);
-		} elseif ( version_compare( $wp_version, self::REQ_WP_VERSION, '<' ) ) {
-			deactivate_plugins( BASENAME );
-			wp_die(
-				sprintf(
-					// translators: %1$s: required WordPress version, %2$s: WordPress version on this site
-					__( '<p>Sorry, RichText Extension requires WordPress %1$s or later (WordPress version on this site: %2$s).</p>', 'richtext-extension' ),
-					self::REQ_WP_VERSION,
-					$php_version
-				)
-			);
-		}
 	}
 
 	/**
