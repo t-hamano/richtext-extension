@@ -197,7 +197,7 @@ class Options {
 				<div id="poststuff">
 					<div id="post-body">
 						<div id="post-body-content">
-							<?php do_meta_boxes( $this->hook, 'normal', $data ); ?>
+							<?php do_meta_boxes( $this->hook, 'normal', null ); ?>
 							<?php submit_button(); ?>
 						</div>
 					</div>

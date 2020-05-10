@@ -8,10 +8,6 @@
 namespace richtext_extension;
 
 class Main {
-	// Environment required for this plugin
-	const REQ_WP_VERSION  = '5.4';
-	const REQ_PHP_VERSION = '7.3';
-
 	/**
 	 * Constructor
 	 */
@@ -19,47 +15,14 @@ class Main {
 		// Load translated strings
 		load_plugin_textdomain( 'richtext-extension', false, dirname( RTEX_BASENAME ) . '/languages' );
 
-		// Check the environment required for the plugin
-		register_activation_hook( RTEX_BASENAME, array( $this, 'activation_check' ) );
-
 		// Uninstallation process
-		register_uninstall_hook( RTEX_BASENAME, array( $this, 'uninstall_richtext_extension' ) );
+		register_uninstall_hook( RTEX_BASENAME, 'richtext_extension\Main::uninstall_richtext_extension' );
 
 		// Add a Link to this plugin settings page in plugin list
 		add_filter( 'plugin_action_links_' . RTEX_BASENAME, array( $this, 'add_action_links' ) );
 
 		// Load classes
 		$this->load_classes();
-	}
-
-	/**
-	 * Check the environment required for the plugin
-	 */
-	public function activation_check() {
-		global $wp_version;
-		$php_version = phpversion();
-
-		if ( version_compare( $php_version, self::REQ_PHP_VERSION, '<' ) ) {
-			deactivate_plugins( RTEX_BASENAME );
-			wp_die(
-				sprintf(
-					// translators: %1$s: required PHP version, %2$s: PHP version on this site
-					__( '<p>Sorry, RichText Extension requires PHP %1$s or later (PHP version on this site: %2$s).</p>', 'richtext-extension' ),
-					self::REQ_PHP_VERSION,
-					$php_version
-				)
-			);
-		} elseif ( version_compare( $wp_version, self::REQ_WP_VERSION, '<' ) ) {
-			deactivate_plugins( BASENAME );
-			wp_die(
-				sprintf(
-					// translators: %1$s: required WordPress version, %2$s: WordPress version on this site
-					__( '<p>Sorry, RichText Extension requires WordPress %1$s or later (WordPress version on this site: %2$s).</p>', 'richtext-extension' ),
-					self::REQ_WP_VERSION,
-					$php_version
-				)
-			);
-		}
 	}
 
 	/**
@@ -83,7 +46,7 @@ class Main {
 	/**
 	 * Uninstallation process
 	 */
-	public function uninstall_richtext_extension() {
+	public static function uninstall_richtext_extension() {
 		$options = array();
 
 		for ( $i = 0; $i <= 3; $i ++ ) {
