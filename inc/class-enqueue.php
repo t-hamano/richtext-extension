@@ -79,7 +79,7 @@ class Enqueue {
 
 		// Generate highlighter style
 		for ( $i = 0; $i <= 3; $i++ ) {
-			if ( get_option( 'rtex_highlighter_active_' . $i ) ) {
+			if ( get_option( 'rtex_highlighter_active_' . $i, true ) ) {
 				$thickness  = 100 - get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
 				$color      = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
 				$color_rgba = 'transparent';
@@ -99,7 +99,7 @@ class Enqueue {
 
 		// Generate font size style
 		for ( $i = 0; $i <= 3; $i++ ) {
-			if ( get_option( 'rtex_font_size_active_' . $i ) ) {
+			if ( get_option( 'rtex_font_size_active_' . $i, true ) ) {
 				$font_size = get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ) / 100;
 				$css      .= ".rtex-font-size-${i}, #rtex-font-size-preview-${i}{ font-size: ${font_size}em;}";
 			}

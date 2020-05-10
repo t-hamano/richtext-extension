@@ -247,6 +247,14 @@ class Options {
 				* @param  {string} color Hex Color Code
 				*/
 				function preview_highlighter( index, color ) {
+					var active = $( '[name="rtex_highlighter_active_' + index + '"]' ).prop( 'checked' );
+					var target = $( '#rtex-highlighter-preview-' + index );
+
+					if ( ! active ) {
+						target.css( 'background', 'transparent' );
+						return false;
+					}
+
 					var thickness = 100 - parseInt( $( '[name="rtex_highlighter_thickness_' + index + '"]').val() );
 					var colorRgba = 'transparent';
 
@@ -255,17 +263,24 @@ class Options {
 						var g = parseInt( color.substr( 3, 2 ), 16 );
 						var b = parseInt( color.substr( 5, 2 ), 16 );
 						var opacity = parseInt( $( '[name="rtex_highlighter_opacity_' + index + '"]' ).val() ) / 100;
-						var colorRgba ='rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
+						colorRgba ='rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
 					}
 
-					$( '#rtex-highlighter-preview-' + index ).css( 'background', 'linear-gradient(transparent ' + thickness + '%,' + colorRgba + ' ' + thickness + '%)' );
+					target.css( 'background', 'linear-gradient(transparent ' + thickness + '%,' + colorRgba + ' ' + thickness + '%)' );
 				}
 
 				// Preview styles (Font size)
 				$( '#rtex-metabox-font-size input' ).on( 'change', function() {
 					var index = $( this ).parents( 'tr' ).attr( 'data-index' );
-					var fontSize = parseInt( $( '[name="rtex_font_size_' + index + '"]').val() ) / 100;
-					$( '#rtex-font-size-preview-' + index ).css( 'font-size', fontSize + 'em' );
+					var active = $( '[name="rtex_font_size_active_' + index + '"]' ).prop( 'checked' );
+					var target = $( '#rtex-font-size-preview-' + index );
+					var fontSize = parseInt( $( '[name="rtex_font_size_size_' + index + '"]').val() ) / 100;
+
+					if ( ! active ) {
+						target.css( 'font-size', '1em' );
+					} else {
+						target.css( 'font-size', fontSize + 'em' );
+					}
 				} );
 			});
 		</script>
