@@ -16,7 +16,7 @@ class Main {
 		load_plugin_textdomain( 'richtext-extension', false, dirname( RTEX_BASENAME ) . '/languages' );
 
 		// Uninstallation process
-		register_uninstall_hook( RTEX_BASENAME, array( $this, 'uninstall_richtext_extension' ) );
+		register_uninstall_hook( RTEX_BASENAME, 'richtext_extension\Main::uninstall_richtext_extension' );
 
 		// Add a Link to this plugin settings page in plugin list
 		add_filter( 'plugin_action_links_' . RTEX_BASENAME, array( $this, 'add_action_links' ) );
@@ -46,7 +46,7 @@ class Main {
 	/**
 	 * Uninstallation process
 	 */
-	public function uninstall_richtext_extension() {
+	public static function uninstall_richtext_extension() {
 		$options = array();
 
 		for ( $i = 0; $i <= 3; $i ++ ) {
