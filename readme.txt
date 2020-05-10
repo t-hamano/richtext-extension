@@ -4,7 +4,7 @@ Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 5.4
 Tested up to: 5.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,9 @@ Removes all formatting.
 2. Activate the plugin through the \'Plugins\' menu in WordPress.
 
 == Changelog ==
+
+= 1.1.2 =
+* Fix: metabox warning error
 
 = 1.1.1 =
 * Fix: Problem about uninstallation process
