@@ -292,10 +292,10 @@ class Options {
 	 */
 	public function metabox_highlighter() {
 		$default_title = array(
-			__( 'Marker (Yellow)', 'richtext-extension' ),
-			__( 'Marker (Red)', 'richtext-extension' ),
-			__( 'Background (Yellow)', 'richtext-extension' ),
-			__( 'Background (Red)', 'richtext-extension' ),
+			__( 'Marker ( Yellow )', 'richtext-extension' ),
+			__( 'Marker ( Red )', 'richtext-extension' ),
+			__( 'Background ( Yellow )', 'richtext-extension' ),
+			__( 'Background ( Red )', 'richtext-extension' ),
 		);
 		?>
 		<div class="rtex-inside">
@@ -352,7 +352,7 @@ class Options {
 									</div>
 								</td>
 								<td>
-									<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php _e( 'Hello World!', 'richtext-extension' ); ?></span>
+									<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php _e( 'Hello World !', 'richtext-extension' ); ?></span>
 								</td>
 							</tr>
 						<?php endfor; ?>
@@ -414,7 +414,7 @@ class Options {
 									</div>
 								</td>
 								<td>
-									<?php _e( 'Hello World!', 'richtext-extension' ); ?><span id="rtex-font-size-preview-<?php echo $i; ?>"> <?php _e( 'Hello This World!', 'richtext-extension' ); ?></span> <?php _e( 'Hello World!', 'richtext-extension' ); ?>
+									<?php _e( 'Hello World !', 'richtext-extension' ); ?><span id="rtex-font-size-preview-<?php echo $i; ?>"> <?php _e( 'Hello This World !', 'richtext-extension' ); ?></span> <?php _e( 'Hello World !', 'richtext-extension' ); ?>
 								</td>
 							</tr>
 						<?php endfor; ?>

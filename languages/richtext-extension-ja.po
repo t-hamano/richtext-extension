@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RichText Extension\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2020-05-05 12:25+0900\n"
+"POT-Creation-Date: 2020-05-12 16:36+0900\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Tetsuaki Hamano\n"
 "Language-Team: Tetsuaki hamano\n"
@@ -15,7 +15,8 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
-"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,"
+"_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 2.3\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -24,59 +25,39 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: css\n"
 "X-Poedit-SearchPathExcluded-3: src\n"
 
-#: inc/class-enqueue.php:123 inc/class-options.php:280
-msgid "Marker (Yellow)"
-msgstr "マーカー（黄）"
+#: inc/class-enqueue.php:123 inc/class-options.php:295
+msgid "Marker ( Yellow )"
+msgstr "マーカー ( 黄 )"
 
-#: inc/class-enqueue.php:124 inc/class-options.php:281
-msgid "Marker (Red)"
-msgstr "マーカー（赤）"
+#: inc/class-enqueue.php:124 inc/class-options.php:296
+msgid "Marker ( Red )"
+msgstr "マーカー ( 赤 )"
 
-#: inc/class-enqueue.php:125 inc/class-options.php:282
-msgid "Background (Yellow)"
-msgstr "文字背景（黄）"
+#: inc/class-enqueue.php:125 inc/class-options.php:297
+msgid "Background ( Yellow )"
+msgstr "文字背景 ( 黄 )"
 
-#: inc/class-enqueue.php:126 inc/class-options.php:283
-msgid "Background (Red)"
-msgstr "文字背景（赤）"
+#: inc/class-enqueue.php:126 inc/class-options.php:298
+msgid "Background ( Red )"
+msgstr "文字背景 ( 赤 )"
 
-#: inc/class-enqueue.php:139 inc/class-options.php:356
+#: inc/class-enqueue.php:139 inc/class-options.php:371
 msgid "Extra small"
 msgstr "極小"
 
-#: inc/class-enqueue.php:140 inc/class-options.php:357
+#: inc/class-enqueue.php:140 inc/class-options.php:372
 msgid "Small"
 msgstr "小"
 
-#: inc/class-enqueue.php:141 inc/class-options.php:358
+#: inc/class-enqueue.php:141 inc/class-options.php:373
 msgid "Large"
 msgstr "大"
 
-#: inc/class-enqueue.php:142 inc/class-options.php:359
+#: inc/class-enqueue.php:142 inc/class-options.php:374
 msgid "Extra large"
 msgstr "極大"
 
-#. translators: %1$s: required PHP version, %2$s: PHP version on this site
-#: inc/class-main.php:47
-#, php-format
-msgid ""
-"<p>Sorry, RichText Extension requires PHP %1$s or later (PHP version on this "
-"site: %2$s).</p>"
-msgstr ""
-"<p>申し訳ありませんが、RichText ExtensionはPHP%1$s以降が必要です。(このサイト"
-"のPHPバージョン: %2$s)</p>。"
-
-#. translators: %1$s: required WordPress version, %2$s: WordPress version on this site
-#: inc/class-main.php:57
-#, php-format
-msgid ""
-"<p>Sorry, RichText Extension requires WordPress %1$s or later (WordPress "
-"version on this site: %2$s).</p>"
-msgstr ""
-"<p>申し訳ありませんが、RichText ExtensionはWordPress%1$s以降が必要です。(この"
-"サイトのWordPressバージョン: %2$s)</p>。"
-
-#: inc/class-main.php:78
+#: inc/class-main.php:41
 msgid "Settings"
 msgstr "設定"
 
@@ -105,11 +86,11 @@ msgstr "アンダーライン"
 msgid "Clear format"
 msgstr "書式のクリア"
 
-#: inc/class-options.php:288
+#: inc/class-options.php:303
 msgid "If the highlighter makes it hard to see the text, lower the opacity."
 msgstr "マーカーのせいで文字が見づらい場合は、透明度を下げてください。"
 
-#: inc/class-options.php:289 inc/class-options.php:365
+#: inc/class-options.php:304 inc/class-options.php:380
 msgid ""
 "If you change each setting, the style you're already applying to your "
 "content will also change."
@@ -117,48 +98,48 @@ msgstr ""
 "それぞれの設定を変更すると、すでにコンテンツに適用しているスタイルも変わりま"
 "す。"
 
-#: inc/class-options.php:295 inc/class-options.php:371
+#: inc/class-options.php:310 inc/class-options.php:386
 msgid "Status"
 msgstr "ステータス"
 
-#: inc/class-options.php:296 inc/class-options.php:372
+#: inc/class-options.php:311 inc/class-options.php:387
 msgid "Title"
 msgstr "タイトル"
 
-#: inc/class-options.php:297
+#: inc/class-options.php:312
 msgid "Color"
 msgstr "カラー"
 
-#: inc/class-options.php:298
+#: inc/class-options.php:313
 msgid "Thickness"
 msgstr "太さ"
 
-#: inc/class-options.php:299
+#: inc/class-options.php:314
 msgid "Opacity"
 msgstr "透明度"
 
-#: inc/class-options.php:300 inc/class-options.php:374
+#: inc/class-options.php:315 inc/class-options.php:389
 msgid "Preview"
 msgstr "プレビュー"
 
-#: inc/class-options.php:340 inc/class-options.php:402
-msgid "Hello World!"
-msgstr "こんにちは世界！"
+#: inc/class-options.php:355 inc/class-options.php:417
+msgid "Hello World !"
+msgstr "こんにちは世界 !"
 
-#: inc/class-options.php:364
+#: inc/class-options.php:379
 msgid "The size is specified as a percentage of the base font size."
 msgstr ""
 "サイズは、ベースとなるフォントサイズに対するパーセンテージで指定して下さい。"
 
-#: inc/class-options.php:373
+#: inc/class-options.php:388
 msgid "Size"
 msgstr "サイズ"
 
-#: inc/class-options.php:402
-msgid "Hello This World!"
-msgstr "こんにちはこの世界！"
+#: inc/class-options.php:417
+msgid "Hello This World !"
+msgstr "こんにちはこの世界 !"
 
-#: inc/class-options.php:420 inc/class-options.php:433
+#: inc/class-options.php:435 inc/class-options.php:448
 msgid "Enable"
 msgstr "有効"
 
@@ -175,10 +156,26 @@ msgstr "Tetsuaki Hamano"
 msgid "https://github.com/t-hamano"
 msgstr "https://github.com/t-hamano"
 
+#, php-format
+#~ msgid ""
+#~ "<p>Sorry, RichText Extension requires PHP %1$s or later (PHP version on "
+#~ "this site: %2$s).</p>"
+#~ msgstr ""
+#~ "<p>申し訳ありませんが、RichText ExtensionはPHP%1$s以降が必要です。(このサ"
+#~ "イトのPHPバージョン: %2$s)</p>。"
+
+#, php-format
+#~ msgid ""
+#~ "<p>Sorry, RichText Extension requires WordPress %1$s or later (WordPress "
+#~ "version on this site: %2$s).</p>"
+#~ msgstr ""
+#~ "<p>申し訳ありませんが、RichText ExtensionはWordPress%1$s以降が必要です。"
+#~ "(このサイトのWordPressバージョン: %2$s)</p>。"
+
 #~ msgid "<p>Sorry, RichText Extension requires gutenberg to be enabled</p>"
 #~ msgstr ""
-#~ "<p>申し訳ありませんが、RichText Extensionではgutenbergを有効にする必要があ"
-#~ "ります</ p>"
+#~ "<p>申し訳ありませんが、RichText Extensionではgutenbergを有効にする必要が"
+#~ "あります</ p>"
 
 #~ msgid "Label"
 #~ msgstr "ラベル"
