@@ -38,6 +38,9 @@ Removes all formatting.
 
 == Changelog ==
 
+= 1.1.3 =
+* Doc: Correct a notation error in the translation
+
 = 1.1.2 =
 * Fix: metabox warning error
 
