@@ -2,7 +2,7 @@
 /**
  * Plugin Name: RichText Extension
  * Description: Adds useful decoration features to the Gutenberg RichText editor toolbar.
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: Tetsuaki Hamano
  * Author URI: https://github.com/t-hamano
  * License: GPL2 or later
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RTEX_VERSION', '1.1.5' );
+define( 'RTEX_VERSION', '1.1.6' );
 define( 'RTEX_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'RTEX_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'RTEX_BASENAME', plugin_basename( __FILE__ ) );
