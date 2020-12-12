@@ -2,9 +2,9 @@
 Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
-Requires at least: 5.4
-Tested up to: 5.4
-Stable tag: 1.1.4
+Requires at least: 5.6
+Tested up to: 5.6
+Stable tag: 1.1.5
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,8 +38,10 @@ Removes all formatting.
 
 == Changelog ==
 
-= 1.1.4 =
+= 1.1.5 =
+* Change: toolbar icon from dashicon to svg icon
 
+= 1.1.4 =
 * Remove: gulpfile.js
 * Clean: Update npm packages, add .wp-env, and refactor the development environment
 * Clean: Remove composer.lock and package-lock.json from .gitignore

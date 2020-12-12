@@ -1,5 +1,6 @@
 import { BlockFormatControls } from '@wordpress/block-editor';
 import { Toolbar, DropdownMenu, createSlotFill } from '@wordpress/components';
+import { adminAppearance } from '../icons';
 import { __ } from '@wordpress/i18n';
 
 const { Fill, Slot } = createSlotFill( 'HighlighterDropdownControls' );
@@ -12,7 +13,7 @@ const Dropdown = () => <BlockFormatControls>
 			<Toolbar>
 				<DropdownControls.Slot>
 					{ fills => <DropdownMenu
-						icon='admin-appearance'
+						icon={ adminAppearance }
 						label={ __( 'Highlighter', 'richtext-extension' ) }
 						controls={ fills.map( ([ { props } ]) => props ) }
 					/> }

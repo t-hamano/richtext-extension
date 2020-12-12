@@ -1,6 +1,7 @@
 import { RichTextToolbarButton } from '@wordpress/block-editor';
 import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
 import { __ } from '@wordpress/i18n';
+import { editorUnderline } from '../icons';
 
 const formatName = 'rtex/rtex-underline';
 const title = __( 'Underline', 'richtext-extension' );
@@ -18,7 +19,7 @@ if ( rtexConf.underlineActive ) {
 
 			return (
 				<RichTextToolbarButton
-					icon={ 'editor-underline' }
+					icon={ editorUnderline }
 					title={ title }
 					onClick={ onToggle }
 					isActive={ isActive }

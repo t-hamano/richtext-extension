@@ -3,6 +3,7 @@ import { select } from '@wordpress/data';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
 import { registerFormatType, removeFormat } from '@wordpress/rich-text';
 import { __ } from '@wordpress/i18n';
+import { editorRemoveformatting } from '../icons';
 
 const formatName = 'rtex/rtex-clear-format';
 const title = __( 'Clear format', 'richtext-extension' );
@@ -27,7 +28,7 @@ if ( rtexConf.clearFormatActive ) {
 
 			return (
 				<RichTextToolbarButton
-					icon={ 'editor-removeformatting' }
+					icon={ editorRemoveformatting }
 					title={ title }
 					onClick={ onToggle }
 					isActive={ isActive }

@@ -1,13 +1,14 @@
 import { Fragment } from '@wordpress/element';
 import { toggleFormat } from '@wordpress/rich-text';
 import { ToolbarButton } from '@wordpress/components';
+import { textColor } from '@wordpress/icons';
 import { Dropdown, DropdownControls } from './dropdown';
 
 export const getRichTextSetting = ({ title, className, setting = {} }, index ) => {
 	const formatName = 'rtex/' + className;
 	const component = args => <DropdownControls>
 		<ToolbarButton
-			icon = { 'editor-textcolor' }
+			icon = { textColor }
 			title = { <div className={ className }>{ title }</div> }
 			onClick = { () => {
 				args.onChange( toggleFormat( args.value, {

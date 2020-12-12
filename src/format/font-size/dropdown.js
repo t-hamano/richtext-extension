@@ -1,5 +1,6 @@
 import { BlockFormatControls } from '@wordpress/block-editor';
 import { Toolbar, DropdownMenu, createSlotFill } from '@wordpress/components';
+import { textColor } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
 const { Fill, Slot } = createSlotFill( 'FontSizeDropdownControls' );
@@ -12,7 +13,7 @@ const Dropdown = () => <BlockFormatControls>
 			<Toolbar>
 				<DropdownControls.Slot>
 					{ fills => <DropdownMenu
-						icon='editor-textcolor'
+						icon={ textColor }
 						label={ __( 'Font size', 'richtext-extension' ) }
 						controls={ fills.map( ([ { props } ]) => props ) }
 					/> }
