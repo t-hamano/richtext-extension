@@ -2,6 +2,7 @@
 node_modules/
 vendor/
 build/
+release/
 languages/*.json
 .wp-env.override.json
 *.zip
