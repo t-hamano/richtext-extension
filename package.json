@@ -14,7 +14,7 @@
 		"build:clean": "cross-conf-env rimraf build/js build/css languages/npm_package_name-ja-npm_package_name-editor.json",
 		"build:js": "wp-scripts build src/format --output-path=build/js",
 		"build:css": "node-sass src/sass/ --output build/css/",
-		"release": "npm-run-all -s build po2json release:clean-zip release:mkdir release:copy-* release:archive release:clean-dir",
+		"release": "npm-run-all -s release:clean-zip release:mkdir release:copy-* release:archive release:clean-dir",
 		"release:clean-dir": "cross-conf-env rimraf ./npm_package_name",
 		"release:clean-zip": "cross-conf-env rimraf ./*.zip",
 		"release:mkdir": "cross-conf-env mkdirp npm_package_name",
@@ -23,6 +23,7 @@
 		"release:copy-lang": "cross-conf-env cpx \"./languages/**/*\" ./npm_package_name/languages",
 		"release:copy-build": "cross-conf-env cpx \"./build/**/*\" ./npm_package_name/build",
 		"release:copy-plugin": "cross-conf-env cpx \"./npm_package_name.php\" ./npm_package_name",
+		"release:copy-doc": "cross-conf-env cpx \"./readme.txt\" ./npm_package_name && cross-conf-env cpx \"./README.md\" ./npm_package_name && cross-conf-env cpx \"./LICENSE\" ./npm_package_name",
 		"release:archive": "cross-conf-env bestzip ./npm_package_name-npm_package_version.zip ./npm_package_name"
 	},
 	"devDependencies": {
