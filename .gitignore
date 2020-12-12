@@ -1,6 +1,7 @@
+.vscode
 node_modules/
 vendor/
-release/
+build/
+languages/*.json
+.wp-env.override.json
 *.zip
-css/
-js/
