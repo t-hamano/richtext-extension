@@ -4,7 +4,7 @@ Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 5.4
 Tested up to: 5.4
-Stable tag: 1.1.2
+Stable tag: 1.1.4
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,17 @@ Removes all formatting.
 2. Activate the plugin through the \'Plugins\' menu in WordPress.
 
 == Changelog ==
+
+= 1.1.4 =
+
+* Remove: gulpfile.js
+* Clean: Update npm packages, add .wp-env, and refactor the development environment
+* Clean: Remove composer.lock and package-lock.json from .gitignore
+* Clean: Remove the compiled JS files
+* Clean: Remove the compiled CSS files
+* Update development setting
+* Add: composer
+* Delete: package-lock.json
 
 = 1.1.3 =
 * Doc: Correct a notation error in the translation
