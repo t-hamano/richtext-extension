@@ -1,8 +1,19 @@
+/**
+ * External dependencies
+ */
 import { map } from 'lodash';
+
+/**
+ * WordPress dependencies
+ */
 import { select } from '@wordpress/data';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
 import { registerFormatType, removeFormat } from '@wordpress/rich-text';
 import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
 import { editorRemoveformatting } from '../icons';
 
 const formatName = 'rtex/rtex-clear-format';

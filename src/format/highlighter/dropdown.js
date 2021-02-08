@@ -1,26 +1,40 @@
+/**
+ * WordPress dependencies
+ */
 import { BlockFormatControls } from '@wordpress/block-editor';
-import { Toolbar, DropdownMenu, createSlotFill } from '@wordpress/components';
-import { adminAppearance } from '../icons';
+import { ToolbarGroup, ToolbarItem, DropdownMenu, createSlotFill } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import { adminAppearance } from '../icons';
 
 const { Fill, Slot } = createSlotFill( 'HighlighterDropdownControls' );
 const DropdownControls = Fill;
 DropdownControls.Slot = Slot;
 
-const Dropdown = () => <BlockFormatControls>
-	<div className="editor-format-toolbar block-editor-format-toolbar">
-		<div className="rtex-highlighter-toolbar">
-			<Toolbar>
+const Dropdown = () => {
+	return (
+		<BlockFormatControls>
+			<ToolbarGroup>
 				<DropdownControls.Slot>
-					{ fills => <DropdownMenu
-						icon={ adminAppearance }
-						label={ __( 'Highlighter', 'richtext-extension' ) }
-						controls={ fills.map( ([ { props } ]) => props ) }
-					/> }
+					{
+						fills => <ToolbarItem>
+							{ ( toolbarItemProps ) => (
+								<DropdownMenu
+									toggleProps={ toolbarItemProps }
+									icon={ adminAppearance }
+									label={ __( 'Highlighter', 'richtext-extension' ) }
+									controls={ fills.map( ([ { props } ]) => props ) }
+								/>
+							) }
+						</ToolbarItem>
+					}
 				</DropdownControls.Slot>
-			</Toolbar>
-		</div>
-	</div>
-</BlockFormatControls>;
+			</ToolbarGroup>
+		</BlockFormatControls>
+	);
+};
 
 export { Dropdown, DropdownControls };
