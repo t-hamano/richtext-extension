@@ -4,7 +4,7 @@ Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 5.6
 Tested up to: 5.6
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,6 @@ RichText Extension adds useful decorating features to gutenberg rich text editor
 Draw a marker on the inline text.
 You can set the color, thickness, and opacity of the marker to you can create various marker styles.
 Up to four types of settings can be made.
-
 
 = Font size =
 
@@ -37,6 +36,11 @@ Removes all formatting.
 2. Activate the plugin through the \'Plugins\' menu in WordPress.
 
 == Changelog ==
+
+= 1.1.7 =
+* Clean: Refactoring, Replace deprecated components with recommended ones
+* Fix: Problem about installation error in PHP 8
+* Tested to PHP 8
 
 = 1.1.6 =
 * Change: toolbar icon from dashicon to svg icon
