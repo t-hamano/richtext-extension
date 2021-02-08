@@ -1,26 +1,40 @@
+/**
+ * WordPress dependencies
+ */
 import { BlockFormatControls } from '@wordpress/block-editor';
-import { Toolbar, DropdownMenu, createSlotFill } from '@wordpress/components';
-import { textColor } from '@wordpress/icons';
+import { ToolbarGroup, ToolbarItem, DropdownMenu, createSlotFill } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import { textColor } from '@wordpress/icons';
 
 const { Fill, Slot } = createSlotFill( 'FontSizeDropdownControls' );
 const DropdownControls = Fill;
 DropdownControls.Slot = Slot;
 
-const Dropdown = () => <BlockFormatControls>
-	<div className="editor-format-toolbar block-editor-format-toolbar">
-		<div className="rtex-font-size-toolbar">
-			<Toolbar>
+const Dropdown = () => {
+	return (
+		<BlockFormatControls>
+			<ToolbarGroup>
 				<DropdownControls.Slot>
-					{ fills => <DropdownMenu
-						icon={ textColor }
-						label={ __( 'Font size', 'richtext-extension' ) }
-						controls={ fills.map( ([ { props } ]) => props ) }
-					/> }
+					{
+						fills => <ToolbarItem>
+							{ ( toolbarItemProps ) => (
+								<DropdownMenu
+									toggleProps={ toolbarItemProps }
+									icon={ textColor }
+									label={ __( 'Font size', 'richtext-extension' ) }
+									controls={ fills.map( ([ { props } ]) => props ) }
+								/>
+							) }
+						</ToolbarItem>
+					}
 				</DropdownControls.Slot>
-			</Toolbar>
-		</div>
-	</div>
-</BlockFormatControls>;
+			</ToolbarGroup>
+		</BlockFormatControls>
+	);
+};
 
 export { Dropdown, DropdownControls };
