@@ -5,7 +5,7 @@ module.exports = {
 	],
   ignoreFiles: [
 		"node_modules/**/*.css",
-		"css/**/*.css",
+		'build/**/*.css'
   ],
 	rules: {
 		'no-descending-specificity': null,
