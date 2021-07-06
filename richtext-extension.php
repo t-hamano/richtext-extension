@@ -2,7 +2,7 @@
 /**
  * Plugin Name: RichText Extension
  * Description: Adds useful decoration features to the Gutenberg RichText editor toolbar.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Tetsuaki Hamano
  * Author URI: https://github.com/t-hamano
  * License: GPL2 or later
