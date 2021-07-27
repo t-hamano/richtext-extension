@@ -18,13 +18,13 @@
 		"po2json": "cross-conf-env po2json languages/npm_package_name-ja.po languages/npm_package_name-ja-npm_package_name-editor.json -f jed"
 	},
 	"devDependencies": {
-		"@wordpress/env": "^4.0.5",
-		"@wordpress/icons": "^4.0.1",
-		"@wordpress/scripts": "^16.1.4",
+		"@wordpress/env": "^4.1.0",
+		"@wordpress/icons": "^4.1.0",
+		"@wordpress/scripts": "^17.0.0",
 		"bestzip": "^2.2.0",
 		"copyfiles": "^2.4.1",
 		"cross-conf-env": "^1.2.1",
-		"eslint": "^7.30.0",
+		"eslint": "^7.31.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-config-wordpress": "^2.0.0",
 		"eslint-plugin-prettier": "^3.4.0",
@@ -35,7 +35,7 @@
 		"po2json": "^1.0.0-alpha",
 		"rimraf": "^3.0.2",
 		"stylelint-config-rational-order": "^0.1.2",
-		"stylelint-config-recommended-scss": "^4.2.0",
+		"stylelint-config-recommended-scss": "^4.3.0",
 		"stylelint-config-wordpress": "^17.0.0"
 	},
 	"dependencies": {}
