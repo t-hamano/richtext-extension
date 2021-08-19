@@ -27,7 +27,8 @@ class Enqueue {
 	 * Enqueue front-end scripts
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'richtext-extension', RTEX_URL . '/build/css/style.css', array(), RTEX_VERSION );
+		wp_register_style( 'richtext-extension', false );
+		wp_enqueue_style( 'richtext-extension' );
 
 		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( 'richtext-extension', $inline_css );
@@ -37,13 +38,14 @@ class Enqueue {
 	 * Enqueue block editor scripts
 	 */
 	public function enqueue_editor_scripts() {
-		wp_enqueue_style( 'richtext-extension-editor', RTEX_URL . '/build/css/style-editor.css', array(), RTEX_VERSION );
+		wp_register_style( 'richtext-extension-editor', false );
+		wp_enqueue_style( 'richtext-extension-editor' );
 
 		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( 'richtext-extension-editor', $inline_css );
 
-		$asset = include( RTEX_PATH . '/build/js/format.asset.php' );
-		wp_enqueue_script( 'richtext-extension-editor', RTEX_URL . '/build/js/format.js', $asset['dependencies'] );
+		$asset = include( RTEX_PATH . '/build/js/index.asset.php' );
+		wp_enqueue_script( 'richtext-extension-editor', RTEX_URL . '/build/js/index.js', $asset['dependencies'] );
 
 		wp_localize_script( 'richtext-extension-editor', 'rtexConf', $this->create_editor_config() );
 

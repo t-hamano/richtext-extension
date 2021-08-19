@@ -1,3 +1,4 @@
-import './blocks/font-size';
-import './blocks/highlighter';
-import './blocks/font-size';
+import './clear-format';
+import './underline';
+import './highlighter';
+import './font-size';
