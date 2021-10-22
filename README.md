@@ -1,4 +1,7 @@
 # richtext-extension
+
+[![Deploy to WordPress.org](https://github.com/t-hamano/richtext-extension/actions/workflows/wp-plugin-deploy.yml/badge.svg)](https://github.com/t-hamano/richtext-extension/actions/workflows/wp-plugin-deploy.yml)
+
 Adds useful decoration features to the Gutenberg RichText editor toolbar.
 
 ## Features
