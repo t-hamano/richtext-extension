@@ -12,6 +12,7 @@
 		"build:js": "wp-scripts build",
 		"build": "npm run clean && npm run build:js && npm run build:sass",
 		"clean": "rimraf build",
+		"lint": "npm run lint:php && npm run lint:js && npm run lint:style",
 		"lint:php": "composer lint",
 		"lint:js": "wp-scripts lint-js",
 		"lint:style": "wp-scripts lint-style"

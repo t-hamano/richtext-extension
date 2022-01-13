@@ -19,18 +19,18 @@ const Dropdown = () => {
 		<BlockFormatControls>
 			<ToolbarGroup>
 				<DropdownControls.Slot>
-					{
-						fills => <ToolbarItem>
+					{ ( fills ) => (
+						<ToolbarItem>
 							{ ( toolbarItemProps ) => (
 								<DropdownMenu
 									toggleProps={ toolbarItemProps }
 									icon={ textColor }
 									label={ __( 'Font size', 'richtext-extension' ) }
-									controls={ fills.map( ([ { props } ]) => props ) }
+									controls={ fills.map( ( [ { props } ] ) => props ) }
 								/>
 							) }
 						</ToolbarItem>
-					}
+					) }
 				</DropdownControls.Slot>
 			</ToolbarGroup>
 		</BlockFormatControls>

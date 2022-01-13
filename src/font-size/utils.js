@@ -10,20 +10,22 @@ import { textColor } from '@wordpress/icons';
  */
 import { Dropdown, DropdownControls } from './dropdown';
 
-export const getRichTextSetting = ({ title, className, setting = {} }, index ) => {
+export const getRichTextSetting = ( { title, className, setting = {} }, index ) => {
 	const formatName = 'rtex/' + className;
 	const component = ( args ) => {
 		return (
 			<DropdownControls>
 				<ToolbarButton
-					icon = { textColor }
-					title = { <div className={ className }>{ title }</div> }
-					onClick = { () => {
-						args.onChange( toggleFormat( args.value, {
-							type: formatName
-						}) );
+					icon={ textColor }
+					title={ <div className={ className }>{ title }</div> }
+					onClick={ () => {
+						args.onChange(
+							toggleFormat( args.value, {
+								type: formatName,
+							} )
+						);
 					} }
-					isActive = { args.isActive }
+					isActive={ args.isActive }
 				/>
 			</DropdownControls>
 		);
@@ -32,12 +34,12 @@ export const getRichTextSetting = ({ title, className, setting = {} }, index ) =
 	setting.title = title;
 	setting.tagName = 'span';
 	setting.className = className;
-	setting.edit = args => {
+	setting.edit = ( args ) => {
 		if ( ! index ) {
 			return (
 				<>
 					{ component( args ) }
-					<Dropdown/>
+					<Dropdown />
 				</>
 			);
 		}

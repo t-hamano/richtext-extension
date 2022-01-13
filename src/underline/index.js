@@ -11,14 +11,17 @@ const title = __( 'Underline', 'richtext-extension' );
 
 if ( rtexConf.underlineActive ) {
 	registerFormatType( formatName, {
-		title: title,
+		title,
 		tagName: 'u',
 		className: null,
 
-		edit({ isActive, value, onChange }) {
-			const onToggle = () => onChange( toggleFormat( value, {
-				type: formatName
-			}) );
+		edit( { isActive, value, onChange } ) {
+			const onToggle = () =>
+				onChange(
+					toggleFormat( value, {
+						type: formatName,
+					} )
+				);
 
 			return (
 				<RichTextToolbarButton
@@ -28,6 +31,6 @@ if ( rtexConf.underlineActive ) {
 					isActive={ isActive }
 				/>
 			);
-		}
-	});
+		},
+	} );
 }
