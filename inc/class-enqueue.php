@@ -21,6 +21,9 @@ class Enqueue {
 
 		// Enqueue option page scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_option_scripts' ) );
+
+		// Add inline CSS to iframe editor instances in WordPress 5.9
+		add_filter( 'block_editor_settings_all', array( $this, 'add_iframe_inline_css' ) );
 	}
 
 	/**
@@ -70,7 +73,16 @@ class Enqueue {
 		wp_enqueue_script( 'wp-color-picker' );
 	}
 
-		/**
+	/**
+	 * Add inline CSS to iframe editor instances in WordPress 5.9
+	 */
+	public function add_iframe_inline_css( $settings ) {
+		$inline_css           = $this->get_inline_css();
+		$settings['styles'][] = array( 'css' => $inline_css );
+		return $settings;
+	}
+
+	/**
 	 * Get inline style css
 	 *
 	 * @return string
