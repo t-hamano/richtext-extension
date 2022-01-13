@@ -44,8 +44,8 @@ class Enqueue {
 		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( 'richtext-extension-editor', $inline_css );
 
-		$asset = include( RTEX_PATH . '/build/js/index.asset.php' );
-		wp_enqueue_script( 'richtext-extension-editor', RTEX_URL . '/build/js/index.js', $asset['dependencies'] );
+		$asset = include( RTEX_PATH . '/build/index.asset.php' );
+		wp_enqueue_script( 'richtext-extension-editor', RTEX_URL . '/build/index.js', $asset['dependencies'] );
 
 		wp_localize_script( 'richtext-extension-editor', 'rtexConf', $this->create_editor_config() );
 
@@ -62,7 +62,7 @@ class Enqueue {
 
 		wp_enqueue_style( 'wp-color-picker' );
 
-		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/css/style-option.css', array(), RTEX_VERSION );
+		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/style-option.css', array(), RTEX_VERSION );
 
 		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( 'richtext-extension-option', $inline_css );
