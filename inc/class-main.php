@@ -12,9 +12,6 @@ class Main {
 	 * Constructor
 	 */
 	public function __construct() {
-		// Load translated strings
-		load_plugin_textdomain( RTEX_BASENAME );
-
 		// Uninstallation process
 		register_uninstall_hook( RTEX_BASENAME, 'richtext_extension\Main::uninstall_richtext_extension' );
 
