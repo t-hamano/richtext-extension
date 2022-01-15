@@ -21,35 +21,38 @@ class Enqueue {
 
 		// Enqueue option page scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_option_scripts' ) );
+
+		// Add inline CSS to iframe editor instances in WordPress 5.9
+		add_filter( 'block_editor_settings_all', array( $this, 'add_iframe_inline_css' ) );
 	}
 
 	/**
 	 * Enqueue front-end scripts
 	 */
 	public function enqueue_scripts() {
-		wp_register_style( 'richtext-extension', false );
-		wp_enqueue_style( 'richtext-extension' );
+		wp_register_style( RTEX_NAMESPACE, false );
+		wp_enqueue_style( RTEX_NAMESPACE );
 
 		$inline_css = $this->get_inline_css();
-		wp_add_inline_style( 'richtext-extension', $inline_css );
+		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
 	}
 
 	/**
 	 * Enqueue block editor scripts
 	 */
 	public function enqueue_editor_scripts() {
-		wp_register_style( 'richtext-extension-editor', false );
-		wp_enqueue_style( 'richtext-extension-editor' );
+		wp_register_style( RTEX_NAMESPACE, false );
+		wp_enqueue_style( RTEX_NAMESPACE );
 
 		$inline_css = $this->get_inline_css();
-		wp_add_inline_style( 'richtext-extension-editor', $inline_css );
+		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
 
-		$asset = include( RTEX_PATH . '/build/index.asset.php' );
-		wp_enqueue_script( 'richtext-extension-editor', RTEX_URL . '/build/index.js', $asset['dependencies'] );
+		$asset = include( RTEX_PATH . '/build/js/index.asset.php' );
+		wp_enqueue_script( RTEX_NAMESPACE, RTEX_URL . '/build/js/index.js', $asset['dependencies'] );
 
-		wp_localize_script( 'richtext-extension-editor', 'rtexConf', $this->create_editor_config() );
+		wp_localize_script( RTEX_NAMESPACE, 'rtexConf', $this->create_editor_config() );
 
-		wp_set_script_translations( 'richtext-extension-editor', 'richtext-extension', RTEX_PATH . '/languages' );
+		wp_set_script_translations( RTEX_NAMESPACE, RTEX_NAMESPACE );
 	}
 
 	/**
@@ -62,7 +65,7 @@ class Enqueue {
 
 		wp_enqueue_style( 'wp-color-picker' );
 
-		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/style-option.css', array(), RTEX_VERSION );
+		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/css/style-option.css', array(), RTEX_VERSION );
 
 		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( 'richtext-extension-option', $inline_css );
@@ -70,7 +73,16 @@ class Enqueue {
 		wp_enqueue_script( 'wp-color-picker' );
 	}
 
-		/**
+	/**
+	 * Add inline CSS to iframe editor instances in WordPress 5.9
+	 */
+	public function add_iframe_inline_css( $settings ) {
+		$inline_css           = $this->get_inline_css();
+		$settings['styles'][] = array( 'css' => $inline_css );
+		return $settings;
+	}
+
+	/**
 	 * Get inline style css
 	 *
 	 * @return string
