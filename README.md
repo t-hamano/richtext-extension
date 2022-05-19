@@ -47,4 +47,4 @@ $ npm run build
 
 ## Author
 
-[Tetsuaki Hamano (Github)](https://github.com/t-hamano)
+[Aki Hamano (Github)](https://github.com/t-hamano)

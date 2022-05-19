@@ -1,10 +1,10 @@
 {
-	"name": "tetsuaki.hamano/richtext-extension",
+	"name": "t-hamano/richtext-extension",
   "description": "WordPress plugin to add useful decoration features to the Gutenberg RichText editor toolbar.",
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
-			"name": "Tetsuaki Hamano"
+			"name": "Aki Hamano"
 		}
 	],
 	"require-dev": {

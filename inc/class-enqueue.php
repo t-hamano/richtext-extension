@@ -1,7 +1,7 @@
 <?php
 /**
  * @package richtext-extension
- * @author Tetsuaki Hamano
+ * @author Aki Hamano
  * @license GPL-2.0+
  */
 
