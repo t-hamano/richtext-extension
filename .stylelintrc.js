@@ -13,6 +13,5 @@ module.exports = {
   ],
 	rules: {
 		'no-descending-specificity': null,
-		'function-calc-no-invalid': null,
 	}
 }

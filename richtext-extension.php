@@ -3,14 +3,14 @@
  * Plugin Name: RichText Extension
  * Description: Adds useful decoration features to the Gutenberg RichText editor toolbar.
  * Version: 1.3.0
- * Author: Tetsuaki Hamano
+ * Author: Aki Hamano
  * Author URI: https://github.com/t-hamano
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: richtext-extension
  * Domain Path: languages
  * @package richtext-extension
- * @author Tetsuaki Hamano
+ * @author Aki Hamano
  * @license GPL-2.0+
  */
 
