@@ -27,6 +27,7 @@ The size is specified as a percentage of the base font size, and up to four type
 
 = Underline =
 Create underline.
+**Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.**
 
 = Clear format =
 Removes all formatting.
