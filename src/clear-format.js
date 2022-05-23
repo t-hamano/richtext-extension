@@ -14,7 +14,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { editorRemoveformatting } from '../icons';
+import { editorRemoveformatting } from './icons';
 
 const formatName = 'rtex/rtex-clear-format';
 const title = __( 'Clear format', 'richtext-extension' );
