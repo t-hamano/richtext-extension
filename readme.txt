@@ -3,8 +3,8 @@ Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 5.6
-Tested up to: 5.9
-Stable tag: 1.3.0
+Tested up to: 6.0
+Stable tag: 2.0.0
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,8 +38,14 @@ Removes all formatting.
 
 == Changelog ==
 
+= 2.0.0 =
+* Tested to WordPress 6.0
+* Change: Underline tag type
+* Doc: Add cautionary text about underline
+* Doc: Update author name
+
 = 1.3.0 =
-* Testes to WordPress 5.9
+* Tested to WordPress 5.9
 
 = 1.2.3 =
 * Clean: update npm packages and build tool
@@ -52,11 +58,11 @@ Removes all formatting.
 * Doc: Update tested up to
 
 = 1.2.0 =
-* Testes to WordPress 5.8
+* Tested to WordPress 5.8
 * Clean: update npm packages
 
 = 1.1.9 =
-* Testes to WordPress 5.7
+* Tested to WordPress 5.7
 
 = 1.1.8 =
 * Clean: Update deploy flow (github actions)
