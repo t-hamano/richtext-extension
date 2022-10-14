@@ -14,6 +14,7 @@
 		"lint:style": "wp-scripts lint-style"
 	},
 	"devDependencies": {
+		"@wordpress/base-styles": "4.10.0",
 		"@wordpress/env": "^5.4.0",
 		"@wordpress/icons": "^9.10.0",
 		"@wordpress/scripts": "^24.3.0",

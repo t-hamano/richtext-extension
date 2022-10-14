@@ -337,8 +337,8 @@ class Options {
 									<div class="rtex-range">
 										<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
 										<div class="rtex-input">
-											<input type="number" min="0" max="100" step="1" class="rtex-is-append" name="<?php echo 'rtex_highlighter_thickness_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
-											<span class="rtex-input-append">%</span>
+											<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_thickness_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
+											<span>%</span>
 										</div>
 									</div>
 								</td>
@@ -346,8 +346,8 @@ class Options {
 									<div class="rtex-range">
 										<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
 										<div class="rtex-input">
-											<input type="number" min="0" max="100" step="1" class="rtex-is-append" name="<?php echo 'rtex_highlighter_opacity_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
-											<span class="rtex-input-append">%</span>
+											<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_opacity_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
+											<span>%</span>
 										</div>
 									</div>
 								</td>
@@ -408,8 +408,8 @@ class Options {
 									<div class="rtex-range">
 										<input type="range" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
 										<div class="rtex-input">
-											<input type="number" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" class="rtex-is-append" name="<?php echo 'rtex_font_size_size_' . $i; ?>"value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
-											<span class="rtex-input-append">%</span>
+											<input type="number" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" name="<?php echo 'rtex_font_size_size_' . $i; ?>"value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
+											<span>%</span>
 										</div>
 									</div>
 								</td>
