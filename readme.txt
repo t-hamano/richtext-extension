@@ -2,7 +2,7 @@
 Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
-Requires at least: 5.6
+Requires at least: 5.9
 Tested up to: 6.0
 Stable tag: 2.0.0
 Requires PHP: 7.3
