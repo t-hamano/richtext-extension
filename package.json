@@ -24,8 +24,8 @@
 	},
 	"dependencies": {},
 	"engines": {
-		"node": "16.18.x",
-		"npm": "8.19.x"
+		"node": ">=16.0.0",
+		"npm": ">=8.0.0"
 	},
 	"volta": {
 		"node": "16.18.0",
