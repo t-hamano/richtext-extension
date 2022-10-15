@@ -46,6 +46,13 @@ Removes all formatting.
 
 == Changelog ==
 
+= 2.1.0 =
+* Tested to WordPress 6.1
+* Drop support for WordPress 5.6 through 5.8
+* Enhancement: Apply admin color scheme to the setting page
+* Enhancement: Polish style in the setting page
+* Doc: Update banner and screenshot
+
 = 2.0.0 =
 * Tested to WordPress 6.0
 * Change: Underline tag type
