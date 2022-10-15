@@ -194,11 +194,13 @@ class Options {
 					wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
 					wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
 				?>
-				<div id="poststuff">
-					<div id="post-body">
-						<div id="post-body-content">
-							<?php do_meta_boxes( $this->hook, 'normal', null ); ?>
-							<?php submit_button(); ?>
+				<div class="rtex-wrapper">
+					<div id="poststuff">
+						<div id="post-body">
+							<div id="post-body-content">
+								<?php do_meta_boxes( $this->hook, 'normal', null ); ?>
+								<?php submit_button(); ?>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -298,67 +300,65 @@ class Options {
 			__( 'Background ( Red )', 'richtext-extension' ),
 		);
 		?>
-		<div class="rtex-inside">
-			<ul>
-				<li><?php _e( 'If the highlighter makes it hard to see the text, lower the opacity.', 'richtext-extension' ); ?></li>
-				<li><?php _e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
-			</ul>
-			<div class="rtex-table-wrap">
-				<table class="form-table rtex-table">
-					<thead>
-						<tr>
-							<th style="width: 10%;"><?php _e( 'Status', 'richtext-extension' ); ?></th>
-							<th style="width: 15%;"><?php _e( 'Title', 'richtext-extension' ); ?></th>
-							<th style="width: 15%;"><?php _e( 'Color', 'richtext-extension' ); ?></th>
-							<th style="width: 20%;"><?php _e( 'Thickness', 'richtext-extension' ); ?></th>
-							<th style="width: 20%;"><?php _e( 'Opacity', 'richtext-extension' ); ?></th>
-							<th style="width: 20%;"><?php _e( 'Preview', 'richtext-extension' ); ?></th>
+		<ul>
+			<li><?php _e( 'If the highlighter makes it hard to see the text, lower the opacity.', 'richtext-extension' ); ?></li>
+			<li><?php _e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
+		</ul>
+		<div class="rtex-table-wrap">
+			<table class="form-table rtex-table">
+				<thead>
+					<tr>
+						<th ><?php _e( 'Status', 'richtext-extension' ); ?></th>
+						<th><?php _e( 'Title', 'richtext-extension' ); ?></th>
+						<th><?php _e( 'Color', 'richtext-extension' ); ?></th>
+						<th><?php _e( 'Thickness', 'richtext-extension' ); ?></th>
+						<th><?php _e( 'Opacity', 'richtext-extension' ); ?></th>
+						<th><?php _e( 'Preview', 'richtext-extension' ); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					for ( $i = 0; $i <= 3; $i++ ) :
+						?>
+						<tr data-index="<?php echo $i; ?>">
+							<td>
+								<label class="rtex-switch">
+									<input id="<?php echo 'rtex_highlighter_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_highlighter_active_' . $i; ?>" value="1" <?php checked( get_option( 'rtex_highlighter_active_' . $i, true ) ); ?>>
+									<span class="rtex-switch-thumb"></span>
+									<span class="rtex-switch-track"></span>
+								</label>
+							</td>
+							<td>
+								<input type="text" name="<?php echo 'rtex_highlighter_title_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_title_' . $i, $default_title[ $i ] ); ?>">
+							</td>
+							<td>
+								<input type="text" name="<?php echo 'rtex_highlighter_color_' . $i; ?>" class="rtex-colorpicker" value="<?php echo get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] ); ?>">
+							</td>
+							<td>
+								<div class="rtex-range">
+									<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
+									<div class="rtex-input">
+										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_thickness_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
+										<span>%</span>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="rtex-range">
+									<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
+									<div class="rtex-input">
+										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_opacity_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
+										<span>%</span>
+									</div>
+								</div>
+							</td>
+							<td>
+								<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php _e( 'Hello World !', 'richtext-extension' ); ?></span>
+							</td>
 						</tr>
-					</thead>
-					<tbody>
-						<?php
-						for ( $i = 0; $i <= 3; $i++ ) :
-							?>
-							<tr data-index="<?php echo $i; ?>">
-								<td>
-									<label class="rtex-switch">
-										<input id="<?php echo 'rtex_highlighter_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_highlighter_active_' . $i; ?>" value="1" <?php checked( get_option( 'rtex_highlighter_active_' . $i, true ) ); ?>>
-										<span class="rtex-switch-thumb"></span>
-										<span class="rtex-switch-track"></span>
-									</label>
-								</td>
-								<td>
-									<input type="text" name="<?php echo 'rtex_highlighter_title_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_title_' . $i, $default_title[ $i ] ); ?>">
-								</td>
-								<td>
-									<input type="text" name="<?php echo 'rtex_highlighter_color_' . $i; ?>" class="rtex-colorpicker" value="<?php echo get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] ); ?>">
-								</td>
-								<td>
-									<div class="rtex-range">
-										<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
-										<div class="rtex-input">
-											<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_thickness_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
-											<span>%</span>
-										</div>
-									</div>
-								</td>
-								<td>
-									<div class="rtex-range">
-										<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
-										<div class="rtex-input">
-											<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_opacity_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
-											<span>%</span>
-										</div>
-									</div>
-								</td>
-								<td>
-									<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php _e( 'Hello World !', 'richtext-extension' ); ?></span>
-								</td>
-							</tr>
-						<?php endfor; ?>
-					</tbody>
-				</table>
-			</div>
+					<?php endfor; ?>
+				</tbody>
+			</table>
 		</div>
 		<?php
 	}
@@ -374,53 +374,51 @@ class Options {
 			__( 'Extra large', 'richtext-extension' ),
 		);
 		?>
-		<div class="rtex-inside">
-			<ul>
-				<li><?php _e( 'The size is specified as a percentage of the base font size.', 'richtext-extension' ); ?></li>
-				<li><?php _e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
-			</ul>
-			<div class="rtex-table-wrap">
-				<table class="form-table rtex-table">
-					<thead>
-						<tr>
-							<th style="width: 10%;"><?php _e( 'Status', 'richtext-extension' ); ?></th>
-							<th style="width: 15%;"><?php _e( 'Title', 'richtext-extension' ); ?></th>
-							<th style="width: 20%;"><?php _e( 'Size', 'richtext-extension' ); ?></th>
-							<th style="width: 55%;"><?php _e( 'Preview', 'richtext-extension' ); ?></th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						for ( $i = 0; $i <= 3; $i++ ) :
-							?>
-							<tr data-index="<?php echo $i; ?>">
-								<td>
-									<label class="rtex-switch">
-										<input id="<?php echo 'rtex_font_size_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_font_size_active_' . $i; ?>" value="1" <?php checked( get_option( 'rtex_font_size_active_' . $i, true ) ); ?>>
-										<span class="rtex-switch-thumb"></span>
-										<span class="rtex-switch-track"></span>
-									</label>
-								</td>
-								<td>
-									<input type="text" name="<?php echo 'rtex_font_size_title_' . $i; ?>" value="<?php echo get_option( 'rtex_font_size_title_' . $i, $default_title[ $i ] ); ?>">
-								</td>
-								<td>
-									<div class="rtex-range">
-										<input type="range" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
-										<div class="rtex-input">
-											<input type="number" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" name="<?php echo 'rtex_font_size_size_' . $i; ?>"value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
-											<span>%</span>
-										</div>
+		<ul>
+			<li><?php _e( 'The size is specified as a percentage of the base font size.', 'richtext-extension' ); ?></li>
+			<li><?php _e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
+		</ul>
+		<div class="rtex-table-wrap">
+			<table class="form-table rtex-table">
+				<thead>
+					<tr>
+						<th style="width: 10%;"><?php _e( 'Status', 'richtext-extension' ); ?></th>
+						<th style="width: 15%;"><?php _e( 'Title', 'richtext-extension' ); ?></th>
+						<th style="width: 20%;"><?php _e( 'Size', 'richtext-extension' ); ?></th>
+						<th style="width: 55%;"><?php _e( 'Preview', 'richtext-extension' ); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					for ( $i = 0; $i <= 3; $i++ ) :
+						?>
+						<tr data-index="<?php echo $i; ?>">
+							<td>
+								<label class="rtex-switch">
+									<input id="<?php echo 'rtex_font_size_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_font_size_active_' . $i; ?>" value="1" <?php checked( get_option( 'rtex_font_size_active_' . $i, true ) ); ?>>
+									<span class="rtex-switch-thumb"></span>
+									<span class="rtex-switch-track"></span>
+								</label>
+							</td>
+							<td>
+								<input type="text" name="<?php echo 'rtex_font_size_title_' . $i; ?>" value="<?php echo get_option( 'rtex_font_size_title_' . $i, $default_title[ $i ] ); ?>">
+							</td>
+							<td>
+								<div class="rtex-range">
+									<input type="range" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
+									<div class="rtex-input">
+										<input type="number" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" name="<?php echo 'rtex_font_size_size_' . $i; ?>"value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
+										<span>%</span>
 									</div>
-								</td>
-								<td>
-									<?php _e( 'Hello World !', 'richtext-extension' ); ?><span id="rtex-font-size-preview-<?php echo $i; ?>"> <?php _e( 'Hello This World !', 'richtext-extension' ); ?></span> <?php _e( 'Hello World !', 'richtext-extension' ); ?>
-								</td>
-							</tr>
-						<?php endfor; ?>
-					</tbody>
-				</table>
-			</div>
+								</div>
+							</td>
+							<td>
+								<?php _e( 'Hello World !', 'richtext-extension' ); ?><span id="rtex-font-size-preview-<?php echo $i; ?>"> <?php _e( 'Hello This World !', 'richtext-extension' ); ?></span> <?php _e( 'Hello World !', 'richtext-extension' ); ?>
+							</td>
+						</tr>
+					<?php endfor; ?>
+				</tbody>
+			</table>
 		</div>
 		<?php
 	}
@@ -430,12 +428,10 @@ class Options {
 	 */
 	public function metabox_underline() {
 		?>
-		<div class="rtex-inside">
-			<label>
-				<input class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_underline_active'; ?>" value="1" <?php checked( get_option( 'rtex_underline_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
-			</label>
-			<p><strong><?php _e( 'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.', 'richtext-extension' ); ?></strong></p>
-		</div>
+		<label>
+			<input class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_underline_active'; ?>" value="1" <?php checked( get_option( 'rtex_underline_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
+		</label>
+		<p><strong><?php _e( 'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.', 'richtext-extension' ); ?></strong></p>
 		<?php
 	}
 
@@ -444,11 +440,9 @@ class Options {
 	 */
 	public function metabox_clear_format() {
 		?>
-		<div class="rtex-inside">
-			<label>
-				<input class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_clear_format_active'; ?>" value="1" <?php checked( get_option( 'rtex_clear_format_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
-			</label>
-		</div>
+		<label>
+			<input class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_clear_format_active'; ?>" value="1" <?php checked( get_option( 'rtex_clear_format_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
+		</label>
 		<?php
 	}
 }

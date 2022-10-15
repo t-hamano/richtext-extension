@@ -5,16 +5,24 @@ $border-color: #c3c4c7;
 $input-border-color: #8c8f94;
 $background-color: #f9f9f9;
 
-.rtex-inside {
-	padding-top: 6px;
+.rtex-wrapper #poststuff {
+
+	h2 {
+		font-size: 20px;
+	}
 
 	ul {
-		margin: 0 0 1em 1.5em;
+		margin: 0 0 16px 1.5em;
 		list-style: outside disc;
 	}
 
-	> *:last-child {
-		margin-bottom: 0;
+	.inside {
+		padding: 16px;
+		margin: 0;
+
+		> *:last-child {
+			margin-bottom: 0 !important;
+		}
 	}
 }
 
@@ -32,7 +40,6 @@ $background-color: #f9f9f9;
 
 	[type="text"] {
 		width: 100%;
-		min-width: 10em;
 	}
 
 	.wp-picker-container {
@@ -57,7 +64,7 @@ $background-color: #f9f9f9;
 .rtex-range {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1em;
+	gap: 2em 1em;
 	align-items: center;
 	padding-top: 7px;
 
