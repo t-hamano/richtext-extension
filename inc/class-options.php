@@ -8,7 +8,9 @@
 namespace richtext_extension;
 
 class Options {
-	// Settable font size range
+	/**
+	 * Settable font size range
+	 */
 	const MIN_FONT_SIZE = 80;
 	const MAX_FONT_SIZE = 300;
 
@@ -46,7 +48,7 @@ class Options {
 		wp_enqueue_script( 'postbox' );
 	}
 
-		/**
+	/**
 	 * Create setting
 	 */
 	public function register_option() {
@@ -435,7 +437,7 @@ class Options {
 		<?php
 	}
 
-		/**
+	/**
 	 * Meta box(Clear format)
 	 */
 	public function metabox_clear_format() {

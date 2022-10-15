@@ -36,6 +36,14 @@ Removes all formatting.
 1. Upload the `add-richtext-toolbar-button` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the \'Plugins\' menu in WordPress.
 
+== Screenshots ==
+
+1. Setting (Highlighter)
+2. Setting (Font Size)
+3. Setting (Others)
+4. Block Toolbar (Highlighter)
+5. Block Toolbar (Font Size)
+
 == Changelog ==
 
 = 2.0.0 =
