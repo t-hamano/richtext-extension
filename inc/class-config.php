@@ -8,7 +8,9 @@
 namespace richtext_extension;
 
 class Config {
-	// Default highlighter variation
+	/**
+	 * Default highlighter variation
+	 */
 	static $highlighter = array(
 		array(
 			'color'     => '#ffff66',
@@ -32,6 +34,8 @@ class Config {
 		),
 	);
 
-	// Default font size variation
+	/**
+	 * Default font size variation
+	 */
 	static $font_size = array( 80, 90, 130, 160 );
 }

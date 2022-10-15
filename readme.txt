@@ -2,7 +2,7 @@
 Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
-Requires at least: 5.6
+Requires at least: 5.9
 Tested up to: 6.0
 Stable tag: 2.0.0
 Requires PHP: 7.3
@@ -35,6 +35,14 @@ Removes all formatting.
 == Installation ==
 1. Upload the `add-richtext-toolbar-button` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the \'Plugins\' menu in WordPress.
+
+== Screenshots ==
+
+1. Setting (Highlighter)
+2. Setting (Font Size)
+3. Setting (Others)
+4. Block Toolbar (Highlighter)
+5. Block Toolbar (Font Size)
 
 == Changelog ==
 
