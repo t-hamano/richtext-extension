@@ -1,16 +1,18 @@
-name: Tests
+name: Test
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+    tags-ignore:
+      - '**'
+    branches:
+      - '*'
 
 jobs:
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
