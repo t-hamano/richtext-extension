@@ -1,15 +1,18 @@
-name: Tests and Deploy
+name: Test and Deploy
 
 on:
   push:
+    branches-ignore:
+      - '**'
     tags:
-    - "*"
+      - '*'
 
 jobs:
 
-  lint:
+  test:
     name: Lint
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -34,9 +37,11 @@ jobs:
   deploy:
     name: Deploy to WP.org
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [ test ]
+
     steps:
-      - uses: actions/checkout@main
+      - name: Checkout
+        uses: actions/checkout@main
 
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
