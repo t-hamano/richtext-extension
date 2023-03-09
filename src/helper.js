@@ -27,7 +27,7 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 			<DropdownControls>
 				<ToolbarButton
 					icon={ icon }
-					title={ <div className={ className }>{ title }</div> }
+					title={ <span className={ className }>{ title }</span> }
 					onClick={ () => {
 						onChange(
 							toggleFormat( value, {
@@ -70,6 +70,9 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 															className: classnames( toggleProps.className, {
 																'is-pressed': hasActive,
 															} ),
+														} }
+														popoverProps={ {
+															className: 'rtex-dropdown-popover',
 														} }
 														icon={ icon }
 														label={ label }
