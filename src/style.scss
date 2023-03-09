@@ -1,6 +1,7 @@
 @import "node_modules/@wordpress/base-styles/mixins";
 @include wordpress-admin-schemes();
 
+$default-scheme-color: #007cba;
 $border-color: #c3c4c7;
 $input-border-color: #8c8f94;
 $background-color: #f9f9f9;
@@ -81,7 +82,7 @@ $background-color: #f9f9f9;
 			width: 14px;
 			height: 14px;
 			cursor: pointer;
-			background-color: var(--wp-admin-theme-color);
+			background-color: var(--wp-admin-theme-color, $default-scheme-color);
 			border: none;
 			-webkit-border-radius: 50%;
 			border-radius: 50%;
@@ -130,8 +131,8 @@ $background-color: #f9f9f9;
 		}
 
 		&:checked ~ .rtex-switch-track {
-			background-color: var(--wp-admin-theme-color);
-			border-color: var(--wp-admin-theme-color);
+			background-color: var(--wp-admin-theme-color, $default-scheme-color);
+			border-color: var(--wp-admin-theme-color, $default-scheme-color);
 		}
 	}
 }
