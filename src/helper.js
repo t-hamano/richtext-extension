@@ -7,13 +7,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { toggleFormat } from '@wordpress/rich-text';
-import {
-	ToolbarButton,
-	ToolbarGroup,
-	ToolbarItem,
-	DropdownMenu,
-	createSlotFill,
-} from '@wordpress/components';
+import { ToolbarButton, ToolbarItem, DropdownMenu, createSlotFill } from '@wordpress/components';
 import { BlockFormatControls } from '@wordpress/block-editor';
 
 export const getRichTextSetting = ( { label, icon, title, className, slotFillName }, index ) => {
@@ -27,7 +21,7 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 			<DropdownControls>
 				<ToolbarButton
 					icon={ icon }
-					title={ <div className={ className }>{ title }</div> }
+					title={ <span className={ className }>{ title }</span> }
 					onClick={ () => {
 						onChange(
 							toggleFormat( value, {
@@ -51,36 +45,37 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 					<>
 						{ component( args ) }
 						<BlockFormatControls>
-							<ToolbarGroup>
-								<DropdownControls.Slot>
-									{ ( fills ) => {
-										if ( ! fills.length ) {
-											return null;
-										}
+							<DropdownControls.Slot>
+								{ ( fills ) => {
+									if ( ! fills.length ) {
+										return null;
+									}
 
-										const allProps = fills.map( ( [ { props } ] ) => props );
-										const hasActive = allProps.some( ( { isActive } ) => isActive );
+									const allProps = fills.map( ( [ { props } ] ) => props );
+									const hasActive = allProps.some( ( { isActive } ) => isActive );
 
-										return (
-											<ToolbarItem>
-												{ ( toggleProps ) => (
-													<DropdownMenu
-														toggleProps={ {
-															...toggleProps,
-															className: classnames( toggleProps.className, {
-																'is-pressed': hasActive,
-															} ),
-														} }
-														icon={ icon }
-														label={ label }
-														controls={ allProps }
-													/>
-												) }
-											</ToolbarItem>
-										);
-									} }
-								</DropdownControls.Slot>
-							</ToolbarGroup>
+									return (
+										<ToolbarItem>
+											{ ( toggleProps ) => (
+												<DropdownMenu
+													toggleProps={ {
+														...toggleProps,
+														className: classnames( toggleProps.className, {
+															'is-pressed': hasActive,
+														} ),
+													} }
+													popoverProps={ {
+														className: 'rtex-dropdown-popover',
+													} }
+													icon={ icon }
+													label={ label }
+													controls={ allProps }
+												/>
+											) }
+										</ToolbarItem>
+									);
+								} }
+							</DropdownControls.Slot>
 						</BlockFormatControls>
 					</>
 				);

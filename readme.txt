@@ -3,8 +3,8 @@ Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 5.9
-Tested up to: 6.1
-Stable tag: 2.1.0
+Tested up to: 6.2
+Stable tag: 2.2.0
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,13 @@ Removes all formatting.
 5. Block Toolbar (Font Size)
 
 == Changelog ==
+
+= 2.2.0 =
+* Tested to WordPress 6.2
+* Enhancement: Narrow spacing between drop-down buttons
+* Enhancement: Improve accessibility on the settings page
+* Fix: Dropdown buttons are not aligned in WordPress 6.2
+* Fix: Default color schema not applied on settings page
 
 = 2.1.0 =
 * Tested to WordPress 6.1
