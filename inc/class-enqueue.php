@@ -153,10 +153,10 @@ class Enqueue {
 		);
 
 		$default_title = array(
-			__( 'Solid Marker', 'richtext-extension' ),
-			__( 'Striped Marker', 'richtext-extension' ),
-			__( 'Solid Background', 'richtext-extension' ),
-			__( 'Striped Background', 'richtext-extension' ),
+			__( 'Marker ( Yellow )', 'richtext-extension' ),
+			__( 'Marker ( Red )', 'richtext-extension' ),
+			__( 'Background ( Yellow )', 'richtext-extension' ),
+			__( 'Background ( Red )', 'richtext-extension' ),
 		);
 
 		for ( $i = 0; $i <= 3; $i++ ) {

@@ -53,7 +53,6 @@ Removes all formatting.
 * Enhancement: Polish icons
 * Enhancement: Polish Block Toolbar style
 * Enhancement: Polish the settings page style
-* Change: Update highlighter default title
 * Fix: Checkbox values are not updated when saving settings for the first time
 * Drop support for WordPress 5.9
 * Drop support for PHP 7.3

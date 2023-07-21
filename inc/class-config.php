@@ -22,7 +22,7 @@ class Config {
 			'color'     => '#ff7f7f',
 			'thickness' => 40,
 			'opacity'   => 40,
-			'type'      => 'stripe',
+			'type'      => 'solid',
 		),
 		array(
 			'color'     => '#ffff66',
@@ -34,7 +34,7 @@ class Config {
 			'color'     => '#ff7f7f',
 			'thickness' => 100,
 			'opacity'   => 40,
-			'type'      => 'stripe-thin',
+			'type'      => 'solid',
 		),
 	);
 
