@@ -52,6 +52,7 @@ class Options {
 	 * Create setting
 	 */
 	public function register_option() {
+		// Register settings
 		for ( $i = 0; $i <= 3; $i++ ) {
 			register_setting(
 				'richtext-extension-group',
@@ -83,9 +84,6 @@ class Options {
 				'rtex_highlighter_type_' . $i,
 				array( $this, 'sanitize_highlighter_type' )
 			);
-		}
-
-		for ( $i = 0; $i <= 3; $i++ ) {
 			register_setting(
 				'richtext-extension-group',
 				'rtex_font_size_active_' . $i,
@@ -122,8 +120,8 @@ class Options {
 	 *
 	 * @return string
 	 */
-	public static function sanitize_checkbox( $value ) {
-		return ( isset( $value ) ? true : false );
+	public static function sanitize_checkbox( $input ) {
+		return ( 1 === (int) $input ) ? 1 : 0;
 	}
 
 	/**
