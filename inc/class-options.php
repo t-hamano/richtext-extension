@@ -78,6 +78,11 @@ class Options {
 				'rtex_highlighter_opacity_' . $i,
 				array( $this, 'sanitize_range' )
 			);
+			register_setting(
+				'richtext-extension-group',
+				'rtex_highlighter_type_' . $i,
+				array( $this, 'sanitize_highlighter_type' )
+			);
 		}
 
 		for ( $i = 0; $i <= 3; $i++ ) {
@@ -134,7 +139,7 @@ class Options {
 		return $value;
 	}
 
-		/**
+	/**
 	 * Sanitizer (Font size)
 	 * @param string $value input value.
 	 *
@@ -145,6 +150,17 @@ class Options {
 		$value = max( self::MIN_FONT_SIZE, $value );
 		$value = min( self::MAX_FONT_SIZE, $value );
 		return $value;
+	}
+
+	/**
+	 * Sanitizer (Highlighter type)
+	 * @param string $value input value.
+	 *
+	 * @return string
+	 */
+	public static function sanitize_highlighter_type( $value ) {
+		$allowed_types = array( 'solid', 'stripe', 'stripe-thin' );
+		return in_array( $value, $allowed_types, true ) ? $value : 'solid';
 	}
 
 	/**
@@ -209,84 +225,114 @@ class Options {
 			</form>
 		</div>
 		<script type="text/javascript">
-			jQuery(document).ready( function( $ ) {
-				// Meta box
-				$( '.if-js-closed' ).removeClass( 'if-js-closed' ).addClass( 'closed' );
-				postboxes.add_postbox_toggles( '<?php echo $this->hook; ?>' );
+		jQuery( document ).ready( function ( $ ) {
+			// Meta box
+			$( '.if-js-closed' ).removeClass( 'if-js-closed' ).addClass( 'closed' );
+			postboxes.add_postbox_toggles( '<?php echo $this->hook; ?>' );
 
-				// Colorpicker
-				$( '.rtex-colorpicker' ).wpColorPicker({
-					change: function (event, ui) {
-						var index = $( this ).parents( 'tr' ).attr( 'data-index' );
-						var color = ui.color.toString();
-						preview_highlighter( index, color );
-					},
-					clear: function (event) {
-						var index = $( this ).parents( 'tr' ).attr( 'data-index' );
-						var color = '';
-						preview_highlighter( index, color );
-					}
-				});
+			// Colorpicker
+			$( '.rtex-colorpicker' ).wpColorPicker( {
+				change( event, ui ) {
+					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
+					const color = ui.color.toString();
+					previewHighlighter( index, color );
+				},
+				clear() {
+					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
+					previewHighlighter( index );
+				},
+			} );
 
-				// Sync range and number input
-				$( '.rtex-range [type="range"]' ).on( 'input', function() {
-					var parent = $( this ).parents( '.rtex-range' );
-					parent.find( '[type="number"]' ).val( $( this ).val() );
-				} );
-				$( '.rtex-range [type="number"]' ).on( 'change', function() {
-					var parent = $( this ).parents( '.rtex-range' );
-					parent.find( '[type="range"]' ).val( $( this ).val() );
-				} );
+			// Sync range and number input
+			$( '.rtex-range [type="range"]' ).on( 'input', function () {
+				const parent = $( this ).parents( '.rtex-range' );
+				parent.find( '[type="number"]' ).val( $( this ).val() );
+			} );
+			$( '.rtex-range [type="number"]' ).on( 'change', function () {
+				const parent = $( this ).parents( '.rtex-range' );
+				parent.find( '[type="range"]' ).val( $( this ).val() );
+			} );
 
-				// Preview styles (Highlighter)
-				$( '#rtex-metabox-highlighter input' ).on( 'change', function() {
-					var index = $( this ).parents( 'tr' ).attr( 'data-index' );
-					var color = $( '[name="rtex_highlighter_color_' + index + '"]').val();
-					preview_highlighter( index, color );
-				} );
+			// Preview styles (Highlighter)
+			$( '#rtex-metabox-highlighter input, #rtex-metabox-highlighter select' ).on(
+				'change',
+				function () {
+					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
+					previewHighlighter( index );
+				}
+			);
 
-				/**
-				* Generate highlighter preview
-				* @param  {string} index  Target Row
-				* @param  {string} color Hex Color Code
-				*/
-				function preview_highlighter( index, color ) {
-					var active = $( '[name="rtex_highlighter_active_' + index + '"]' ).prop( 'checked' );
-					var target = $( '#rtex-highlighter-preview-' + index );
+			/**
+			 * Generate highlighter preview
+			 *
+			 * @param {string}           index       Target row index
+			 * @param {string|undefined} pickerColor Colorpicker value
+			 */
+			function previewHighlighter( index, pickerColor ) {
+				const active = $( '[name="rtex_highlighter_active_' + index + '"]' ).prop( 'checked' );
+				const target = $( '#rtex-highlighter-preview-' + index );
 
-					if ( ! active ) {
-						target.css( 'background', 'transparent' );
-						return false;
-					}
-
-					var thickness = 100 - parseInt( $( '[name="rtex_highlighter_thickness_' + index + '"]').val() );
-					var colorRgba = 'transparent';
-
-					if( color.match( '^#[0-9a-fA-F]{6}$' ) ) {
-						var r = parseInt( color.substr( 1, 2 ), 16 );
-						var g = parseInt( color.substr( 3, 2 ), 16 );
-						var b = parseInt( color.substr( 5, 2 ), 16 );
-						var opacity = parseInt( $( '[name="rtex_highlighter_opacity_' + index + '"]' ).val() ) / 100;
-						colorRgba ='rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
-					}
-
-					target.css( 'background', 'linear-gradient(transparent ' + thickness + '%,' + colorRgba + ' ' + thickness + '%)' );
+				if ( ! active ) {
+					target.css( 'background', 'transparent' );
+					return false;
 				}
 
-				// Preview styles (Font size)
-				$( '#rtex-metabox-font-size input' ).on( 'change', function() {
-					var index = $( this ).parents( 'tr' ).attr( 'data-index' );
-					var active = $( '[name="rtex_font_size_active_' + index + '"]' ).prop( 'checked' );
-					var target = $( '#rtex-font-size-preview-' + index );
-					var fontSize = parseInt( $( '[name="rtex_font_size_size_' + index + '"]').val() ) / 100;
+				const thickness = parseInt( $( '[name="rtex_highlighter_thickness_' + index + '"]' ).val() );
+				const colorHex = pickerColor || $( '[name="rtex_highlighter_color_' + index + '"]' ).val();
+				const type = $( '[name="rtex_highlighter_type_' + index + '"]' ).val();
+				let color = 'transparent';
 
-					if ( ! active ) {
-						target.css( 'font-size', '1em' );
+				// Generate rgba value
+				if ( colorHex.match( '^#[0-9a-fA-F]{6}$' ) ) {
+					const opacity =
+						parseInt( $( '[name="rtex_highlighter_opacity_' + index + '"]' ).val() ) / 100;
+					if ( 1 === opacity ) {
+						color = colorHex;
 					} else {
-						target.css( 'font-size', fontSize + 'em' );
+						const r = parseInt( colorHex.substr( 1, 2 ), 16 );
+						const g = parseInt( colorHex.substr( 3, 2 ), 16 );
+						const b = parseInt( colorHex.substr( 5, 2 ), 16 );
+						color = `rgba(${ r },${ g },${ b },${ opacity })`;
 					}
-				} );
-			});
+				}
+
+				// Apply gradient value
+				if ( 'solid' === type ) {
+					if ( 0 === thickness ) {
+						target.css( 'background', color );
+					} else {
+						target.css(
+							'background',
+							`linear-gradient(transparent ${ 100 - thickness }%, ${ color } ${ 100 - thickness }%)`
+						);
+					}
+				} else if ( 'stripe' === type ) {
+					target.css(
+						'background',
+						`repeating-linear-gradient(-45deg, ${ color } 0, ${ color } 3px, transparent 3px, transparent 6px) no-repeat bottom/100% ${ thickness }%`
+					);
+				} else if ( 'stripe-thin' === type ) {
+					target.css(
+						'background',
+						`repeating-linear-gradient(-45deg, ${ color } 0, ${ color } 2px, transparent 2px, transparent 4px) no-repeat bottom/100% ${ thickness }%`
+					);
+				}
+			}
+
+			// Preview styles (Font size)
+			$( '#rtex-metabox-font-size input' ).on( 'change', function () {
+				const index = $( this ).parents( 'tr' ).attr( 'data-index' );
+				const active = $( '[name="rtex_font_size_active_' + index + '"]' ).prop( 'checked' );
+				const target = $( '#rtex-font-size-preview-' + index );
+				const fontSize = parseInt( $( '[name="rtex_font_size_size_' + index + '"]' ).val() ) / 100;
+
+				if ( ! active ) {
+					target.css( 'font-size', '1em' );
+				} else {
+					target.css( 'font-size', fontSize + 'em' );
+				}
+			} );
+		} );
 		</script>
 		<?php
 	}
@@ -296,11 +342,27 @@ class Options {
 	 */
 	public function metabox_highlighter() {
 		$default_title = array(
-			__( 'Marker ( Yellow )', 'richtext-extension' ),
-			__( 'Marker ( Red )', 'richtext-extension' ),
-			__( 'Background ( Yellow )', 'richtext-extension' ),
-			__( 'Background ( Red )', 'richtext-extension' ),
+			__( 'Solid Marker', 'richtext-extension' ),
+			__( 'Striped Marker', 'richtext-extension' ),
+			__( 'Solid Background', 'richtext-extension' ),
+			__( 'Striped Background', 'richtext-extension' ),
 		);
+
+		$highlighter_types = array(
+			array(
+				'value' => 'solid',
+				'label' => __( 'Solid', 'richtext-extension' ),
+			),
+			array(
+				'value' => 'stripe',
+				'label' => __( 'Stripe', 'richtext-extension' ),
+			),
+			array(
+				'value' => 'stripe-thin',
+				'label' => __( 'Stripe (Thin)', 'richtext-extension' ),
+			),
+		);
+
 		?>
 		<ul>
 			<li><?php _e( 'If the highlighter makes it hard to see the text, lower the opacity.', 'richtext-extension' ); ?></li>
@@ -315,44 +377,64 @@ class Options {
 						<th><?php _e( 'Color', 'richtext-extension' ); ?></th>
 						<th><?php _e( 'Thickness', 'richtext-extension' ); ?></th>
 						<th><?php _e( 'Opacity', 'richtext-extension' ); ?></th>
+						<th><?php _e( 'Type', 'richtext-extension' ); ?></th>
 						<th><?php _e( 'Preview', 'richtext-extension' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					for ( $i = 0; $i <= 3; $i++ ) :
+						$is_active = get_option( 'rtex_highlighter_active_' . $i, true );
+						$title     = get_option( 'rtex_highlighter_title_' . $i, $default_title[ $i ] );
+						$color     = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
+						$thickness = get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
+						$opacity   = get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] );
+						$type      = get_option( 'rtex_highlighter_type_' . $i, Config::$highlighter[ $i ]['type'] );
 						?>
 						<tr data-index="<?php echo $i; ?>">
 							<td>
 								<label class="rtex-switch">
-									<input id="<?php echo 'rtex_highlighter_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_highlighter_active_' . $i; ?>" value="1" <?php checked( get_option( 'rtex_highlighter_active_' . $i, true ) ); ?>>
+									<input id="<?php echo 'rtex_highlighter_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_highlighter_active_' . $i; ?>" value="1" <?php checked( $is_active ); ?>>
 									<span class="rtex-switch-thumb"></span>
 									<span class="rtex-switch-track"></span>
 								</label>
 							</td>
 							<td>
-								<input type="text" name="<?php echo 'rtex_highlighter_title_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_title_' . $i, $default_title[ $i ] ); ?>">
+								<input type="text" name="<?php echo 'rtex_highlighter_title_' . $i; ?>" value="<?php echo esc_attr( $title ); ?>">
 							</td>
 							<td>
-								<input type="text" name="<?php echo 'rtex_highlighter_color_' . $i; ?>" class="rtex-colorpicker" value="<?php echo get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] ); ?>">
+								<input type="text" name="<?php echo 'rtex_highlighter_color_' . $i; ?>" class="rtex-colorpicker" value="<?php echo esc_attr( $color ); ?>">
 							</td>
 							<td>
 								<div class="rtex-range">
-									<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
+									<input type="range" min="0" max="100" step="1" value="<?php echo esc_attr( $thickness ); ?>">
 									<div class="rtex-input">
-										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_thickness_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] ); ?>">
+										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_thickness_' . $i; ?>" value="<?php echo esc_attr( $thickness ); ?>">
 										<span>%</span>
 									</div>
 								</div>
 							</td>
 							<td>
 								<div class="rtex-range">
-									<input type="range" min="0" max="100" step="1" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
+									<input type="range" min="0" max="100" step="1" value="<?php echo esc_attr( $opacity ); ?>">
 									<div class="rtex-input">
-										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_opacity_' . $i; ?>" value="<?php echo get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ); ?>">
+										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_opacity_' . $i; ?>" value="<?php echo esc_attr( $opacity ); ?>">
 										<span>%</span>
 									</div>
 								</div>
+							</td>
+							<td>
+								<select name="<?php echo 'rtex_highlighter_type_' . $i; ?>">
+									<?php
+									foreach ( $highlighter_types as $highlighter_type ) {
+										if ( $type === $highlighter_type['value'] ) {
+											echo '<option selected="selected" value="' . esc_attr( $highlighter_type['value'] ) . '">' . $highlighter_type['label'] . '</option>';
+										} else {
+											echo '<option value="' . esc_attr( $highlighter_type['value'] ) . '">' . $highlighter_type['label'] . '</option>';
+										}
+									}
+									?>
+								</select>
 							</td>
 							<td>
 								<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php _e( 'Hello World !', 'richtext-extension' ); ?></span>
@@ -393,23 +475,26 @@ class Options {
 				<tbody>
 					<?php
 					for ( $i = 0; $i <= 3; $i++ ) :
+						$is_active = get_option( 'rtex_font_size_active_' . $i, true );
+						$title     = get_option( 'rtex_font_size_title_' . $i, $default_title[ $i ] );
+						$size      = get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] );
 						?>
 						<tr data-index="<?php echo $i; ?>">
 							<td>
 								<label class="rtex-switch">
-									<input id="<?php echo 'rtex_font_size_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_font_size_active_' . $i; ?>" value="1" <?php checked( get_option( 'rtex_font_size_active_' . $i, true ) ); ?>>
+									<input id="<?php echo 'rtex_font_size_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_font_size_active_' . $i; ?>" value="1" <?php checked( $is_active ); ?>>
 									<span class="rtex-switch-thumb"></span>
 									<span class="rtex-switch-track"></span>
 								</label>
 							</td>
 							<td>
-								<input type="text" name="<?php echo 'rtex_font_size_title_' . $i; ?>" value="<?php echo get_option( 'rtex_font_size_title_' . $i, $default_title[ $i ] ); ?>">
+								<input type="text" name="<?php echo 'rtex_font_size_title_' . $i; ?>" value="<?php echo esc_attr( $title ); ?>">
 							</td>
 							<td>
 								<div class="rtex-range">
-									<input type="range" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
+									<input type="range" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" value="<?php echo esc_attr( $size ); ?>">
 									<div class="rtex-input">
-										<input type="number" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" name="<?php echo 'rtex_font_size_size_' . $i; ?>"value="<?php echo get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ); ?>">
+										<input type="number" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" name="<?php echo 'rtex_font_size_size_' . $i; ?>"value="<?php echo esc_attr( $size ); ?>">
 										<span>%</span>
 									</div>
 								</div>

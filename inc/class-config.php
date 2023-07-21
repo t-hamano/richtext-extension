@@ -15,22 +15,26 @@ class Config {
 		array(
 			'color'     => '#ffff66',
 			'thickness' => 40,
-			'opacity'   => 80,
+			'opacity'   => 70,
+			'type'      => 'solid',
 		),
 		array(
 			'color'     => '#ff7f7f',
 			'thickness' => 40,
-			'opacity'   => 80,
+			'opacity'   => 40,
+			'type'      => 'stripe',
 		),
 		array(
 			'color'     => '#ffff66',
 			'thickness' => 100,
-			'opacity'   => 80,
+			'opacity'   => 70,
+			'type'      => 'solid',
 		),
 		array(
 			'color'     => '#ff7f7f',
 			'thickness' => 100,
-			'opacity'   => 80,
+			'opacity'   => 40,
+			'type'      => 'stripe-thin',
 		),
 	);
 
