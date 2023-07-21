@@ -167,34 +167,34 @@ class Options {
 	 * Create meta boxes
 	 */
 	public function create_meta_boxes() {
-		add_meta_box(
-			'rtex-metabox-highlighter',
-			__( 'Highlighter', 'richtext-extension' ),
-			array( $this, 'metabox_highlighter' ),
-			$this->hook,
-			'normal'
+		$meta_boxes = array(
+			array(
+				'slug'  => 'highlighter',
+				'label' => __( 'Highlighter', 'richtext-extension' ),
+			),
+			array(
+				'slug'  => 'font_size',
+				'label' => __( 'Font size', 'richtext-extension' ),
+			),
+			array(
+				'slug'  => 'underline',
+				'label' => __( 'Underline', 'richtext-extension' ),
+			),
+			array(
+				'slug'  => 'clear_format',
+				'label' => __( 'Clear format', 'richtext-extension' ),
+			),
 		);
-		add_meta_box(
-			'rtex-metabox-font-size',
-			__( 'Font size', 'richtext-extension' ),
-			array( $this, 'metabox_font_size' ),
-			$this->hook,
-			'normal'
-		);
-		add_meta_box(
-			'rtex-metabox-underline',
-			__( 'Underline', 'richtext-extension' ),
-			array( $this, 'metabox_underline' ),
-			$this->hook,
-			'normal'
-		);
-		add_meta_box(
-			'rtex-metabox-clear-format',
-			__( 'Clear format', 'richtext-extension' ),
-			array( $this, 'metabox_clear_format' ),
-			$this->hook,
-			'normal'
-		);
+
+		foreach ( $meta_boxes as $meta_box ) {
+			add_meta_box(
+				'rtex-metabox-' . $meta_box['slug'],
+				$meta_box['label'],
+				array( $this, 'metabox_' . $meta_box['slug'] ),
+				$this->hook,
+				'normal'
+			);
+		}
 	}
 
 	/**
@@ -226,6 +226,15 @@ class Options {
 		</div>
 		<script type="text/javascript">
 		jQuery( document ).ready( function ( $ ) {
+			// Apply styles to previews when the document is loaded
+			$( '#rtex-table-body-highlighter tr' ).each( function ( index ) {
+				previewHighlighter( index );
+			} );
+
+			$( '#rtex-table-body-font-size tr' ).each( function ( index ) {
+				previewFontSize( index );
+			} );
+
 			// Meta box
 			$( '.if-js-closed' ).removeClass( 'if-js-closed' ).addClass( 'closed' );
 			postboxes.add_postbox_toggles( '<?php echo $this->hook; ?>' );
@@ -253,30 +262,25 @@ class Options {
 				parent.find( '[type="range"]' ).val( $( this ).val() );
 			} );
 
-			// Preview styles (Highlighter)
-			$( '#rtex-metabox-highlighter input, #rtex-metabox-highlighter select' ).on(
-				'change',
-				function () {
+			// Update highlighter preview styles
+			$( '#rtex-metabox-highlighter input, #rtex-metabox-highlighter select' ).on( 'change', function () {
 					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
 					previewHighlighter( index );
-				}
-			);
+			} );
+
+			// Update font size preview styles
+			$( '#rtex-metabox-font-size input' ).on( 'change', function () {
+					previewFontSize( index );
+			} );
 
 			/**
-			 * Generate highlighter preview
+			 * Update highlighter preview styles
 			 *
 			 * @param {string}           index       Target row index
 			 * @param {string|undefined} pickerColor Colorpicker value
 			 */
 			function previewHighlighter( index, pickerColor ) {
-				const active = $( '[name="rtex_highlighter_active_' + index + '"]' ).prop( 'checked' );
 				const target = $( '#rtex-highlighter-preview-' + index );
-
-				if ( ! active ) {
-					target.css( 'background', 'transparent' );
-					return false;
-				}
-
 				const thickness = parseInt( $( '[name="rtex_highlighter_thickness_' + index + '"]' ).val() );
 				const colorHex = pickerColor || $( '[name="rtex_highlighter_color_' + index + '"]' ).val();
 				const type = $( '[name="rtex_highlighter_type_' + index + '"]' ).val();
@@ -319,19 +323,16 @@ class Options {
 				}
 			}
 
-			// Preview styles (Font size)
-			$( '#rtex-metabox-font-size input' ).on( 'change', function () {
-				const index = $( this ).parents( 'tr' ).attr( 'data-index' );
-				const active = $( '[name="rtex_font_size_active_' + index + '"]' ).prop( 'checked' );
+			/**
+			 * Update font size preview styles
+			 *
+			 * @param {string} index Target row index
+			 */
+			function previewFontSize( index ) {
 				const target = $( '#rtex-font-size-preview-' + index );
 				const fontSize = parseInt( $( '[name="rtex_font_size_size_' + index + '"]' ).val() ) / 100;
-
-				if ( ! active ) {
-					target.css( 'font-size', '1em' );
-				} else {
-					target.css( 'font-size', fontSize + 'em' );
-				}
-			} );
+				target.css( 'font-size', fontSize + 'em' );
+			}
 		} );
 		</script>
 		<?php
@@ -381,7 +382,7 @@ class Options {
 						<th><?php _e( 'Preview', 'richtext-extension' ); ?></th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="rtex-table-body-highlighter">
 					<?php
 					for ( $i = 0; $i <= 3; $i++ ) :
 						$is_active = get_option( 'rtex_highlighter_active_' . $i, true );
@@ -472,7 +473,7 @@ class Options {
 						<th style="width: 55%;"><?php _e( 'Preview', 'richtext-extension' ); ?></th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="rtex-table-body-font-size">
 					<?php
 					for ( $i = 0; $i <= 3; $i++ ) :
 						$is_active = get_option( 'rtex_font_size_active_' . $i, true );
