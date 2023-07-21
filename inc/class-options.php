@@ -120,8 +120,8 @@ class Options {
 	 *
 	 * @return string
 	 */
-	public static function sanitize_checkbox( $input ) {
-		return ( 1 === (int) $input ) ? 1 : 0;
+	public static function sanitize_checkbox( $value ) {
+		return ( 1 === (int) $value ) ? 1 : 0;
 	}
 
 	/**

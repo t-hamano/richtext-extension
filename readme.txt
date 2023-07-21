@@ -46,6 +46,18 @@ Removes all formatting.
 
 == Changelog ==
 
+= 2.3.0 =
+* Tested to WordPress 6.3
+* Add: striped style
+* Enhancement: Always show preview style on settings page
+* Enhancement: Polish icons
+* Enhancement: Polish Block Toolbar style
+* Enhancement: Polish the settings page style
+* Change: Update highlighter default title
+* Fix: Checkbox values are not updated when saving settings for the first time
+* Drop support for WordPress 5.9
+* Drop support for PHP 7.3
+
 = 2.2.0 =
 * Tested to WordPress 6.2
 * Enhancement: Narrow spacing between drop-down buttons
