@@ -515,7 +515,7 @@ class Options {
 	public function metabox_underline() {
 		?>
 		<label>
-			<input class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_underline_active'; ?>" value="1" <?php checked( get_option( 'rtex_underline_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
+			<input class="rtex-ui-button" type="checkbox" name="rtex_underline_active" value="1" <?php checked( get_option( 'rtex_underline_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
 		</label>
 		<p><strong><?php _e( 'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.', 'richtext-extension' ); ?></strong></p>
 		<?php
@@ -527,7 +527,7 @@ class Options {
 	public function metabox_clear_format() {
 		?>
 		<label>
-			<input class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_clear_format_active'; ?>" value="1" <?php checked( get_option( 'rtex_clear_format_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
+			<input class="rtex-ui-button" type="checkbox" name="rtex_clear_format_active" value="1" <?php checked( get_option( 'rtex_clear_format_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
 		</label>
 		<?php
 	}
