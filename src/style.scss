@@ -9,7 +9,7 @@ $background-color: #f9f9f9;
 .rtex-wrapper #poststuff {
 
 	h2 {
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	ul {
@@ -31,7 +31,7 @@ $background-color: #f9f9f9;
 
 	th,
 	td {
-		padding: 1em;
+		padding: 0.5em 1em;
 		border: 1px solid $border-color;
 	}
 
@@ -121,6 +121,8 @@ $background-color: #f9f9f9;
 
 .rtex-switch {
 	position: relative;
+	display: inline-block;
+	vertical-align: top;
 
 	input {
 		position: absolute;
@@ -164,10 +166,11 @@ $background-color: #f9f9f9;
 
 .rtex-switch-thumb {
 	position: absolute;
-	top: 2px;
+	top: 50%;
 	left: 4px;
 	width: 14px;
 	height: 14px;
+	margin-top: -7px;
 	background-color: currentcolor;
 	border-radius: 50%;
 	transition: 0.3s ease;

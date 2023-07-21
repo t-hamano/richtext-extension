@@ -45,8 +45,9 @@ class Enqueue {
 		wp_enqueue_style( RTEX_NAMESPACE );
 
 		$inline_css  = $this->get_inline_css();
-		$inline_css .= '.rtex-dropdown-popover .components-dropdown-menu__menu-item{justify-content:left;}';
+		$inline_css .= '.rtex-dropdown-popover .components-dropdown-menu__menu-item{justify-content:left;height:auto;}';
 		$inline_css .= '.rtex-dropdown-popover .components-dropdown-menu__menu-item svg{margin-right:8px;}';
+
 		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
 
 		$asset = include( RTEX_PATH . '/build/index.asset.php' );
@@ -66,12 +67,7 @@ class Enqueue {
 		}
 
 		wp_enqueue_style( 'wp-color-picker' );
-
 		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/style-index.css', array(), RTEX_VERSION );
-
-		$inline_css = $this->get_inline_css();
-		wp_add_inline_style( 'richtext-extension-option', $inline_css );
-
 		wp_enqueue_script( 'wp-color-picker' );
 	}
 
@@ -96,20 +92,41 @@ class Enqueue {
 		// Generate highlighter style
 		for ( $i = 0; $i <= 3; $i++ ) {
 			if ( get_option( 'rtex_highlighter_active_' . $i, true ) ) {
-				$thickness  = 100 - get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
-				$color      = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
-				$color_rgba = 'transparent';
+				$css_selector = ".rtex-highlighter-${i}, #rtex-highlighter-preview-${i}";
+				$thickness    = get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
+				$color_hex    = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
+				$type         = get_option( 'rtex_highlighter_type_' . $i, Config::$highlighter[ $i ]['type'] );
+				$color        = 'transparent';
 
-				// Generate linear-gradient value
-				if ( preg_match( '/^#[0-9a-fA-F]{6}$/', $color ) ) {
-					$r          = hexdec( substr( $color, 1, 2 ) );
-					$g          = hexdec( substr( $color, 3, 2 ) );
-					$b          = hexdec( substr( $color, 5, 2 ) );
-					$opacity    = get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ) / 100;
-					$color_rgba = "rgba(${r}, ${g}, ${b}, ${opacity})";
+				// Generate rgba value
+				if ( preg_match( '/^#[0-9a-fA-F]{6}$/', $color_hex ) ) {
+					$opacity = get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ) / 100;
+					if ( 1 === $opacity ) {
+						$color = $color_hex;
+					} else {
+						$r     = hexdec( substr( $color_hex, 1, 2 ) );
+						$g     = hexdec( substr( $color_hex, 3, 2 ) );
+						$b     = hexdec( substr( $color_hex, 5, 2 ) );
+						$color = "rgba(${r}, ${g}, ${b}, ${opacity})";
+					}
 				}
 
-				$css .= ".rtex-highlighter-${i}, #rtex-highlighter-preview-${i}{ background: linear-gradient(transparent ${thickness}%, ${color_rgba} ${thickness}%);}";
+				// Generate gradient value
+				if ( 'solid' === $type ) {
+					$thickness = 100 - $thickness;
+					if ( 0 === $thickness ) {
+						$background_value = $color;
+					} else {
+						$background_value = "linear-gradient(transparent ${thickness}%, ${color} ${thickness}%)";
+					}
+				} elseif ( 'stripe' === $type ) {
+					$background_value = "repeating-linear-gradient(-45deg, ${color} 0, ${color} 3px, transparent 3px, transparent 6px) no-repeat bottom/100% ${thickness}%";
+				} elseif ( 'stripe-thin' === $type ) {
+					$background_value = "repeating-linear-gradient(-45deg, ${color} 0, ${color} 2px, transparent 2px, transparent 4px) no-repeat bottom/100% ${thickness}%";
+				}
+
+				// Generate CSS
+				$css .= "$css_selector{background: $background_value;}";
 			}
 		}
 

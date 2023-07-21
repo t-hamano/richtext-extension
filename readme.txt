@@ -2,10 +2,10 @@
 Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
-Requires at least: 5.9
+Requires at least: 6.0
 Tested up to: 6.2
-Stable tag: 2.2.0
-Requires PHP: 7.3
+Stable tag: 2.3.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,17 @@ Removes all formatting.
 5. Block Toolbar (Font Size)
 
 == Changelog ==
+
+= 2.3.0 =
+* Tested to WordPress 6.3
+* Add: striped style
+* Enhancement: Always show preview style on settings page
+* Enhancement: Polish icons
+* Enhancement: Polish Block Toolbar style
+* Enhancement: Polish the settings page style
+* Fix: Checkbox values are not updated when saving settings for the first time
+* Drop support for WordPress 5.9
+* Drop support for PHP 7.3
 
 = 2.2.0 =
 * Tested to WordPress 6.2
