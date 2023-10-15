@@ -14,15 +14,13 @@
 		"lint:style": "wp-scripts lint-style"
 	},
 	"devDependencies": {
-		"@wordpress/base-styles": "4.29.0",
-		"@wordpress/env": "^8.4.0",
-		"@wordpress/icons": "^9.29.0",
-		"@wordpress/scripts": "^26.9.0",
+		"@wordpress/base-styles": "4.34.0",
+		"@wordpress/env": "^8.9.0",
+		"@wordpress/icons": "^9.34.0",
+		"@wordpress/scripts": "^26.14.0",
 		"opener": "^1.5.2",
-		"prettier": "npm:wp-prettier@2.8.5",
-		"stylelint-config-recess-order": "^3.1.0"
+		"prettier": "npm:wp-prettier@3.0.3"
 	},
-	"dependencies": {},
 	"engines": {
 		"node": ">=16.0.0",
 		"npm": ">=8.0.0"
