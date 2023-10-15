@@ -26,9 +26,9 @@ class Main {
 	 * Load classes
 	 */
 	private function load_classes() {
-		require_once( RTEX_PATH . '/inc/class-config.php' );
-		require_once( RTEX_PATH . '/inc/class-enqueue.php' );
-		require_once( RTEX_PATH . '/inc/class-options.php' );
+		require_once RTEX_PATH . '/inc/class-config.php';
+		require_once RTEX_PATH . '/inc/class-enqueue.php';
+		require_once RTEX_PATH . '/inc/class-options.php';
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Main {
 	public static function uninstall_richtext_extension() {
 		$options = array();
 
-		for ( $i = 0; $i <= 3; $i ++ ) {
+		for ( $i = 0; $i <= 3; $i++ ) {
 			$options[] = 'rtex_highlighter_active_' . $i;
 			$options[] = 'rtex_highlighter_title_' . $i;
 			$options[] = 'rtex_highlighter_color_' . $i;
@@ -54,7 +54,7 @@ class Main {
 			$options[] = 'rtex_highlighter_opacity_' . $i;
 		}
 
-		for ( $i = 0; $i <= 3; $i ++ ) {
+		for ( $i = 0; $i <= 3; $i++ ) {
 			$options[] = 'rtex_font_size_active_' . $i;
 			$options[] = 'rtex_font_size_title_' . $i;
 			$options[] = 'rtex_font_size_size_' . $i;
