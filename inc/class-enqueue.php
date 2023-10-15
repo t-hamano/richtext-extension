@@ -12,7 +12,7 @@ class Enqueue {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 		// Enqueue front-end scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
@@ -50,7 +50,7 @@ class Enqueue {
 
 		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
 
-		$asset = include( RTEX_PATH . '/build/index.asset.php' );
+		$asset = include RTEX_PATH . '/build/index.asset.php';
 		wp_enqueue_script( RTEX_NAMESPACE, RTEX_URL . '/build/index.js', $asset['dependencies'] );
 
 		wp_localize_script( RTEX_NAMESPACE, 'rtexConf', $this->create_editor_config() );

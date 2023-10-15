@@ -11,7 +11,7 @@ class Config {
 	/**
 	 * Default highlighter variation
 	 */
-	static $highlighter = array(
+	public static $highlighter = array(
 		array(
 			'color'     => '#ffff66',
 			'thickness' => 40,
@@ -41,5 +41,5 @@ class Config {
 	/**
 	 * Default font size variation
 	 */
-	static $font_size = array( 80, 90, 130, 160 );
+	public static $font_size = array( 80, 90, 130, 160 );
 }
