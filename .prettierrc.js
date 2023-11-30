@@ -7,6 +7,6 @@ const config = {
 	printWidth: 100,
 	bracketSpacing: true,
 	parenSpacing: true,
-}
+};
 
 module.exports = config;
