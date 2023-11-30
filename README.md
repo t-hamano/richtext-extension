@@ -43,9 +43,9 @@ Removes all formatting.
 
 Download this folder in your plugins directory.
 
-```
-$ npm install
-$ npm run build
+```sh
+npm install
+npm run build
 ```
 
 ## Author
