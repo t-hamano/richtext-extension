@@ -27,7 +27,7 @@
 		"@wordpress/base-styles": "4.34.0",
 		"@wordpress/env": "^8.9.0",
 		"@wordpress/icons": "^9.34.0",
-		"@wordpress/scripts": "^26.14.0",
+		"@wordpress/scripts": "^26.18.0",
 		"opener": "^1.5.2",
 		"prettier": "npm:wp-prettier@3.0.3"
 	},
