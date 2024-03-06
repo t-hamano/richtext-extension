@@ -24,10 +24,10 @@
 		"npm": "10.5.0"
 	},
 	"devDependencies": {
-		"@wordpress/base-styles": "4.38.0",
-		"@wordpress/env": "^8.13.0",
-		"@wordpress/icons": "^9.38.0",
-		"@wordpress/scripts": "^26.18.0",
+		"@wordpress/base-styles": "4.43.0",
+		"@wordpress/env": "^9.4.0",
+		"@wordpress/icons": "^9.43.0",
+		"@wordpress/scripts": "^27.3.0",
 		"prettier": "npm:wp-prettier@3.0.3"
 	},
 	"scripts": {
