@@ -28,6 +28,8 @@
 		"@wordpress/env": "^9.4.0",
 		"@wordpress/icons": "^9.43.0",
 		"@wordpress/scripts": "^27.3.0",
+		"husky": "^8.0.0",
+		"lint-staged": "15.2.2",
 		"prettier": "npm:wp-prettier@3.0.3"
 	},
 	"scripts": {
@@ -42,6 +44,24 @@
 		"lint:php": "composer lint",
 		"lint:md-docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
-		"format": "wp-scripts format"
+		"format": "wp-scripts format",
+		"prepare": "husky install"
+	},
+	"lint-staged": {
+		"*.{js,json,ts,tsx,yml,yaml}": [
+			"wp-scripts format"
+		],
+		"*.{js}": [
+			"wp-scripts lint-js"
+		],
+		"*.scss": [
+			"wp-scripts lint-style"
+		],
+		"*.md": [
+			"wp-scripts lint-md-docs"
+		],
+		"package.json": [
+			"wp-scripts lint-pkg-json"
+		]
 	}
 }
