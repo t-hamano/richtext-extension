@@ -51,7 +51,7 @@
 		"*.{js,json,ts,tsx,yml,yaml}": [
 			"wp-scripts format"
 		],
-		"*.{js}": [
+		"*.js": [
 			"wp-scripts lint-js"
 		],
 		"*.scss": [
