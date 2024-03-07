@@ -8,6 +8,8 @@
 namespace richtext_extension;
 
 class Options {
+	private $hook_suffix;
+
 	/**
 	 * Settable font size range
 	 */
@@ -29,7 +31,7 @@ class Options {
 	 * Add option page
 	 */
 	public function add_options_page() {
-		$this->hook = add_options_page(
+		$this->hook_suffix = add_options_page(
 			__( 'RichText Extension Setting', 'richtext-extension' ),
 			__( 'RichText Extension', 'richtext-extension' ),
 			'manage_options',
@@ -38,7 +40,7 @@ class Options {
 		);
 
 		//Load javascript to allow drag/drop, expand/collapse of metaboxes
-		add_action( 'load-' . $this->hook, array( $this, 'load_postbox' ) );
+		add_action( 'load-' . $this->hook_suffix, array( $this, 'load_postbox' ) );
 	}
 
 	/**
@@ -189,7 +191,7 @@ class Options {
 				'rtex-metabox-' . $meta_box['slug'],
 				$meta_box['label'],
 				array( $this, 'metabox_' . $meta_box['slug'] ),
-				$this->hook,
+				$this->hook_suffix,
 				'normal'
 			);
 		}
@@ -214,7 +216,7 @@ class Options {
 					<div id="poststuff">
 						<div id="post-body">
 							<div id="post-body-content">
-								<?php do_meta_boxes( $this->hook, 'normal', null ); ?>
+								<?php do_meta_boxes( $this->hook_suffix, 'normal', null ); ?>
 								<?php submit_button(); ?>
 							</div>
 						</div>
@@ -235,7 +237,7 @@ class Options {
 
 			// Meta box
 			$( '.if-js-closed' ).removeClass( 'if-js-closed' ).addClass( 'closed' );
-			postboxes.add_postbox_toggles( '<?php echo $this->hook; ?>' );
+			postboxes.add_postbox_toggles( '<?php echo $this->hook_suffix; ?>' );
 
 			// Colorpicker
 			$( '.rtex-colorpicker' ).wpColorPicker( {
