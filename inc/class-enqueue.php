@@ -92,7 +92,7 @@ class Enqueue {
 		// Generate highlighter style
 		for ( $i = 0; $i <= 3; $i++ ) {
 			if ( get_option( 'rtex_highlighter_active_' . $i, true ) ) {
-				$css_selector = ".rtex-highlighter-${i}, #rtex-highlighter-preview-${i}";
+				$css_selector = ".rtex-highlighter-{$i}, #rtex-highlighter-preview-{$i}";
 				$thickness    = get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
 				$color_hex    = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
 				$type         = get_option( 'rtex_highlighter_type_' . $i, Config::$highlighter[ $i ]['type'] );
@@ -107,7 +107,7 @@ class Enqueue {
 						$r     = hexdec( substr( $color_hex, 1, 2 ) );
 						$g     = hexdec( substr( $color_hex, 3, 2 ) );
 						$b     = hexdec( substr( $color_hex, 5, 2 ) );
-						$color = "rgba(${r}, ${g}, ${b}, ${opacity})";
+						$color = "rgba({$r}, {$g}, {$b}, {$opacity})";
 					}
 				}
 
@@ -117,12 +117,12 @@ class Enqueue {
 					if ( 0 === $thickness ) {
 						$background_value = $color;
 					} else {
-						$background_value = "linear-gradient(transparent ${thickness}%, ${color} ${thickness}%)";
+						$background_value = "linear-gradient(transparent {$thickness}%, {$color} {$thickness}%)";
 					}
 				} elseif ( 'stripe' === $type ) {
-					$background_value = "repeating-linear-gradient(-45deg, ${color} 0, ${color} 3px, transparent 3px, transparent 6px) no-repeat bottom/100% ${thickness}%";
+					$background_value = "repeating-linear-gradient(-45deg, {$color} 0, {$color} 3px, transparent 3px, transparent 6px) no-repeat bottom/100% {$thickness}%";
 				} elseif ( 'stripe-thin' === $type ) {
-					$background_value = "repeating-linear-gradient(-45deg, ${color} 0, ${color} 2px, transparent 2px, transparent 4px) no-repeat bottom/100% ${thickness}%";
+					$background_value = "repeating-linear-gradient(-45deg, {$color} 0, {$color} 2px, transparent 2px, transparent 4px) no-repeat bottom/100% {$thickness}%";
 				}
 
 				// Generate CSS
@@ -134,7 +134,7 @@ class Enqueue {
 		for ( $i = 0; $i <= 3; $i++ ) {
 			if ( get_option( 'rtex_font_size_active_' . $i, true ) ) {
 				$font_size = get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ) / 100;
-				$css      .= ".rtex-font-size-${i}, #rtex-font-size-preview-${i}{ font-size: ${font_size}em;}";
+				$css      .= ".rtex-font-size-{$i}, #rtex-font-size-preview-{$i}{ font-size: {$font_size}em;}";
 			}
 		}
 
