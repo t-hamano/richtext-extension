@@ -184,8 +184,8 @@ class Enqueue {
 			}
 		}
 
-		$config['underlineActive']   = get_option( 'rtex_underline_active', true );
-		$config['clearFormatActive'] = get_option( 'rtex_clear_format_active', true );
+		$config['underlineActive']   = (bool) get_option( 'rtex_underline_active', true );
+		$config['clearFormatActive'] = (bool) get_option( 'rtex_clear_format_active', true );
 
 		return $config;
 	}
