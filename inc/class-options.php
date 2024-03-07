@@ -269,7 +269,8 @@ class Options {
 			} );
 
 			// Update font size preview styles
-			$( '#rtex-metabox-font-size input' ).on( 'change', function () {
+			$( '#rtex-metabox-font_size input' ).on( 'change', function () {
+					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
 					previewFontSize( index );
 			} );
 
