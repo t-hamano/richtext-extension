@@ -5,6 +5,13 @@ module.exports = {
 		'react/jsx-boolean-value': 'error',
 		'import/no-unresolved': 'off',
 		'import/no-extraneous-dependencies': 'off',
+		'@wordpress/dependency-group': 'error',
+		'@wordpress/i18n-text-domain': [
+			'error',
+			{
+				allowedTextDomain: 'richtext-extension',
+			},
+		],
 		'prettier/prettier': [
 			'error',
 			{
