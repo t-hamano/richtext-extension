@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -60,7 +60,7 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 												<DropdownMenu
 													toggleProps={ {
 														...toggleProps,
-														className: classnames( toggleProps.className, {
+														className: clsx( toggleProps.className, {
 															'is-pressed': hasActive,
 														} ),
 													} }
