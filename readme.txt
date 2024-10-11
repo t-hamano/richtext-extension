@@ -3,8 +3,8 @@ Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 6.5
-Tested up to: 6.6
-Stable tag: 2.6.1
+Tested up to: 6.7
+Stable tag: 2.7.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,10 @@ Removes all formatting.
 5. Block Toolbar (Font Size)
 
 == Changelog ==
+
+= 2.7.0 =
+* Tested to WordPress 6.7
+* Drop support for WordPress 6.4
 
 = 2.6.1 =
 * Add missing changelog entry

@@ -1,6 +1,6 @@
 {
 	"name": "richtext-extension",
-	"version": "2.6.0",
+	"version": "2.7.0",
 	"description": "WordPress plugin to add useful decoration features to the Gutenberg RichText editor toolbar.",
 	"author": "Aki Hamano",
 	"license": "GPL-2.0-or-later",
