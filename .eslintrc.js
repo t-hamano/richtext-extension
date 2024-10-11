@@ -5,6 +5,7 @@ module.exports = {
 		'react/jsx-boolean-value': 'error',
 		'import/no-unresolved': 'off',
 		'import/no-extraneous-dependencies': 'off',
+		'react/jsx-curly-brace-presence': [ 'error', { props: 'never', children: 'never' } ],
 		'@wordpress/dependency-group': 'error',
 		'@wordpress/i18n-text-domain': [
 			'error',
