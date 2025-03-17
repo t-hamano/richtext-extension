@@ -1,7 +1,11 @@
 {
 	"plugins": [ "." ],
 	"env": {
+		"development": {
+			"phpmyadminPort": 9000
+		},
 		"tests": {
+			"phpmyadminPort": 9001,
 			"config": {
 				"WP_DEBUG": true,
 				"SCRIPT_DEBUG": true
