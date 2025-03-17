@@ -1,4 +1,4 @@
-@import "node_modules/@wordpress/base-styles/mixins";
+@import "~@wordpress/base-styles/mixins";
 @include wordpress-admin-schemes();
 
 $default-scheme-color: #007cba;
