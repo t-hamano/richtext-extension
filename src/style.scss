@@ -1,5 +1,5 @@
-@import "~@wordpress/base-styles/mixins";
-@include wordpress-admin-schemes();
+@use "./admin-schemes" as wp-admin-schemes;
+@include wp-admin-schemes.wordpress-admin-schemes();
 
 $default-scheme-color: #007cba;
 $border-color: #c3c4c7;
