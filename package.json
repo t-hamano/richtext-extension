@@ -16,8 +16,8 @@
 		"url": "https://github.com/t-hamano/richtext-extension/issues"
 	},
 	"engines": {
-		"node": ">=20.0.0",
-		"npm": ">=10.0.0"
+		"node": ">=22.16.0",
+		"npm": ">=10.9.2"
 	},
 	"volta": {
 		"node": "22.16.0",
