@@ -1,9 +1,14 @@
 {
 	"testsEnvironment": false,
+	"port": 8889,
 	"plugins": [
 		".",
 		"https://downloads.wordpress.org/plugin/wordpress-beta-tester.zip",
 		"https://downloads.wordpress.org/plugin/wp-downgrade.zip"
 	],
-	"phpmyadminPort": 9000
+	"phpmyadminPort": 9001,
+	"config": {
+		"WP_DEBUG": true,
+		"SCRIPT_DEBUG": true
+	}
 }
