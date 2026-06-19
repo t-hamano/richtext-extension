@@ -4,7 +4,7 @@
  * Description: Adds useful decoration features to the Gutenberg RichText editor toolbar.
  * Requires at least: 6.9
  * Requires PHP: 8.0
- * Version: 3.0.0
+ * Version: 3.0.1
  * Author: Aki Hamano
  * Author URI: https://github.com/t-hamano
  * License: GPL2 or later
