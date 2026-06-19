@@ -204,7 +204,7 @@ class Options {
 		self::create_meta_boxes();
 		?>
 		<div class="wrap">
-			<h1><?php _e( 'RichText Extension Setting', 'richtext-extension' ); ?></h1>
+			<h1><?php esc_html_e( 'RichText Extension Setting', 'richtext-extension' ); ?></h1>
 			<form method="post" action="options.php">
 				<?php
 					settings_fields( 'richtext-extension-group' );
@@ -367,20 +367,20 @@ class Options {
 
 		?>
 		<ul>
-			<li><?php _e( 'If the highlighter makes it hard to see the text, lower the opacity.', 'richtext-extension' ); ?></li>
-			<li><?php _e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
+			<li><?php esc_html_e( 'If the highlighter makes it hard to see the text, lower the opacity.', 'richtext-extension' ); ?></li>
+			<li><?php esc_html_e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
 		</ul>
 		<div class="rtex-table-wrap">
 			<table class="form-table rtex-table">
 				<thead>
 					<tr>
-						<th ><?php _e( 'Status', 'richtext-extension' ); ?></th>
-						<th><?php _e( 'Title', 'richtext-extension' ); ?></th>
-						<th><?php _e( 'Color', 'richtext-extension' ); ?></th>
-						<th><?php _e( 'Thickness', 'richtext-extension' ); ?></th>
-						<th><?php _e( 'Opacity', 'richtext-extension' ); ?></th>
-						<th><?php _e( 'Type', 'richtext-extension' ); ?></th>
-						<th><?php _e( 'Preview', 'richtext-extension' ); ?></th>
+						<th ><?php esc_html_e( 'Status', 'richtext-extension' ); ?></th>
+						<th><?php esc_html_e( 'Title', 'richtext-extension' ); ?></th>
+						<th><?php esc_html_e( 'Color', 'richtext-extension' ); ?></th>
+						<th><?php esc_html_e( 'Thickness', 'richtext-extension' ); ?></th>
+						<th><?php esc_html_e( 'Opacity', 'richtext-extension' ); ?></th>
+						<th><?php esc_html_e( 'Type', 'richtext-extension' ); ?></th>
+						<th><?php esc_html_e( 'Preview', 'richtext-extension' ); ?></th>
 					</tr>
 				</thead>
 				<tbody id="rtex-table-body-highlighter">
@@ -430,16 +430,16 @@ class Options {
 									<?php
 									foreach ( $highlighter_types as $highlighter_type ) {
 										if ( $type === $highlighter_type['value'] ) {
-											echo '<option selected="selected" value="' . esc_attr( $highlighter_type['value'] ) . '">' . $highlighter_type['label'] . '</option>';
+											echo '<option selected="selected" value="' . esc_attr( $highlighter_type['value'] ) . '">' . esc_html( $highlighter_type['label'] ) . '</option>';
 										} else {
-											echo '<option value="' . esc_attr( $highlighter_type['value'] ) . '">' . $highlighter_type['label'] . '</option>';
+											echo '<option value="' . esc_attr( $highlighter_type['value'] ) . '">' . esc_html( $highlighter_type['label'] ) . '</option>';
 										}
 									}
 									?>
 								</select>
 							</td>
 							<td>
-								<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php _e( 'Hello World !', 'richtext-extension' ); ?></span>
+								<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php esc_html_e( 'Hello World !', 'richtext-extension' ); ?></span>
 							</td>
 						</tr>
 					<?php endfor; ?>
@@ -461,17 +461,17 @@ class Options {
 		);
 		?>
 		<ul>
-			<li><?php _e( 'The size is specified as a percentage of the base font size.', 'richtext-extension' ); ?></li>
-			<li><?php _e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
+			<li><?php esc_html_e( 'The size is specified as a percentage of the base font size.', 'richtext-extension' ); ?></li>
+			<li><?php esc_html_e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
 		</ul>
 		<div class="rtex-table-wrap">
 			<table class="form-table rtex-table">
 				<thead>
 					<tr>
-						<th style="width: 10%;"><?php _e( 'Status', 'richtext-extension' ); ?></th>
-						<th style="width: 15%;"><?php _e( 'Title', 'richtext-extension' ); ?></th>
-						<th style="width: 20%;"><?php _e( 'Size', 'richtext-extension' ); ?></th>
-						<th style="width: 55%;"><?php _e( 'Preview', 'richtext-extension' ); ?></th>
+						<th style="width: 10%;"><?php esc_html_e( 'Status', 'richtext-extension' ); ?></th>
+						<th style="width: 15%;"><?php esc_html_e( 'Title', 'richtext-extension' ); ?></th>
+						<th style="width: 20%;"><?php esc_html_e( 'Size', 'richtext-extension' ); ?></th>
+						<th style="width: 55%;"><?php esc_html_e( 'Preview', 'richtext-extension' ); ?></th>
 					</tr>
 				</thead>
 				<tbody id="rtex-table-body-font-size">
@@ -502,7 +502,7 @@ class Options {
 								</div>
 							</td>
 							<td>
-								<?php _e( 'Hello World !', 'richtext-extension' ); ?><span id="rtex-font-size-preview-<?php echo $i; ?>"> <?php _e( 'Hello This World !', 'richtext-extension' ); ?></span> <?php _e( 'Hello World !', 'richtext-extension' ); ?>
+								<?php esc_html_e( 'Hello World !', 'richtext-extension' ); ?><span id="rtex-font-size-preview-<?php echo $i; ?>"> <?php esc_html_e( 'Hello This World !', 'richtext-extension' ); ?></span> <?php esc_html_e( 'Hello World !', 'richtext-extension' ); ?>
 							</td>
 						</tr>
 					<?php endfor; ?>
@@ -518,9 +518,9 @@ class Options {
 	public function metabox_underline() {
 		?>
 		<label>
-			<input class="rtex-ui-button" type="checkbox" name="rtex_underline_active" value="1" <?php checked( get_option( 'rtex_underline_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
+			<input class="rtex-ui-button" type="checkbox" name="rtex_underline_active" value="1" <?php checked( get_option( 'rtex_underline_active', true ) ); ?>><?php esc_html_e( 'Enable', 'richtext-extension' ); ?>
 		</label>
-		<p><strong><?php _e( 'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.', 'richtext-extension' ); ?></strong></p>
+		<p><strong><?php esc_html_e( 'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.', 'richtext-extension' ); ?></strong></p>
 		<?php
 	}
 
@@ -530,7 +530,7 @@ class Options {
 	public function metabox_clear_format() {
 		?>
 		<label>
-			<input class="rtex-ui-button" type="checkbox" name="rtex_clear_format_active" value="1" <?php checked( get_option( 'rtex_clear_format_active', true ) ); ?>><?php _e( 'Enable', 'richtext-extension' ); ?>
+			<input class="rtex-ui-button" type="checkbox" name="rtex_clear_format_active" value="1" <?php checked( get_option( 'rtex_clear_format_active', true ) ); ?>><?php esc_html_e( 'Enable', 'richtext-extension' ); ?>
 		</label>
 		<?php
 	}
