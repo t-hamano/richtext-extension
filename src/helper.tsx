@@ -31,7 +31,6 @@ export const getRichTextSetting = (
 			<DropdownControls>
 				<ToolbarButton
 					icon={ icon }
-					// The bundled type only allows a string, but a styled label node is intended here.
 					title={ ( <span className={ className }>{ title }</span> ) as unknown as string }
 					onClick={ () => {
 						onChange(
