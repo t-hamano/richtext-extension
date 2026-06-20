@@ -3,11 +3,6 @@
  */
 import type { registerFormatType, RichTextValue } from '@wordpress/rich-text';
 
-export type FormatConfig = {
-	title: string;
-	className: string;
-};
-
 export type FormatEditProps = {
 	isActive: boolean;
 	value: RichTextValue;

@@ -1,17 +1,9 @@
-/**
- * Internal dependencies
- */
-import type { FormatConfig } from './types';
-
-interface RtexConf {
-	highlighter: FormatConfig[];
-	fontSize: FormatConfig[];
+// Global variables output by wp_localize_script
+declare const rtexConf: {
+	highlighter: { title: string; className: string }[];
+	fontSize: { title: string; className: string }[];
 	underlineActive: boolean;
 	clearFormatActive: boolean;
-}
-
-declare global {
-	const rtexConf: RtexConf;
-}
+};
 
 declare module '*.scss';
