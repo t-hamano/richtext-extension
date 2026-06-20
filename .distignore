@@ -22,3 +22,4 @@ package-lock.json
 package.json
 phpcs.ruleset.xml
 README.md
+tsconfig.json

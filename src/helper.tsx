@@ -2,6 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
+import type { ComponentProps, ReactNode } from 'react';
 
 /**
  * WordPress dependencies
@@ -10,18 +11,28 @@ import { toggleFormat } from '@wordpress/rich-text';
 import { ToolbarButton, ToolbarItem, DropdownMenu, createSlotFill } from '@wordpress/components';
 import { BlockFormatControls } from '@wordpress/block-editor';
 
-export const getRichTextSetting = ( { label, icon, title, className, slotFillName }, index ) => {
+/**
+ * Internal dependencies
+ */
+import type { FormatEditProps, FormatTypeSettings, RichTextSettingArgs } from './types';
+
+type Fill = { props: { isActive?: boolean; [ key: string ]: unknown } };
+
+export const getRichTextSetting = (
+	{ label, icon, title, className, slotFillName }: RichTextSettingArgs,
+	index: number
+): [ string, FormatTypeSettings ] => {
 	const { Fill, Slot } = createSlotFill( slotFillName );
-	const DropdownControls = Fill;
-	DropdownControls.Slot = Slot;
+	const DropdownControls = Object.assign( Fill, { Slot } );
 
 	const formatName = 'rtex/' + className;
-	const component = ( { value, onChange, isActive } ) => {
+	const component = ( { value, onChange, isActive }: FormatEditProps ) => {
 		return (
 			<DropdownControls>
 				<ToolbarButton
 					icon={ icon }
-					title={ <span className={ className }>{ title }</span> }
+					// The bundled type only allows a string, but a styled label node is intended here.
+					title={ ( <span className={ className }>{ title }</span> ) as unknown as string }
 					onClick={ () => {
 						onChange(
 							toggleFormat( value, {
@@ -39,19 +50,20 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 		title,
 		tagName: 'span',
 		className,
-		edit: ( args ) => {
+		edit: ( args: FormatEditProps ) => {
 			if ( ! index ) {
 				return (
 					<>
 						{ component( args ) }
 						<BlockFormatControls>
 							<DropdownControls.Slot>
-								{ ( fills ) => {
-									if ( ! fills.length ) {
+								{ ( fills: ReactNode ) => {
+									const fillList = ( fills ?? [] ) as Fill[][];
+									if ( ! fillList.length ) {
 										return null;
 									}
 
-									const allProps = fills.map( ( [ { props } ] ) => props );
+									const allProps = fillList.map( ( [ { props } ] ) => props );
 									const hasActive = allProps.some( ( { isActive } ) => isActive );
 
 									return (
@@ -69,7 +81,9 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 													} }
 													icon={ icon }
 													label={ label }
-													controls={ allProps }
+													controls={
+														allProps as ComponentProps< typeof DropdownMenu >[ 'controls' ]
+													}
 												/>
 											) }
 										</ToolbarItem>
@@ -83,5 +97,5 @@ export const getRichTextSetting = ( { label, icon, title, className, slotFillNam
 			return component( args );
 		},
 	};
-	return [ formatName, setting ];
+	return [ formatName, setting as unknown as FormatTypeSettings ];
 };

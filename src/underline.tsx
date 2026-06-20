@@ -7,6 +7,11 @@ import { registerFormatType, unregisterFormatType, toggleFormat } from '@wordpre
 import { formatUnderline } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
+/**
+ * Internal dependencies
+ */
+import type { FormatEditProps, FormatTypeSettings } from './types';
+
 const formatName = 'rtex/rtex-underline';
 const title = __( 'Underline', 'richtext-extension' );
 
@@ -21,7 +26,7 @@ domReady( () => {
 			title: deprecatedTitle,
 			tagName: 'u',
 			className: null,
-		} );
+		} as unknown as FormatTypeSettings );
 
 		registerFormatType( formatName, {
 			title,
@@ -30,7 +35,7 @@ domReady( () => {
 			attributes: {
 				style: 'style',
 			},
-			edit( { isActive, value, onChange } ) {
+			edit( { isActive, value, onChange }: FormatEditProps ) {
 				const onToggle = () =>
 					onChange(
 						toggleFormat( value, {
@@ -39,7 +44,7 @@ domReady( () => {
 								style: 'text-decoration: underline;',
 							},
 							title,
-						} )
+						} as Parameters< typeof toggleFormat >[ 1 ] )
 					);
 				return (
 					<>
@@ -53,6 +58,6 @@ domReady( () => {
 					</>
 				);
 			},
-		} );
+		} as unknown as FormatTypeSettings );
 	}
 } );
