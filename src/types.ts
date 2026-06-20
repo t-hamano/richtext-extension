@@ -17,11 +17,6 @@ export type RichTextSettingArgs = {
 	slotFillName: string;
 };
 
-/**
- * Settings passed to `registerFormatType`. This describes the runtime API actually
- * used by this plugin rather than the bundled `WPFormat` type, which marks
- * `interactive`, `object` and `name` as required and omits `attributes`.
- */
 export type FormatTypeSettings = {
 	title: string;
 	tagName: string;
