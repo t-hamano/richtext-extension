@@ -45,7 +45,7 @@ export const getRichTextSetting = (
 		);
 	};
 
-	const setting = {
+	const setting: FormatTypeSettings = {
 		title,
 		tagName: 'span',
 		className,
@@ -96,5 +96,5 @@ export const getRichTextSetting = (
 			return component( args );
 		},
 	};
-	return [ formatName, setting as unknown as FormatTypeSettings ];
+	return [ formatName, setting ];
 };

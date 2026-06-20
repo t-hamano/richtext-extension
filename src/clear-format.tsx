@@ -3,14 +3,15 @@
  */
 import { select } from '@wordpress/data';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { registerFormatType, removeFormat } from '@wordpress/rich-text';
+import { removeFormat } from '@wordpress/rich-text';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { editorRemoveformatting } from './icons';
-import type { FormatEditProps, FormatTypeSettings } from './types';
+import { registerFormatType } from './register-format-type';
+import type { FormatEditProps } from './types';
 
 const formatName = 'rtex/rtex-clear-format';
 const title = __( 'Clear format', 'richtext-extension' );
@@ -42,5 +43,5 @@ if ( rtexConf.clearFormatActive ) {
 				/>
 			);
 		},
-	} as unknown as FormatTypeSettings );
+	} );
 }

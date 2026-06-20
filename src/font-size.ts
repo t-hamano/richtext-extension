@@ -1,7 +1,6 @@
 /**
  * WordPress dependencies
  */
-import { registerFormatType } from '@wordpress/rich-text';
 import { __ } from '@wordpress/i18n';
 import { textColor as icon } from '@wordpress/icons';
 
@@ -9,6 +8,7 @@ import { textColor as icon } from '@wordpress/icons';
  * Internal dependencies
  */
 import { getRichTextSetting } from './helper';
+import { registerFormatType } from './register-format-type';
 
 const label = __( 'Font size', 'richtext-extension' );
 const slotFillName = 'FontSizeDropdownControls';

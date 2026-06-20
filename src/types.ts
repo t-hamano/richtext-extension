@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import type { registerFormatType, RichTextValue } from '@wordpress/rich-text';
+import type { RichTextValue } from '@wordpress/rich-text';
 
 export type FormatEditProps = {
 	isActive: boolean;
@@ -18,8 +18,14 @@ export type RichTextSettingArgs = {
 };
 
 /**
- * The bundled `WPFormat` type marks `interactive`, `object` and `name` as
- * required and omits `attributes`, none of which matches the runtime API of
- * `registerFormatType`, so settings are cast to this type when registering.
+ * Settings passed to `registerFormatType`. This describes the runtime API actually
+ * used by this plugin rather than the bundled `WPFormat` type, which marks
+ * `interactive`, `object` and `name` as required and omits `attributes`.
  */
-export type FormatTypeSettings = Parameters< typeof registerFormatType >[ 1 ];
+export type FormatTypeSettings = {
+	title: string;
+	tagName: string;
+	className: string | null;
+	attributes?: Record< string, string >;
+	edit?: ( props: FormatEditProps ) => JSX.Element;
+};
