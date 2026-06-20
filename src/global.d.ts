@@ -13,3 +13,5 @@ interface RtexConf {
 declare global {
 	const rtexConf: RtexConf;
 }
+
+declare module '*.scss';
