@@ -19,6 +19,14 @@
 		"node": ">=24.0.0",
 		"npm": ">=11.0.0"
 	},
+	"files": [
+		"inc",
+		"src",
+		"build",
+		"richtext-extension.php",
+		"uninstall.php",
+		"readme.txt"
+	],
 	"devDependencies": {
 		"@wordpress/base-styles": "10.0.1",
 		"@wordpress/env": "^11.8.1",
@@ -35,6 +43,7 @@
 		"stop": "wp-env stop",
 		"start": "wp-scripts start",
 		"build": "wp-scripts build",
+		"plugin-zip": "npm run build && wp-scripts plugin-zip",
 		"check-licenses": "wp-scripts check-licenses",
 		"lint": "npm run lint:css && npm run lint:js && npm run lint:php && npm run lint:md-docs && npm run lint:pkg-json",
 		"lint:css": "wp-scripts lint-style",
