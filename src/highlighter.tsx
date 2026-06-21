@@ -46,11 +46,17 @@ rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 								<MenuGroup>
 									{ rtexConf.highlighter.map( ( item ) => {
 										const formatName = 'rtex/' + item.className;
+										const isSelected = !! getActiveFormat( value, formatName );
 										return (
 											<MenuItem
 												key={ item.className }
-												role="menuitemcheckbox"
-												isSelected={ !! getActiveFormat( value, formatName ) }
+												icon={ icon }
+												iconPosition="left"
+												className={ clsx( 'components-dropdown-menu__menu-item', {
+													'is-active': isSelected,
+												} ) }
+												role="menuitemradio"
+												isSelected={ isSelected }
 												onClick={ () => {
 													onClose();
 													onChange( toggleFormat( value, { type: formatName } ) );
