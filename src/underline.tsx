@@ -3,9 +3,15 @@
  */
 import domReady from '@wordpress/dom-ready';
 import { RichTextShortcut, RichTextToolbarButton } from '@wordpress/block-editor';
-import { registerFormatType, unregisterFormatType, toggleFormat } from '@wordpress/rich-text';
+import { unregisterFormatType, toggleFormat } from '@wordpress/rich-text';
 import { formatUnderline } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import { registerFormatType } from './register-format-type';
+import type { FormatEditProps } from './types';
 
 const formatName = 'rtex/rtex-underline';
 const title = __( 'Underline', 'richtext-extension' );
@@ -30,7 +36,7 @@ domReady( () => {
 			attributes: {
 				style: 'style',
 			},
-			edit( { isActive, value, onChange } ) {
+			edit( { isActive, value, onChange }: FormatEditProps ) {
 				const onToggle = () =>
 					onChange(
 						toggleFormat( value, {
@@ -39,7 +45,7 @@ domReady( () => {
 								style: 'text-decoration: underline;',
 							},
 							title,
-						} )
+						} as Parameters< typeof toggleFormat >[ 1 ] )
 					);
 				return (
 					<>
