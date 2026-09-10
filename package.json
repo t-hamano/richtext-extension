@@ -35,7 +35,7 @@
 		"@wordpress/data": "10.51.0",
 		"@wordpress/dom-ready": "4.51.0",
 		"@wordpress/element": "8.3.0",
-		"@wordpress/env": "^11.11.0",
+		"@wordpress/env": "^11.15.0",
 		"@wordpress/i18n": "6.24.0",
 		"@wordpress/icons": "^15.2.0",
 		"@wordpress/rich-text": "7.51.0",
