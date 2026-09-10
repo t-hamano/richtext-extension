@@ -1,4 +1,4 @@
-name: Test and Deploy
+name: Deploy
 
 on:
   push:
@@ -7,30 +7,7 @@ on:
 
 jobs:
   test:
-    name: Lint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use desired version of Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Npm install and build
-        run: |
-          npm ci
-          npm run build
-
-      - name: Composer install and set phpcs
-        run: |
-          composer install
-          composer phpcs
-
-      - name: Running lint check
-        run: npm run lint
+    uses: ./.github/workflows/test.yml
 
   deploy:
     name: Deploy to WP.org
