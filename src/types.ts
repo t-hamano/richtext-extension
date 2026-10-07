@@ -14,5 +14,5 @@ export type FormatTypeSettings = {
 	tagName: string;
 	className: string | null;
 	attributes?: Record< string, string >;
-	edit?: ( props: FormatEditProps ) => JSX.Element;
+	edit?: ( props: FormatEditProps ) => React.JSX.Element;
 };
