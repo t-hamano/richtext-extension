@@ -44,10 +44,7 @@ class Enqueue {
 		wp_register_style( RTEX_NAMESPACE, false );
 		wp_enqueue_style( RTEX_NAMESPACE );
 
-		$inline_css  = $this->get_inline_css();
-		$inline_css .= '.rtex-dropdown-popover .components-dropdown-menu__menu-item{justify-content:left;height:auto;}';
-		$inline_css .= '.rtex-dropdown-popover .components-dropdown-menu__menu-item svg{margin-right:8px;}';
-
+		$inline_css = $this->get_inline_css();
 		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
 
 		$asset = include RTEX_PATH . '/build/index.asset.php';

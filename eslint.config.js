@@ -20,6 +20,7 @@ module.exports = [
 			'import/no-extraneous-dependencies': 'off',
 			'react/jsx-curly-brace-presence': [ 'error', { props: 'never', children: 'never' } ],
 			'@wordpress/dependency-group': 'error',
+			'@wordpress/use-recommended-components': [ 'error', { allowUseWithCaution: true } ],
 			'@wordpress/i18n-text-domain': [
 				'error',
 				{
