@@ -10,7 +10,7 @@ import { getActiveFormat, toggleFormat } from '@wordpress/rich-text';
 import { ToolbarDropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { BlockFormatControls } from '@wordpress/block-editor';
 import { __, sprintf } from '@wordpress/i18n';
-import { textColor as icon } from '@wordpress/icons';
+import { check, textColor as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -48,9 +48,8 @@ rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 										return (
 											<MenuItem
 												key={ item.className }
-												className={ clsx( 'components-dropdown-menu__menu-item', {
-													'is-active': isSelected,
-												} ) }
+												icon={ isSelected ? check : null }
+												className="components-dropdown-menu__menu-item"
 												role="menuitemradio"
 												isSelected={ isSelected }
 												onClick={ () => {
