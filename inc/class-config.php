@@ -53,22 +53,22 @@ class Config {
 				array(
 					'active' => true,
 					'title'  => __( 'Extra small', 'richtext-extension' ),
-					'size'   => 80,
+					'size'   => '0.8em',
 				),
 				array(
 					'active' => true,
 					'title'  => __( 'Small', 'richtext-extension' ),
-					'size'   => 90,
+					'size'   => '0.9em',
 				),
 				array(
 					'active' => true,
 					'title'  => __( 'Large', 'richtext-extension' ),
-					'size'   => 130,
+					'size'   => '1.3em',
 				),
 				array(
 					'active' => true,
 					'title'  => __( 'Extra large', 'richtext-extension' ),
-					'size'   => 160,
+					'size'   => '1.6em',
 				),
 			),
 			'underline_active'    => true,

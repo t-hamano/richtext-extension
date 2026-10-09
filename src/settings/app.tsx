@@ -108,7 +108,7 @@ export default function App() {
 					<ul className="rtex-settings-notes">
 						<li>
 							{ __(
-								'The size is specified as a percentage of the base font size.',
+								'Sizes in em are relative to the surrounding text, sizes in rem are relative to the root font size of the page, and sizes in px are fixed.',
 								'richtext-extension'
 							) }
 						</li>

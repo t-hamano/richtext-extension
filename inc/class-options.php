@@ -19,10 +19,13 @@ class Options {
 	const VERSION_OPTION_NAME = 'rtex_version';
 
 	/**
-	 * Settable font size range
+	 * Settable font size range per unit
 	 */
-	const MIN_FONT_SIZE = 80;
-	const MAX_FONT_SIZE = 300;
+	const FONT_SIZE_RANGES = array(
+		'em'  => array( 0.8, 6 ),
+		'rem' => array( 0.8, 6 ),
+		'px'  => array( 10, 72 ),
+	);
 
 	/**
 	 * Allowed highlighter types
@@ -154,9 +157,8 @@ class Options {
 								'type' => 'string',
 							),
 							'size'   => array(
-								'type'    => 'integer',
-								'minimum' => self::MIN_FONT_SIZE,
-								'maximum' => self::MAX_FONT_SIZE,
+								'type'    => 'string',
+								'pattern' => self::get_font_size_pattern(),
 							),
 						),
 					),
@@ -212,7 +214,7 @@ class Options {
 			$settings['font_size'][ $i ] = array(
 				'active' => rest_sanitize_boolean( $item['active'] ),
 				'title'  => sanitize_text_field( $item['title'] ),
-				'size'   => self::sanitize_range( $item['size'], self::MIN_FONT_SIZE, self::MAX_FONT_SIZE ),
+				'size'   => self::sanitize_font_size( $item['size'], $default_item['size'] ),
 			);
 		}
 
@@ -238,6 +240,33 @@ class Options {
 	private static function get_item( $value, $key, $index, $default_item ) {
 		$item = $value[ $key ][ $index ] ?? array();
 		return is_array( $item ) ? array_merge( $default_item, array_intersect_key( $item, $default_item ) ) : $default_item;
+	}
+
+	/**
+	 * Get the regular expression pattern of a font size, e.g. `1.3em`
+	 *
+	 * @return string
+	 */
+	private static function get_font_size_pattern() {
+		return '^(\\d+(?:\\.\\d+)?)(' . implode( '|', array_keys( self::FONT_SIZE_RANGES ) ) . ')$';
+	}
+
+	/**
+	 * Sanitizer (Font size)
+	 *
+	 * @param mixed  $value         input value.
+	 * @param string $default_value default value.
+	 *
+	 * @return string
+	 */
+	private static function sanitize_font_size( $value, $default_value ) {
+		if ( ! is_string( $value ) || ! preg_match( '/' . self::get_font_size_pattern() . '/', $value, $matches ) ) {
+			return $default_value;
+		}
+
+		list( $min, $max ) = self::FONT_SIZE_RANGES[ $matches[2] ];
+
+		return round( min( max( (float) $matches[1], $min ), $max ), 2 ) . $matches[2];
 	}
 
 	/**
@@ -321,6 +350,13 @@ class Options {
 		foreach ( $settings['highlighter'] as $i => $highlighter ) {
 			if ( ! preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $highlighter['color'] ) ) {
 				$settings['highlighter'][ $i ]['opacity'] = 0;
+			}
+		}
+
+		// Up to version 3.1.0, font sizes were stored as a percentage of the base font size.
+		foreach ( $settings['font_size'] as $i => $font_size ) {
+			if ( in_array( "rtex_font_size_size_{$i}", $legacy_option_names, true ) ) {
+				$settings['font_size'][ $i ]['size'] = ( (float) $font_size['size'] / 100 ) . 'em';
 			}
 		}
 

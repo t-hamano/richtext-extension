@@ -33,6 +33,23 @@
 	}
 }
 
+.rtex-settings-unit-control {
+	flex-shrink: 0;
+	width: 120px;
+}
+
+.rtex-settings-size-range {
+	flex: 1;
+}
+
+.rtex-settings-font-size-preview {
+	line-height: var(--wpds-typography-line-height-xs);
+
+	> span {
+		line-height: 1;
+	}
+}
+
 .rtex-settings-color-toggle {
 	width: var(--wpds-dimension-size-md);
 	padding: 0;
