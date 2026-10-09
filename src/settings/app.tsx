@@ -2,8 +2,8 @@
  * WordPress dependencies
  */
 import { Button } from '@wordpress/components';
-import { useEntityRecord } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
+import { store as coreStore, useEntityRecord } from '@wordpress/core-data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { SnackbarNotices, store as noticesStore } from '@wordpress/notices';
@@ -25,6 +25,7 @@ export default function App() {
 	);
 	const [ isSaving, setIsSaving ] = useState( false );
 	const { createSuccessNotice, createErrorNotice } = useDispatch( noticesStore );
+	const { getEditedEntityRecord } = useSelect( coreStore );
 
 	const settings = editedRecord?.rtex_settings;
 
@@ -32,25 +33,31 @@ export default function App() {
 		return <Spinner />;
 	}
 
-	// The whole object is sent on save, so always edit it as a whole.
-	const updateSettings = ( changes: Partial< Settings > ) => {
-		edit( { rtex_settings: { ...settings, ...changes } } );
+	// The whole object is sent on save, so always edit it as a whole. Read the latest
+	// edited settings, as some controls propagate their changes with a delay.
+	const updateSettings = ( getChanges: ( current: Settings ) => Partial< Settings > ) => {
+		const { rtex_settings: current } = getEditedEntityRecord(
+			'root',
+			'site',
+			undefined as unknown as string
+		) as unknown as SiteSettings;
+		edit( { rtex_settings: { ...current, ...getChanges( current ) } } );
 	};
 
 	const updateHighlighter = ( index: number, changes: Partial< HighlighterSetting > ) => {
-		updateSettings( {
-			highlighter: settings.highlighter.map( ( item, i ) =>
+		updateSettings( ( current ) => ( {
+			highlighter: current.highlighter.map( ( item, i ) =>
 				i === index ? { ...item, ...changes } : item
 			),
-		} );
+		} ) );
 	};
 
 	const updateFontSize = ( index: number, changes: Partial< FontSizeSetting > ) => {
-		updateSettings( {
-			font_size: settings.font_size.map( ( item, i ) =>
+		updateSettings( ( current ) => ( {
+			font_size: current.font_size.map( ( item, i ) =>
 				i === index ? { ...item, ...changes } : item
 			),
-		} );
+		} ) );
 	};
 
 	const onSave = async () => {
@@ -123,7 +130,9 @@ export default function App() {
 					<CheckboxControl
 						label={ __( 'Enable', 'richtext-extension' ) }
 						checked={ settings.underline_active }
-						onCheckedChange={ ( checked ) => updateSettings( { underline_active: checked } ) }
+						onCheckedChange={ ( checked ) =>
+							updateSettings( () => ( { underline_active: checked } ) )
+						}
 					/>
 					<p>
 						<strong>
@@ -143,7 +152,9 @@ export default function App() {
 					<CheckboxControl
 						label={ __( 'Enable', 'richtext-extension' ) }
 						checked={ settings.clear_format_active }
-						onCheckedChange={ ( checked ) => updateSettings( { clear_format_active: checked } ) }
+						onCheckedChange={ ( checked ) =>
+							updateSettings( () => ( { clear_format_active: checked } ) )
+						}
 					/>
 				</Card.Content>
 			</Card.Root>
