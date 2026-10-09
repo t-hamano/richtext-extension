@@ -47,6 +47,7 @@
 .rtex-settings-snackbar {
 
 	@include mixins.snackbar-container();
+	width: auto;
 }
 
 @include mixins.editor-left(".rtex-settings-snackbar");
