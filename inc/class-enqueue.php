@@ -67,7 +67,7 @@ class Enqueue {
 		}
 
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/style-index.css', array(), RTEX_VERSION );
+		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/style-index.css', array( 'wp-theme' ), RTEX_VERSION );
 		wp_enqueue_script( 'wp-color-picker' );
 	}
 

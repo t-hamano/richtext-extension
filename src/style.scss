@@ -2,9 +2,6 @@
 @include mixins.wordpress-admin-schemes();
 
 $default-scheme-color: #007cba;
-$border-color: #c3c4c7;
-$input-border-color: #8c8f94;
-$background-color: #f9f9f9;
 
 .rtex-wrapper #poststuff {
 
@@ -13,12 +10,12 @@ $background-color: #f9f9f9;
 	}
 
 	ul {
-		margin: 0 0 16px 1.5em;
+		margin: 0 0 var(--wpds-dimension-gap-lg) 1.5em;
 		list-style: outside disc;
 	}
 
 	.inside {
-		padding: 16px;
+		padding: var(--wpds-dimension-padding-lg);
 		margin: 0;
 
 		> *:last-child {
@@ -32,11 +29,11 @@ $background-color: #f9f9f9;
 	th,
 	td {
 		padding: 0.5em 1em;
-		border: 1px solid $border-color;
+		border: 1px solid var(--wpds-color-stroke-surface-neutral);
 	}
 
 	th {
-		background: $background-color;
+		background: var(--wpds-color-background-surface-neutral);
 	}
 
 	[type="text"] {
@@ -48,7 +45,7 @@ $background-color: #f9f9f9;
 
 		.wp-picker-input-wrap:not(.hidden) {
 			display: flex;
-			margin-top: 8px;
+			margin-top: var(--wpds-dimension-gap-sm);
 		}
 
 		.wp-picker-holder {
@@ -72,7 +69,7 @@ $background-color: #f9f9f9;
 	[type="range"] {
 		flex: 1;
 		height: 2px;
-		background-color: $border-color;
+		background-color: var(--wpds-color-stroke-surface-neutral);
 		-webkit-appearance: none;
 		appearance: none;
 
@@ -96,8 +93,8 @@ $background-color: #f9f9f9;
 
 	display: flex;
 	overflow: hidden;
-	border: $input-border-color solid 1px;
-	border-radius: 4px;
+	border: var(--wpds-color-stroke-interactive-neutral) solid 1px;
+	border-radius: var(--wpds-border-radius-md);
 
 	input {
 		max-width: 100%;
@@ -112,9 +109,9 @@ $background-color: #f9f9f9;
 		+ span {
 			display: flex;
 			align-items: center;
-			padding: 0 8px;
-			background: $background-color;
-			border-left: $border-color solid 1px;
+			padding: 0 var(--wpds-dimension-padding-sm);
+			background: var(--wpds-color-background-surface-neutral);
+			border-left: var(--wpds-color-stroke-surface-neutral) solid 1px;
 		}
 	}
 }
@@ -156,23 +153,23 @@ $background-color: #f9f9f9;
 .rtex-switch-track {
 	box-sizing: border-box;
 	display: block;
-	width: 40px;
-	height: 20px;
-	border: 1px solid;
+	width: var(--wpds-dimension-size-lg);
+	height: var(--wpds-dimension-size-xs);
+	border: var(--wpds-border-width-xs) solid;
 	border-radius: 12px;
-	transition: background-color 0.3s ease, border-color 0.3s ease;
+	transition: background-color var(--wpds-motion-duration-lg) ease, border-color var(--wpds-motion-duration-lg) ease;
 }
 
 .rtex-switch-thumb {
 	position: absolute;
 	top: 50%;
-	left: 4px;
+	left: var(--wpds-dimension-padding-xs);
 	width: 14px;
 	height: 14px;
 	margin-top: -7px;
 	background-color: currentcolor;
 	border-radius: 50%;
-	transition: 0.3s ease;
+	transition: var(--wpds-motion-duration-lg) ease;
 }
 
 @media screen and (max-width: 960px) {
