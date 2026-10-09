@@ -10,7 +10,7 @@ $default-scheme-color: #007cba;
 	}
 
 	ul {
-		margin: 0 0 var(--wpds-dimension-gap-lg) 1.5em;
+		margin: 0 0 var(--wpds-dimension-gap-lg) var(--wpds-dimension-padding-xl);
 		list-style: outside disc;
 	}
 
