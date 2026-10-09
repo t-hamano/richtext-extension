@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { getActiveFormat, toggleFormat } from '@wordpress/rich-text';
+import { getActiveFormat } from '@wordpress/rich-text';
 import { ToolbarDropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { BlockFormatControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
@@ -16,8 +16,11 @@ import { check } from '@wordpress/icons';
  * Internal dependencies
  */
 import { registerFormatType } from './register-format-type';
+import { toggleExclusiveFormat } from './toggle-exclusive-format';
 import { adminAppearance as icon } from './icons';
 import type { FormatEditProps } from './types';
+
+const formatNames = rtexConf.highlighter.map( ( { className } ) => 'rtex/' + className );
 
 rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 	registerFormatType( 'rtex/' + className, {
@@ -26,9 +29,7 @@ rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 		className,
 		...( index === 0 && {
 			edit: ( { value, onChange }: FormatEditProps ) => {
-				const hasActive = rtexConf.highlighter.some(
-					( item ) => !! getActiveFormat( value, 'rtex/' + item.className )
-				);
+				const hasActive = formatNames.some( ( name ) => !! getActiveFormat( value, name ) );
 				return (
 					<BlockFormatControls>
 						<ToolbarDropdownMenu
@@ -55,7 +56,7 @@ rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 												isSelected={ isSelected }
 												onClick={ () => {
 													onClose();
-													onChange( toggleFormat( value, { type: formatName } ) );
+													onChange( toggleExclusiveFormat( value, formatName, formatNames ) );
 												} }
 											>
 												<span className={ item.className }>{ item.title }</span>
