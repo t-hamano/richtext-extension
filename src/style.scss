@@ -171,3 +171,19 @@ $default-scheme-color: #007cba;
 	border-radius: 50%;
 	transition: var(--wpds-motion-duration-lg) ease;
 }
+
+@media screen and (max-width: 960px) {
+
+	.rtex-table-wrap {
+		overflow-x: scroll;
+	}
+
+	.rtex-table {
+		min-width: 1200px;
+
+		th,
+		td {
+			display: table-cell;
+		}
+	}
+}
