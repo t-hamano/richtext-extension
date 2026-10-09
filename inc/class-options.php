@@ -311,6 +311,14 @@ class Options {
 			$settings[ $key ] = $get_legacy_option( "rtex_{$key}", $settings[ $key ] );
 		}
 
+		// Up to version 3.1.0, a color other than a 6-digit hex code (e.g. an empty value) made the highlighter
+		// transparent. Such a color is replaced with the default color, so keep it transparent with the opacity.
+		foreach ( $settings['highlighter'] as $i => $highlighter ) {
+			if ( ! preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $highlighter['color'] ) ) {
+				$settings['highlighter'][ $i ]['opacity'] = 0;
+			}
+		}
+
 		if ( empty( $legacy_option_names ) ) {
 			return;
 		}
