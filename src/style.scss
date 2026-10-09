@@ -28,7 +28,7 @@ $default-scheme-color: #007cba;
 
 	th,
 	td {
-		padding: 0.5em 1em;
+		padding: var(--wpds-dimension-padding-sm) var(--wpds-dimension-padding-md);
 		border: 1px solid var(--wpds-color-stroke-surface-neutral);
 	}
 
@@ -170,20 +170,4 @@ $default-scheme-color: #007cba;
 	background-color: currentcolor;
 	border-radius: 50%;
 	transition: var(--wpds-motion-duration-lg) ease;
-}
-
-@media screen and (max-width: 960px) {
-
-	.rtex-table-wrap {
-		overflow-x: scroll;
-	}
-
-	.rtex-table {
-		min-width: 1200px;
-
-		th,
-		td {
-			display: table-cell;
-		}
-	}
 }
