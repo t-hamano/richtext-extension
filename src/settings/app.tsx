@@ -7,7 +7,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { SnackbarNotices, store as noticesStore } from '@wordpress/notices';
-import { Card, CheckboxControl, CollapsibleCard, Spinner, Stack } from '@wordpress/ui';
+import { Card, CollapsibleCard, Spinner, Stack, SwitchControl } from '@wordpress/ui';
 
 /**
  * Internal dependencies
@@ -124,34 +124,29 @@ export default function App() {
 			</CollapsibleCard.Root>
 			<CollapsibleCard.Root defaultOpen>
 				<CollapsibleCard.Header>
-					<Card.Title render={ <h2 /> }>{ __( 'Underline', 'richtext-extension' ) }</Card.Title>
+					<Card.Title render={ <h2 /> }>{ __( 'Other formats', 'richtext-extension' ) }</Card.Title>
 				</CollapsibleCard.Header>
 				<CollapsibleCard.Content>
-					<CheckboxControl
-						label={ __( 'Enable', 'richtext-extension' ) }
-						description={ __(
-							'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.',
-							'richtext-extension'
-						) }
-						checked={ settings.underline_active }
-						onCheckedChange={ ( checked ) =>
-							updateSettings( () => ( { underline_active: checked } ) )
-						}
-					/>
-				</CollapsibleCard.Content>
-			</CollapsibleCard.Root>
-			<CollapsibleCard.Root defaultOpen>
-				<CollapsibleCard.Header>
-					<Card.Title render={ <h2 /> }>{ __( 'Clear format', 'richtext-extension' ) }</Card.Title>
-				</CollapsibleCard.Header>
-				<CollapsibleCard.Content>
-					<CheckboxControl
-						label={ __( 'Enable', 'richtext-extension' ) }
-						checked={ settings.clear_format_active }
-						onCheckedChange={ ( checked ) =>
-							updateSettings( () => ( { clear_format_active: checked } ) )
-						}
-					/>
+					<Stack direction="column" gap="lg">
+						<SwitchControl
+							label={ __( 'Underline', 'richtext-extension' ) }
+							description={ __(
+								'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.',
+								'richtext-extension'
+							) }
+							checked={ settings.underline_active }
+							onCheckedChange={ ( checked ) =>
+								updateSettings( () => ( { underline_active: checked } ) )
+							}
+						/>
+						<SwitchControl
+							label={ __( 'Clear format', 'richtext-extension' ) }
+							checked={ settings.clear_format_active }
+							onCheckedChange={ ( checked ) =>
+								updateSettings( () => ( { clear_format_active: checked } ) )
+							}
+						/>
+					</Stack>
 				</CollapsibleCard.Content>
 			</CollapsibleCard.Root>
 			<div>
