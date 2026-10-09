@@ -33,8 +33,13 @@
 	}
 }
 
-.rtex-settings-unit-select {
-	width: 88px;
+.rtex-settings-unit-control {
+	flex-shrink: 0;
+	width: 120px;
+}
+
+.rtex-settings-size-range {
+	flex: 1;
 }
 
 .rtex-settings-color-toggle {
