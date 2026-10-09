@@ -9,7 +9,7 @@ namespace richtext_extension;
 
 class Options {
 	/**
-	 * Option name
+	 * Option name to store all plugin settings as a single object
 	 */
 	const OPTION_NAME = 'rtex_settings';
 
