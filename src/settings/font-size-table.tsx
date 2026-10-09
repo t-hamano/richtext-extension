@@ -4,19 +4,55 @@
 import { RangeControl } from '@wordpress/components';
 import { createInterpolateElement } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { InputControl, SwitchControl } from '@wordpress/ui';
+import { InputControl, SelectControl, SwitchControl } from '@wordpress/ui';
 
 /**
  * Internal dependencies
  */
-import type { FontSizeSetting } from './types';
+import type { FontSizeSetting, FontSizeUnit } from './types';
 
 /**
- * Settable font size range.
- * Keep in sync with `Options::MIN_FONT_SIZE` and `Options::MAX_FONT_SIZE`.
+ * Settable font size range and step per unit.
+ * Keep the ranges in sync with `Options::FONT_SIZE_RANGES`.
  */
-const MIN_FONT_SIZE = 80;
-const MAX_FONT_SIZE = 300;
+const FONT_SIZE_UNITS: Record< FontSizeUnit, { min: number; max: number; step: number } > = {
+	em: { min: 0.8, max: 3, step: 0.01 },
+	rem: { min: 0.8, max: 3, step: 0.01 },
+	px: { min: 10, max: 72, step: 1 },
+};
+
+const UNIT_ITEMS = ( Object.keys( FONT_SIZE_UNITS ) as FontSizeUnit[] ).map( ( unit ) => ( {
+	value: unit,
+	label: unit,
+} ) );
+
+/**
+ * Font size in pixels assumed for `em` and `rem` when converting to or from `px`.
+ */
+const BASE_FONT_SIZE = 16;
+
+/**
+ * Convert a font size to another unit, keeping it within the range of that unit.
+ *
+ * @param size Font size.
+ * @param from Current unit.
+ * @param to   New unit.
+ * @return Converted font size.
+ */
+function convertFontSize( size: number, from: FontSizeUnit, to: FontSizeUnit ): number {
+	let converted = size;
+
+	if ( 'px' === from && 'px' !== to ) {
+		converted = size / BASE_FONT_SIZE;
+	} else if ( 'px' !== from && 'px' === to ) {
+		converted = size * BASE_FONT_SIZE;
+	}
+
+	const { min, max, step } = FONT_SIZE_UNITS[ to ];
+	const rounded = Number( ( Math.round( converted / step ) * step ).toFixed( 2 ) );
+
+	return Math.min( Math.max( rounded, min ), max );
+}
 
 type FontSizeTableProps = {
 	items: FontSizeSetting[];
@@ -32,6 +68,7 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 						<th style={ { width: 1 } }>{ __( 'Status', 'richtext-extension' ) }</th>
 						<th style={ { width: 200 } }>{ __( 'Title', 'richtext-extension' ) }</th>
 						<th style={ { width: 200 } }>{ __( 'Size', 'richtext-extension' ) }</th>
+						<th style={ { width: 1 } }>{ __( 'Unit', 'richtext-extension' ) }</th>
 						<th>{ __( 'Preview', 'richtext-extension' ) }</th>
 					</tr>
 				</thead>
@@ -70,12 +107,35 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 										index + 1
 									) }
 									hideLabelFromVision
-									min={ MIN_FONT_SIZE }
-									max={ MAX_FONT_SIZE }
+									min={ FONT_SIZE_UNITS[ item.unit ].min }
+									max={ FONT_SIZE_UNITS[ item.unit ].max }
+									step={ FONT_SIZE_UNITS[ item.unit ].step }
 									value={ item.size }
 									onChange={ ( value ) => {
 										if ( value !== undefined ) {
 											onChange( index, { size: value } );
+										}
+									} }
+								/>
+							</td>
+							<td>
+								<SelectControl
+									className="rtex-settings-unit-select"
+									label={ sprintf(
+										/* translators: %d: Font size number. */
+										__( 'Unit of font size %d', 'richtext-extension' ),
+										index + 1
+									) }
+									hideLabelFromVision
+									items={ UNIT_ITEMS }
+									value={ UNIT_ITEMS.find( ( unitItem ) => unitItem.value === item.unit ) }
+									onValueChange={ ( selected ) => {
+										if ( selected?.value ) {
+											const unit = selected.value as FontSizeUnit;
+											onChange( index, {
+												size: convertFontSize( item.size, item.unit, unit ),
+												unit,
+											} );
 										}
 									} }
 								/>
@@ -87,7 +147,7 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 										'richtext-extension'
 									),
 									{
-										span: <span style={ { fontSize: `${ item.size / 100 }em` } } />,
+										span: <span style={ { fontSize: `${ item.size }${ item.unit }` } } />,
 									}
 								) }
 							</td>

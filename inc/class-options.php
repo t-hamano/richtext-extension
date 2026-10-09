@@ -19,10 +19,13 @@ class Options {
 	const VERSION_OPTION_NAME = 'rtex_version';
 
 	/**
-	 * Settable font size range
+	 * Settable font size range per unit
 	 */
-	const MIN_FONT_SIZE = 80;
-	const MAX_FONT_SIZE = 300;
+	const FONT_SIZE_RANGES = array(
+		'em'  => array( 0.8, 3 ),
+		'rem' => array( 0.8, 3 ),
+		'px'  => array( 10, 72 ),
+	);
 
 	/**
 	 * Allowed highlighter types
@@ -154,9 +157,13 @@ class Options {
 								'type' => 'string',
 							),
 							'size'   => array(
-								'type'    => 'integer',
-								'minimum' => self::MIN_FONT_SIZE,
-								'maximum' => self::MAX_FONT_SIZE,
+								'type'    => 'number',
+								'minimum' => min( array_column( self::FONT_SIZE_RANGES, 0 ) ),
+								'maximum' => max( array_column( self::FONT_SIZE_RANGES, 1 ) ),
+							),
+							'unit'   => array(
+								'type' => 'string',
+								'enum' => array_keys( self::FONT_SIZE_RANGES ),
 							),
 						),
 					),
@@ -208,11 +215,15 @@ class Options {
 
 		foreach ( $settings['font_size'] as $i => $default_item ) {
 			$item = self::get_item( $value, 'font_size', $i, $default_item );
+			$unit = in_array( $item['unit'], array_keys( self::FONT_SIZE_RANGES ), true ) ? $item['unit'] : $default_item['unit'];
+
+			list( $min_size, $max_size ) = self::FONT_SIZE_RANGES[ $unit ];
 
 			$settings['font_size'][ $i ] = array(
 				'active' => rest_sanitize_boolean( $item['active'] ),
 				'title'  => sanitize_text_field( $item['title'] ),
-				'size'   => self::sanitize_range( $item['size'], self::MIN_FONT_SIZE, self::MAX_FONT_SIZE ),
+				'size'   => round( min( max( (float) $item['size'], $min_size ), $max_size ), 2 ),
+				'unit'   => $unit,
 			);
 		}
 
@@ -307,6 +318,10 @@ class Options {
 		foreach ( array( 'highlighter', 'font_size' ) as $key ) {
 			foreach ( $settings[ $key ] as $i => $item ) {
 				foreach ( $item as $item_key => $default_value ) {
+					// The font size unit was added in version 3.2.0 and has no legacy option.
+					if ( 'unit' === $item_key ) {
+						continue;
+					}
 					$settings[ $key ][ $i ][ $item_key ] = $get_legacy_option( "rtex_{$key}_{$item_key}_{$i}", $default_value );
 				}
 			}
@@ -321,6 +336,13 @@ class Options {
 		foreach ( $settings['highlighter'] as $i => $highlighter ) {
 			if ( ! preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $highlighter['color'] ) ) {
 				$settings['highlighter'][ $i ]['opacity'] = 0;
+			}
+		}
+
+		// Up to version 3.1.0, font sizes were stored as a percentage of the base font size.
+		foreach ( $settings['font_size'] as $i => $font_size ) {
+			if ( in_array( "rtex_font_size_size_{$i}", $legacy_option_names, true ) ) {
+				$settings['font_size'][ $i ]['size'] = (float) $font_size['size'] / 100;
 			}
 		}
 

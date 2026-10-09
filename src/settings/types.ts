@@ -9,10 +9,13 @@ export type HighlighterSetting = {
 	type: HighlighterType;
 };
 
+export type FontSizeUnit = 'em' | 'rem' | 'px';
+
 export type FontSizeSetting = {
 	active: boolean;
 	title: string;
 	size: number;
+	unit: FontSizeUnit;
 };
 
 export type Settings = {
