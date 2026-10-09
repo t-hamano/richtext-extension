@@ -7,8 +7,12 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-$options = array();
+$options = array(
+	'rtex_settings',
+	'rtex_version',
+);
 
+// Individual options used up to version 3.1.0
 for ( $i = 0; $i <= 3; $i++ ) {
 	$options[] = 'rtex_highlighter_active_' . $i;
 	$options[] = 'rtex_highlighter_title_' . $i;

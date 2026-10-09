@@ -66,9 +66,27 @@ class Enqueue {
 			return;
 		}
 
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'richtext-extension-option', RTEX_URL . '/build/style-index.css', array(), RTEX_VERSION );
-		wp_enqueue_script( 'wp-color-picker' );
+		$asset = include RTEX_PATH . '/build/settings.asset.php';
+		wp_enqueue_script( RTEX_NAMESPACE . '-settings', RTEX_URL . '/build/settings.js', $asset['dependencies'], $asset['version'], true );
+		wp_set_script_translations( RTEX_NAMESPACE . '-settings', RTEX_NAMESPACE );
+
+		wp_enqueue_style( RTEX_NAMESPACE . '-settings', RTEX_URL . '/build/style-settings.css', array( 'wp-components', 'wp-theme' ), $asset['version'] );
+		wp_style_add_data( RTEX_NAMESPACE . '-settings', 'rtl', 'replace' );
+
+		// Preload the settings so that the settings page can be rendered without waiting for the requests
+		$preload_data = array_reduce(
+			array(
+				'/wp/v2/settings',
+				array( '/wp/v2/settings', 'OPTIONS' ),
+			),
+			'rest_preload_api_request',
+			array()
+		);
+		wp_add_inline_script(
+			'wp-api-fetch',
+			sprintf( 'wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) );', wp_json_encode( $preload_data ) ),
+			'after'
+		);
 	}
 
 	/**
@@ -86,29 +104,26 @@ class Enqueue {
 	 * @return string
 	 */
 	private function get_inline_css() {
-		$css    = '';
-		$styles = array();
+		$settings = Options::get_settings();
+		$css      = '';
 
 		// Generate highlighter style
-		for ( $i = 0; $i <= 3; $i++ ) {
-			if ( get_option( 'rtex_highlighter_active_' . $i, true ) ) {
-				$css_selector = ".rtex-highlighter-{$i}, #rtex-highlighter-preview-{$i}";
-				$thickness    = get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
-				$color_hex    = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
-				$type         = get_option( 'rtex_highlighter_type_' . $i, Config::$highlighter[ $i ]['type'] );
-				$color        = 'transparent';
+		foreach ( $settings['highlighter'] as $i => $highlighter ) {
+			if ( $highlighter['active'] ) {
+				$css_selector = ".rtex-highlighter-{$i}";
+				$thickness    = $highlighter['thickness'];
+				$color_hex    = $highlighter['color'];
+				$type         = $highlighter['type'];
+				$opacity      = $highlighter['opacity'] / 100;
 
 				// Generate rgba value
-				if ( preg_match( '/^#[0-9a-fA-F]{6}$/', $color_hex ) ) {
-					$opacity = get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] ) / 100;
-					if ( 1 === $opacity ) {
-						$color = $color_hex;
-					} else {
-						$r     = hexdec( substr( $color_hex, 1, 2 ) );
-						$g     = hexdec( substr( $color_hex, 3, 2 ) );
-						$b     = hexdec( substr( $color_hex, 5, 2 ) );
-						$color = "rgba({$r}, {$g}, {$b}, {$opacity})";
-					}
+				if ( 1 === $opacity ) {
+					$color = $color_hex;
+				} else {
+					$r     = hexdec( substr( $color_hex, 1, 2 ) );
+					$g     = hexdec( substr( $color_hex, 3, 2 ) );
+					$b     = hexdec( substr( $color_hex, 5, 2 ) );
+					$color = "rgba({$r}, {$g}, {$b}, {$opacity})";
 				}
 
 				// Generate gradient value
@@ -131,10 +146,10 @@ class Enqueue {
 		}
 
 		// Generate font size style
-		for ( $i = 0; $i <= 3; $i++ ) {
-			if ( get_option( 'rtex_font_size_active_' . $i, true ) ) {
-				$font_size = get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] ) / 100;
-				$css      .= ".rtex-font-size-{$i}, #rtex-font-size-preview-{$i}{ font-size: {$font_size}em;}";
+		foreach ( $settings['font_size'] as $i => $font_size ) {
+			if ( $font_size['active'] ) {
+				$size = $font_size['size'] / 100;
+				$css .= ".rtex-font-size-{$i}{ font-size: {$size}em;}";
 			}
 		}
 
@@ -147,45 +162,32 @@ class Enqueue {
 	 * @return array
 	 */
 	private function create_editor_config() {
-		$config = array(
+		$settings = Options::get_settings();
+		$config   = array(
 			'highlighter' => array(),
 			'fontSize'    => array(),
 		);
 
-		$default_title = array(
-			__( 'Marker ( Yellow )', 'richtext-extension' ),
-			__( 'Marker ( Red )', 'richtext-extension' ),
-			__( 'Background ( Yellow )', 'richtext-extension' ),
-			__( 'Background ( Red )', 'richtext-extension' ),
-		);
-
-		for ( $i = 0; $i <= 3; $i++ ) {
-			if ( get_option( 'rtex_highlighter_active_' . $i, true ) ) {
+		foreach ( $settings['highlighter'] as $i => $highlighter ) {
+			if ( $highlighter['active'] ) {
 				$config['highlighter'][] = array(
-					'title'     => get_option( 'rtex_highlighter_title_' . $i, $default_title[ $i ] ),
+					'title'     => $highlighter['title'],
 					'className' => 'rtex-highlighter-' . $i,
 				);
 			}
 		}
 
-		$default_title = array(
-			__( 'Extra small', 'richtext-extension' ),
-			__( 'Small', 'richtext-extension' ),
-			__( 'Large', 'richtext-extension' ),
-			__( 'Extra large', 'richtext-extension' ),
-		);
-
-		for ( $i = 0; $i <= 3; $i++ ) {
-			if ( get_option( 'rtex_font_size_active_' . $i, true ) ) {
+		foreach ( $settings['font_size'] as $i => $font_size ) {
+			if ( $font_size['active'] ) {
 				$config['fontSize'][] = array(
-					'title'     => get_option( 'rtex_font_size_title_' . $i, $default_title[ $i ] ),
+					'title'     => $font_size['title'],
 					'className' => 'rtex-font-size-' . $i,
 				);
 			}
 		}
 
-		$config['underlineActive']   = (bool) get_option( 'rtex_underline_active', true );
-		$config['clearFormatActive'] = (bool) get_option( 'rtex_clear_format_active', true );
+		$config['underlineActive']   = $settings['underline_active'];
+		$config['clearFormatActive'] = $settings['clear_format_active'];
 
 		return $config;
 	}

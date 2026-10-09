@@ -8,7 +8,15 @@
 namespace richtext_extension;
 
 class Options {
-	private $hook_suffix;
+	/**
+	 * Option name
+	 */
+	const OPTION_NAME = 'rtex_settings';
+
+	/**
+	 * Option name to store the plugin version that the stored settings correspond to
+	 */
+	const VERSION_OPTION_NAME = 'rtex_version';
 
 	/**
 	 * Settable font size range
@@ -17,522 +25,295 @@ class Options {
 	const MAX_FONT_SIZE = 300;
 
 	/**
+	 * Allowed highlighter types
+	 */
+	const HIGHLIGHTER_TYPES = array( 'solid', 'stripe', 'stripe-thin' );
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		// Add option page
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
 
-		// Create setting
-		add_action( 'admin_init', array( $this, 'register_option' ) );
+		// Register setting on `init` so that it is available in both admin screens and the REST API
+		add_action( 'init', array( $this, 'register_option' ) );
+
+		// Migrate stored settings after the setting is registered
+		add_action( 'init', array( $this, 'maybe_upgrade' ), 11 );
 	}
 
 	/**
 	 * Add option page
 	 */
 	public function add_options_page() {
-		$this->hook_suffix = add_options_page(
+		add_options_page(
 			__( 'RichText Extension Setting', 'richtext-extension' ),
 			__( 'RichText Extension', 'richtext-extension' ),
 			'manage_options',
 			'richtext-extension-option',
 			array( $this, 'create_options_page' )
 		);
-
-		//Load javascript to allow drag/drop, expand/collapse of metaboxes
-		add_action( 'load-' . $this->hook_suffix, array( $this, 'load_postbox' ) );
-	}
-
-	/**
-	 * Load javascript to allow drag/drop, expand/collapse of metaboxes
-	 */
-	public function load_postbox() {
-		wp_enqueue_script( 'postbox' );
-	}
-
-	/**
-	 * Create setting
-	 */
-	public function register_option() {
-		// Register settings
-		for ( $i = 0; $i <= 3; $i++ ) {
-			register_setting(
-				'richtext-extension-group',
-				'rtex_highlighter_active_' . $i,
-				array( $this, 'sanitize_checkbox' )
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_highlighter_title_' . $i,
-				'sanitize_text_field'
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_highlighter_color_' . $i,
-				'sanitize_hex_color'
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_highlighter_thickness_' . $i,
-				array( $this, 'sanitize_range' )
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_highlighter_opacity_' . $i,
-				array( $this, 'sanitize_range' )
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_highlighter_type_' . $i,
-				array( $this, 'sanitize_highlighter_type' )
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_font_size_active_' . $i,
-				array( $this, 'sanitize_checkbox' )
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_font_size_title_' . $i,
-				'sanitize_text_field'
-			);
-			register_setting(
-				'richtext-extension-group',
-				'rtex_font_size_size_' . $i,
-				array( $this, 'sanitize_font_size' )
-			);
-		}
-
-		register_setting(
-			'richtext-extension-group',
-			'rtex_underline_active',
-			array( $this, 'sanitize_checkbox' )
-		);
-
-		register_setting(
-			'richtext-extension-group',
-			'rtex_clear_format_active',
-			array( $this, 'sanitize_checkbox' )
-		);
-	}
-
-	/**
-	 * Sanitizer (Chechbox)
-	 * @param string $value input value.
-	 *
-	 * @return string
-	 */
-	public static function sanitize_checkbox( $value ) {
-		return ( 1 === (int) $value ) ? 1 : 0;
-	}
-
-	/**
-	 * Sanitizer (Range)
-	 * @param string $value input value.
-	 *
-	 * @return string
-	 */
-	public static function sanitize_range( $value ) {
-		$value = absint( $value );
-		$value = max( 0, $value );
-		$value = min( 100, $value );
-		return $value;
-	}
-
-	/**
-	 * Sanitizer (Font size)
-	 * @param string $value input value.
-	 *
-	 * @return string
-	 */
-	public static function sanitize_font_size( $value ) {
-		$value = absint( $value );
-		$value = max( self::MIN_FONT_SIZE, $value );
-		$value = min( self::MAX_FONT_SIZE, $value );
-		return $value;
-	}
-
-	/**
-	 * Sanitizer (Highlighter type)
-	 * @param string $value input value.
-	 *
-	 * @return string
-	 */
-	public static function sanitize_highlighter_type( $value ) {
-		$allowed_types = array( 'solid', 'stripe', 'stripe-thin' );
-		return in_array( $value, $allowed_types, true ) ? $value : 'solid';
-	}
-
-	/**
-	 * Create meta boxes
-	 */
-	public function create_meta_boxes() {
-		$meta_boxes = array(
-			array(
-				'slug'  => 'highlighter',
-				'label' => __( 'Highlighter', 'richtext-extension' ),
-			),
-			array(
-				'slug'  => 'font_size',
-				'label' => __( 'Font size', 'richtext-extension' ),
-			),
-			array(
-				'slug'  => 'underline',
-				'label' => __( 'Underline', 'richtext-extension' ),
-			),
-			array(
-				'slug'  => 'clear_format',
-				'label' => __( 'Clear format', 'richtext-extension' ),
-			),
-		);
-
-		foreach ( $meta_boxes as $meta_box ) {
-			add_meta_box(
-				'rtex-metabox-' . $meta_box['slug'],
-				$meta_box['label'],
-				array( $this, 'metabox_' . $meta_box['slug'] ),
-				$this->hook_suffix,
-				'normal'
-			);
-		}
 	}
 
 	/**
 	 * Create option page
 	 */
 	public function create_options_page() {
-		self::create_meta_boxes();
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'RichText Extension Setting', 'richtext-extension' ); ?></h1>
-			<form method="post" action="options.php">
-				<?php
-					settings_fields( 'richtext-extension-group' );
-					do_settings_sections( 'richtext-extension-group' );
-					wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
-					wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
-				?>
-				<div class="rtex-wrapper">
-					<div id="poststuff">
-						<div id="post-body">
-							<div id="post-body-content">
-								<?php do_meta_boxes( $this->hook_suffix, 'normal', null ); ?>
-								<?php submit_button(); ?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
+			<hr class="wp-header-end">
+			<div id="rtex-settings"></div>
 		</div>
-		<script type="text/javascript">
-		jQuery( document ).ready( function ( $ ) {
-			// Apply styles to previews when the document is loaded
-			$( '#rtex-table-body-highlighter tr' ).each( function ( index ) {
-				previewHighlighter( index );
-			} );
+		<?php
+	}
 
-			$( '#rtex-table-body-font-size tr' ).each( function ( index ) {
-				previewFontSize( index );
-			} );
+	/**
+	 * Create setting
+	 */
+	public function register_option() {
+		register_setting(
+			'richtext-extension',
+			self::OPTION_NAME,
+			array(
+				'type'              => 'object',
+				'label'             => __( 'RichText Extension Settings', 'richtext-extension' ),
+				'default'           => Config::get_default_settings(),
+				'sanitize_callback' => array( __CLASS__, 'sanitize' ),
+				'show_in_rest'      => array(
+					'schema' => self::get_schema(),
+				),
+			)
+		);
+	}
 
-			// Meta box
-			$( '.if-js-closed' ).removeClass( 'if-js-closed' ).addClass( 'closed' );
-			postboxes.add_postbox_toggles( '<?php echo $this->hook_suffix; ?>' );
+	/**
+	 * Get the REST API schema of the setting
+	 *
+	 * @return array
+	 */
+	private static function get_schema() {
+		return array(
+			'type'                 => 'object',
+			'additionalProperties' => false,
+			'properties'           => array(
+				'highlighter'         => array(
+					'type'     => 'array',
+					'minItems' => count( Config::$highlighter ),
+					'maxItems' => count( Config::$highlighter ),
+					'items'    => array(
+						'type'                 => 'object',
+						'additionalProperties' => false,
+						'properties'           => array(
+							'active'    => array(
+								'type' => 'boolean',
+							),
+							'title'     => array(
+								'type' => 'string',
+							),
+							'color'     => array(
+								'type'    => 'string',
+								'pattern' => '^#[0-9a-fA-F]{6}$',
+							),
+							'thickness' => array(
+								'type'    => 'integer',
+								'minimum' => 0,
+								'maximum' => 100,
+							),
+							'opacity'   => array(
+								'type'    => 'integer',
+								'minimum' => 0,
+								'maximum' => 100,
+							),
+							'type'      => array(
+								'type' => 'string',
+								'enum' => self::HIGHLIGHTER_TYPES,
+							),
+						),
+					),
+				),
+				'font_size'           => array(
+					'type'     => 'array',
+					'minItems' => count( Config::$font_size ),
+					'maxItems' => count( Config::$font_size ),
+					'items'    => array(
+						'type'                 => 'object',
+						'additionalProperties' => false,
+						'properties'           => array(
+							'active' => array(
+								'type' => 'boolean',
+							),
+							'title'  => array(
+								'type' => 'string',
+							),
+							'size'   => array(
+								'type'    => 'integer',
+								'minimum' => self::MIN_FONT_SIZE,
+								'maximum' => self::MAX_FONT_SIZE,
+							),
+						),
+					),
+				),
+				'underline_active'    => array(
+					'type' => 'boolean',
+				),
+				'clear_format_active' => array(
+					'type' => 'boolean',
+				),
+			),
+		);
+	}
 
-			// Colorpicker
-			$( '.rtex-colorpicker' ).wpColorPicker( {
-				change( event, ui ) {
-					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
-					const color = ui.color.toString();
-					previewHighlighter( index, color );
-				},
-				clear() {
-					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
-					previewHighlighter( index );
-				},
-			} );
+	/**
+	 * Get settings
+	 *
+	 * @return array
+	 */
+	public static function get_settings() {
+		return self::sanitize( get_option( self::OPTION_NAME ) );
+	}
 
-			// Sync range and number input
-			$( '.rtex-range [type="range"]' ).on( 'input', function () {
-				const parent = $( this ).parents( '.rtex-range' );
-				parent.find( '[type="number"]' ).val( $( this ).val() );
-			} );
-			$( '.rtex-range [type="number"]' ).on( 'change', function () {
-				const parent = $( this ).parents( '.rtex-range' );
-				parent.find( '[type="range"]' ).val( $( this ).val() );
-			} );
+	/**
+	 * Sanitizer
+	 *
+	 * Fills in missing values with the defaults so that the settings always have the complete structure.
+	 *
+	 * @param mixed $value input value.
+	 *
+	 * @return array
+	 */
+	public static function sanitize( $value ) {
+		$value    = is_array( $value ) ? $value : array();
+		$settings = Config::get_default_settings();
 
-			// Update highlighter preview styles
-			$( '#rtex-metabox-highlighter input, #rtex-metabox-highlighter select' ).on( 'change', function () {
-					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
-					previewHighlighter( index );
-			} );
+		foreach ( $settings['highlighter'] as $i => $default_item ) {
+			$item = self::get_item( $value, 'highlighter', $i, $default_item );
 
-			// Update font size preview styles
-			$( '#rtex-metabox-font_size input' ).on( 'change', function () {
-					const index = $( this ).parents( 'tr' ).attr( 'data-index' );
-					previewFontSize( index );
-			} );
+			$settings['highlighter'][ $i ] = array(
+				'active'    => rest_sanitize_boolean( $item['active'] ),
+				'title'     => sanitize_text_field( $item['title'] ),
+				'color'     => self::sanitize_color( $item['color'], $default_item['color'] ),
+				'thickness' => self::sanitize_range( $item['thickness'], 0, 100 ),
+				'opacity'   => self::sanitize_range( $item['opacity'], 0, 100 ),
+				'type'      => in_array( $item['type'], self::HIGHLIGHTER_TYPES, true ) ? $item['type'] : $default_item['type'],
+			);
+		}
 
-			/**
-			 * Update highlighter preview styles
-			 *
-			 * @param {string}           index       Target row index
-			 * @param {string|undefined} pickerColor Colorpicker value
-			 */
-			function previewHighlighter( index, pickerColor ) {
-				const target = $( '#rtex-highlighter-preview-' + index );
-				const thickness = parseInt( $( '[name="rtex_highlighter_thickness_' + index + '"]' ).val() );
-				const colorHex = pickerColor || $( '[name="rtex_highlighter_color_' + index + '"]' ).val();
-				const type = $( '[name="rtex_highlighter_type_' + index + '"]' ).val();
-				let color = 'transparent';
+		foreach ( $settings['font_size'] as $i => $default_item ) {
+			$item = self::get_item( $value, 'font_size', $i, $default_item );
 
-				// Generate rgba value
-				if ( colorHex.match( '^#[0-9a-fA-F]{6}$' ) ) {
-					const opacity =
-						parseInt( $( '[name="rtex_highlighter_opacity_' + index + '"]' ).val() ) / 100;
-					if ( 1 === opacity ) {
-						color = colorHex;
-					} else {
-						const r = parseInt( colorHex.substr( 1, 2 ), 16 );
-						const g = parseInt( colorHex.substr( 3, 2 ), 16 );
-						const b = parseInt( colorHex.substr( 5, 2 ), 16 );
-						color = `rgba(${ r },${ g },${ b },${ opacity })`;
-					}
-				}
+			$settings['font_size'][ $i ] = array(
+				'active' => rest_sanitize_boolean( $item['active'] ),
+				'title'  => sanitize_text_field( $item['title'] ),
+				'size'   => self::sanitize_range( $item['size'], self::MIN_FONT_SIZE, self::MAX_FONT_SIZE ),
+			);
+		}
 
-				// Apply gradient value
-				if ( 'solid' === type ) {
-					if ( 0 === thickness ) {
-						target.css( 'background', color );
-					} else {
-						target.css(
-							'background',
-							`linear-gradient(transparent ${ 100 - thickness }%, ${ color } ${ 100 - thickness }%)`
-						);
-					}
-				} else if ( 'stripe' === type ) {
-					target.css(
-						'background',
-						`repeating-linear-gradient(-45deg, ${ color } 0, ${ color } 3px, transparent 3px, transparent 6px) no-repeat bottom/100% ${ thickness }%`
-					);
-				} else if ( 'stripe-thin' === type ) {
-					target.css(
-						'background',
-						`repeating-linear-gradient(-45deg, ${ color } 0, ${ color } 2px, transparent 2px, transparent 4px) no-repeat bottom/100% ${ thickness }%`
-					);
+		foreach ( array( 'underline_active', 'clear_format_active' ) as $key ) {
+			if ( isset( $value[ $key ] ) ) {
+				$settings[ $key ] = rest_sanitize_boolean( $value[ $key ] );
+			}
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Get an item of a list setting merged with the defaults
+	 *
+	 * @param array  $value        input value.
+	 * @param string $key          setting key.
+	 * @param int    $index        item index.
+	 * @param array  $default_item default item.
+	 *
+	 * @return array
+	 */
+	private static function get_item( $value, $key, $index, $default_item ) {
+		$item = $value[ $key ][ $index ] ?? array();
+		return is_array( $item ) ? array_merge( $default_item, array_intersect_key( $item, $default_item ) ) : $default_item;
+	}
+
+	/**
+	 * Sanitizer (Color)
+	 *
+	 * @param mixed  $value         input value.
+	 * @param string $default_value default value.
+	 *
+	 * @return string
+	 */
+	private static function sanitize_color( $value, $default_value ) {
+		return is_string( $value ) && preg_match( '/^#[0-9a-fA-F]{6}$/', $value ) ? $value : $default_value;
+	}
+
+	/**
+	 * Sanitizer (Range)
+	 *
+	 * @param mixed $value input value.
+	 * @param int   $min   minimum value.
+	 * @param int   $max   maximum value.
+	 *
+	 * @return int
+	 */
+	private static function sanitize_range( $value, $min, $max ) {
+		return min( max( (int) $value, $min ), $max );
+	}
+
+	/**
+	 * Migrate stored settings to the latest structure
+	 */
+	public function maybe_upgrade() {
+		$version = get_option( self::VERSION_OPTION_NAME, '0' );
+
+		if ( version_compare( $version, RTEX_VERSION, '>=' ) ) {
+			return;
+		}
+
+		if ( version_compare( $version, '3.2.0', '<' ) ) {
+			self::migrate_legacy_options();
+		}
+
+		update_option( self::VERSION_OPTION_NAME, RTEX_VERSION );
+	}
+
+	/**
+	 * Migrate the individual options used up to version 3.1.0 to a single option
+	 */
+	private static function migrate_legacy_options() {
+		$settings            = Config::get_default_settings();
+		$legacy_option_names = array();
+
+		$get_legacy_option = static function ( $option_name, $default_value ) use ( &$legacy_option_names ) {
+			$value = get_option( $option_name, null );
+			if ( null === $value ) {
+				return $default_value;
+			}
+			$legacy_option_names[] = $option_name;
+			return $value;
+		};
+
+		// Legacy option names are built from the keys of the new structure, e.g. `rtex_highlighter_color_0`.
+		foreach ( array( 'highlighter', 'font_size' ) as $key ) {
+			foreach ( $settings[ $key ] as $i => $item ) {
+				foreach ( $item as $item_key => $default_value ) {
+					$settings[ $key ][ $i ][ $item_key ] = $get_legacy_option( "rtex_{$key}_{$item_key}_{$i}", $default_value );
 				}
 			}
+		}
 
-			/**
-			 * Update font size preview styles
-			 *
-			 * @param {string} index Target row index
-			 */
-			function previewFontSize( index ) {
-				const target = $( '#rtex-font-size-preview-' + index );
-				const fontSize = parseInt( $( '[name="rtex_font_size_size_' + index + '"]' ).val() ) / 100;
-				target.css( 'font-size', fontSize + 'em' );
-			}
-		} );
-		</script>
-		<?php
-	}
+		foreach ( array( 'underline_active', 'clear_format_active' ) as $key ) {
+			$settings[ $key ] = $get_legacy_option( "rtex_{$key}", $settings[ $key ] );
+		}
 
-	/**
-	 * Meta box(Highlighter)
-	 */
-	public function metabox_highlighter() {
-		$default_title = array(
-			__( 'Marker ( Yellow )', 'richtext-extension' ),
-			__( 'Marker ( Red )', 'richtext-extension' ),
-			__( 'Background ( Yellow )', 'richtext-extension' ),
-			__( 'Background ( Red )', 'richtext-extension' ),
-		);
+		if ( empty( $legacy_option_names ) ) {
+			return;
+		}
 
-		$highlighter_types = array(
-			array(
-				'value' => 'solid',
-				'label' => __( 'Solid', 'richtext-extension' ),
-			),
-			array(
-				'value' => 'stripe',
-				'label' => __( 'Stripe', 'richtext-extension' ),
-			),
-			array(
-				'value' => 'stripe-thin',
-				'label' => __( 'Stripe (Thin)', 'richtext-extension' ),
-			),
-		);
+		update_option( self::OPTION_NAME, $settings );
 
-		?>
-		<ul>
-			<li><?php esc_html_e( 'If the highlighter makes it hard to see the text, lower the opacity.', 'richtext-extension' ); ?></li>
-			<li><?php esc_html_e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
-		</ul>
-		<div class="rtex-table-wrap">
-			<table class="form-table rtex-table">
-				<thead>
-					<tr>
-						<th ><?php esc_html_e( 'Status', 'richtext-extension' ); ?></th>
-						<th><?php esc_html_e( 'Title', 'richtext-extension' ); ?></th>
-						<th><?php esc_html_e( 'Color', 'richtext-extension' ); ?></th>
-						<th><?php esc_html_e( 'Thickness', 'richtext-extension' ); ?></th>
-						<th><?php esc_html_e( 'Opacity', 'richtext-extension' ); ?></th>
-						<th><?php esc_html_e( 'Type', 'richtext-extension' ); ?></th>
-						<th><?php esc_html_e( 'Preview', 'richtext-extension' ); ?></th>
-					</tr>
-				</thead>
-				<tbody id="rtex-table-body-highlighter">
-					<?php
-					for ( $i = 0; $i <= 3; $i++ ) :
-						$is_active = get_option( 'rtex_highlighter_active_' . $i, true );
-						$title     = get_option( 'rtex_highlighter_title_' . $i, $default_title[ $i ] );
-						$color     = get_option( 'rtex_highlighter_color_' . $i, Config::$highlighter[ $i ]['color'] );
-						$thickness = get_option( 'rtex_highlighter_thickness_' . $i, Config::$highlighter[ $i ]['thickness'] );
-						$opacity   = get_option( 'rtex_highlighter_opacity_' . $i, Config::$highlighter[ $i ]['opacity'] );
-						$type      = get_option( 'rtex_highlighter_type_' . $i, Config::$highlighter[ $i ]['type'] );
-						?>
-						<tr data-index="<?php echo $i; ?>">
-							<td>
-								<label class="rtex-switch">
-									<input id="<?php echo 'rtex_highlighter_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_highlighter_active_' . $i; ?>" value="1" <?php checked( $is_active ); ?>>
-									<span class="rtex-switch-thumb"></span>
-									<span class="rtex-switch-track"></span>
-								</label>
-							</td>
-							<td>
-								<input type="text" name="<?php echo 'rtex_highlighter_title_' . $i; ?>" value="<?php echo esc_attr( $title ); ?>">
-							</td>
-							<td>
-								<input type="text" name="<?php echo 'rtex_highlighter_color_' . $i; ?>" class="rtex-colorpicker" value="<?php echo esc_attr( $color ); ?>">
-							</td>
-							<td>
-								<div class="rtex-range">
-									<input type="range" min="0" max="100" step="1" value="<?php echo esc_attr( $thickness ); ?>">
-									<div class="rtex-input">
-										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_thickness_' . $i; ?>" value="<?php echo esc_attr( $thickness ); ?>">
-										<span>%</span>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="rtex-range">
-									<input type="range" min="0" max="100" step="1" value="<?php echo esc_attr( $opacity ); ?>">
-									<div class="rtex-input">
-										<input type="number" min="0" max="100" step="1" name="<?php echo 'rtex_highlighter_opacity_' . $i; ?>" value="<?php echo esc_attr( $opacity ); ?>">
-										<span>%</span>
-									</div>
-								</div>
-							</td>
-							<td>
-								<select name="<?php echo 'rtex_highlighter_type_' . $i; ?>">
-									<?php
-									foreach ( $highlighter_types as $highlighter_type ) {
-										if ( $type === $highlighter_type['value'] ) {
-											echo '<option selected="selected" value="' . esc_attr( $highlighter_type['value'] ) . '">' . esc_html( $highlighter_type['label'] ) . '</option>';
-										} else {
-											echo '<option value="' . esc_attr( $highlighter_type['value'] ) . '">' . esc_html( $highlighter_type['label'] ) . '</option>';
-										}
-									}
-									?>
-								</select>
-							</td>
-							<td>
-								<span id="rtex-highlighter-preview-<?php echo $i; ?>"><?php esc_html_e( 'Hello World !', 'richtext-extension' ); ?></span>
-							</td>
-						</tr>
-					<?php endfor; ?>
-				</tbody>
-			</table>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Meta box(Font size)
-	 */
-	public function metabox_font_size() {
-		$default_title = array(
-			__( 'Extra small', 'richtext-extension' ),
-			__( 'Small', 'richtext-extension' ),
-			__( 'Large', 'richtext-extension' ),
-			__( 'Extra large', 'richtext-extension' ),
-		);
-		?>
-		<ul>
-			<li><?php esc_html_e( 'The size is specified as a percentage of the base font size.', 'richtext-extension' ); ?></li>
-			<li><?php esc_html_e( 'If you change each setting, the style you\'re already applying to your content will also change.', 'richtext-extension' ); ?></li>
-		</ul>
-		<div class="rtex-table-wrap">
-			<table class="form-table rtex-table">
-				<thead>
-					<tr>
-						<th style="width: 10%;"><?php esc_html_e( 'Status', 'richtext-extension' ); ?></th>
-						<th style="width: 15%;"><?php esc_html_e( 'Title', 'richtext-extension' ); ?></th>
-						<th style="width: 20%;"><?php esc_html_e( 'Size', 'richtext-extension' ); ?></th>
-						<th style="width: 55%;"><?php esc_html_e( 'Preview', 'richtext-extension' ); ?></th>
-					</tr>
-				</thead>
-				<tbody id="rtex-table-body-font-size">
-					<?php
-					for ( $i = 0; $i <= 3; $i++ ) :
-						$is_active = get_option( 'rtex_font_size_active_' . $i, true );
-						$title     = get_option( 'rtex_font_size_title_' . $i, $default_title[ $i ] );
-						$size      = get_option( 'rtex_font_size_size_' . $i, Config::$font_size[ $i ] );
-						?>
-						<tr data-index="<?php echo $i; ?>">
-							<td>
-								<label class="rtex-switch">
-									<input id="<?php echo 'rtex_font_size_active_' . $i; ?>" class="rtex-ui-button" type="checkbox" name="<?php echo 'rtex_font_size_active_' . $i; ?>" value="1" <?php checked( $is_active ); ?>>
-									<span class="rtex-switch-thumb"></span>
-									<span class="rtex-switch-track"></span>
-								</label>
-							</td>
-							<td>
-								<input type="text" name="<?php echo 'rtex_font_size_title_' . $i; ?>" value="<?php echo esc_attr( $title ); ?>">
-							</td>
-							<td>
-								<div class="rtex-range">
-									<input type="range" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" value="<?php echo esc_attr( $size ); ?>">
-									<div class="rtex-input">
-										<input type="number" min="<?php echo self::MIN_FONT_SIZE; ?>" max="<?php echo self::MAX_FONT_SIZE; ?>" step="1" name="<?php echo 'rtex_font_size_size_' . $i; ?>"value="<?php echo esc_attr( $size ); ?>">
-										<span>%</span>
-									</div>
-								</div>
-							</td>
-							<td>
-								<?php esc_html_e( 'Hello World !', 'richtext-extension' ); ?><span id="rtex-font-size-preview-<?php echo $i; ?>"> <?php esc_html_e( 'Hello This World !', 'richtext-extension' ); ?></span> <?php esc_html_e( 'Hello World !', 'richtext-extension' ); ?>
-							</td>
-						</tr>
-					<?php endfor; ?>
-				</tbody>
-			</table>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Meta box(Underline)
-	 */
-	public function metabox_underline() {
-		?>
-		<label>
-			<input class="rtex-ui-button" type="checkbox" name="rtex_underline_active" value="1" <?php checked( get_option( 'rtex_underline_active', true ) ); ?>><?php esc_html_e( 'Enable', 'richtext-extension' ); ?>
-		</label>
-		<p><strong><?php esc_html_e( 'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.', 'richtext-extension' ); ?></strong></p>
-		<?php
-	}
-
-	/**
-	 * Meta box(Clear format)
-	 */
-	public function metabox_clear_format() {
-		?>
-		<label>
-			<input class="rtex-ui-button" type="checkbox" name="rtex_clear_format_active" value="1" <?php checked( get_option( 'rtex_clear_format_active', true ) ); ?>><?php esc_html_e( 'Enable', 'richtext-extension' ); ?>
-		</label>
-		<?php
+		foreach ( $legacy_option_names as $option_name ) {
+			delete_option( $option_name );
+		}
 	}
 }
 

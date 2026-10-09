@@ -1,0 +1,54 @@
+@use "~@wordpress/base-styles/mixins" as mixins;
+
+.rtex-settings {
+	margin-top: var(--wpds-dimension-gap-lg);
+}
+
+.rtex-settings-notes {
+	margin: 0 0 var(--wpds-dimension-gap-lg) var(--wpds-dimension-padding-xl);
+	list-style: outside disc;
+}
+
+.rtex-settings-table-wrap {
+	overflow-x: auto;
+}
+
+.rtex-settings-table {
+	width: 100%;
+	min-width: 960px;
+	border-collapse: collapse;
+
+	th,
+	td {
+		padding: var(--wpds-dimension-padding-sm) var(--wpds-dimension-padding-md);
+		text-align: start;
+		vertical-align: middle;
+		border: var(--wpds-border-width-xs) solid var(--wpds-color-stroke-surface-neutral);
+	}
+
+	th {
+		background: var(--wpds-color-background-surface-neutral-weak);
+	}
+}
+
+.rtex-settings-color-toggle.components-button {
+	justify-content: center;
+	width: var(--wpds-dimension-size-lg);
+	padding: 0;
+
+	.component-color-indicator {
+		width: var(--wpds-dimension-size-md);
+		height: var(--wpds-dimension-size-md);
+	}
+}
+
+.rtex-settings-type-select {
+	width: 160px;
+}
+
+.rtex-settings-snackbar {
+
+	@include mixins.snackbar-container();
+}
+
+@include mixins.editor-left(".rtex-settings-snackbar");
