@@ -18,8 +18,6 @@ import { registerFormatType } from './register-format-type';
 import { adminAppearance as icon } from './icons';
 import type { FormatEditProps } from './types';
 
-const label = __( 'Highlighter', 'richtext-extension' );
-
 rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 	registerFormatType( 'rtex/' + className, {
 		title,
@@ -34,7 +32,7 @@ rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 					<BlockFormatControls>
 						<ToolbarDropdownMenu
 							icon={ icon }
-							label={ label }
+							label={ __( 'Highlighter', 'richtext-extension' ) }
 							toggleProps={ {
 								className: clsx( { 'is-pressed': hasActive } ),
 							} }

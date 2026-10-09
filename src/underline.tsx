@@ -17,14 +17,13 @@ const formatName = 'rtex/rtex-underline';
 const title = __( 'Underline', 'richtext-extension' );
 
 const deprecatedFormatName = 'rtex/rtex-underline-deprecated';
-const deprecatedTitle = __( 'Underline (Deprecated)', 'richtext-extension' );
 
 domReady( () => {
 	if ( rtexConf.underlineActive ) {
 		unregisterFormatType( 'core/underline' );
 
 		registerFormatType( deprecatedFormatName, {
-			title: deprecatedTitle,
+			title: __( 'Underline (Deprecated)', 'richtext-extension' ),
 			tagName: 'u',
 			className: null,
 		} );
