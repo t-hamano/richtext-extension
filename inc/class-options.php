@@ -286,6 +286,11 @@ class Options {
 	 * Migrate the individual options used up to version 3.1.0 to a single option
 	 */
 	private static function migrate_legacy_options() {
+		// Skip if another request has already migrated the legacy options.
+		if ( null !== get_option( self::OPTION_NAME, null ) ) {
+			return;
+		}
+
 		$settings            = Config::get_default_settings();
 		$legacy_option_names = array();
 
