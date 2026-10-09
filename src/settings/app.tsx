@@ -129,19 +129,15 @@ export default function App() {
 				<Card.Content>
 					<CheckboxControl
 						label={ __( 'Enable', 'richtext-extension' ) }
+						description={ __(
+							'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.',
+							'richtext-extension'
+						) }
 						checked={ settings.underline_active }
 						onCheckedChange={ ( checked ) =>
 							updateSettings( () => ( { underline_active: checked } ) )
 						}
 					/>
-					<p>
-						<strong>
-							{ __(
-								'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.',
-								'richtext-extension'
-							) }
-						</strong>
-					</p>
 				</Card.Content>
 			</Card.Root>
 			<Card.Root>
