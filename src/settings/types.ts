@@ -14,7 +14,6 @@ export type FontSizeUnit = 'em' | 'rem' | 'px';
 export type FontSizeSetting = {
 	active: boolean;
 	title: string;
-	// Font size with a unit, e.g. `1.3em`.
 	size: string;
 };
 

@@ -45,7 +45,6 @@
 .rtex-settings-font-size-preview {
 	line-height: var(--wpds-typography-line-height-xs);
 
-	// Let the line height follow the font size so that large previews do not overflow.
 	> span {
 		line-height: 1;
 	}
