@@ -13,6 +13,10 @@
 	overflow-x: auto;
 	// Contain visually hidden labels so that they do not widen the page.
 	position: relative;
+	// Make room for the slider tooltip in the last row so that it does not make the wrapper
+	// scroll vertically, and cancel it out so that the spacing below the table does not change.
+	padding-bottom: var(--wpds-dimension-padding-md);
+	margin-bottom: calc(-1 * var(--wpds-dimension-padding-md));
 }
 
 .rtex-settings-table {
