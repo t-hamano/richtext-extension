@@ -18,8 +18,6 @@ import { textColor as icon } from '@wordpress/icons';
 import { registerFormatType } from './register-format-type';
 import type { FormatEditProps } from './types';
 
-const label = __( 'Font size', 'richtext-extension' );
-
 rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 	registerFormatType( 'rtex/' + className, {
 		title,
@@ -34,7 +32,7 @@ rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 					<BlockFormatControls>
 						<ToolbarDropdownMenu
 							icon={ icon }
-							label={ label }
+							label={ __( 'Font size', 'richtext-extension' ) }
 							toggleProps={ {
 								className: clsx( { 'is-pressed': hasActive } ),
 							} }
