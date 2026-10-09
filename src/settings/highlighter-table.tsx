@@ -37,11 +37,11 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 				<thead>
 					<tr>
 						<th>{ __( 'Status', 'richtext-extension' ) }</th>
-						<th>{ __( 'Title', 'richtext-extension' ) }</th>
+						<th style={ { width: 200 } }>{ __( 'Title', 'richtext-extension' ) }</th>
 						<th>{ __( 'Color', 'richtext-extension' ) }</th>
-						<th>{ __( 'Thickness', 'richtext-extension' ) }</th>
-						<th>{ __( 'Opacity', 'richtext-extension' ) }</th>
-						<th>{ __( 'Type', 'richtext-extension' ) }</th>
+						<th style={ { minWidth: 150 } }>{ __( 'Thickness', 'richtext-extension' ) }</th>
+						<th style={ { minWidth: 150 } }>{ __( 'Opacity', 'richtext-extension' ) }</th>
+						<th style={ { minWidth: 160 } }>{ __( 'Type', 'richtext-extension' ) }</th>
 						<th>{ __( 'Preview', 'richtext-extension' ) }</th>
 					</tr>
 				</thead>
@@ -123,7 +123,6 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 							</td>
 							<td>
 								<SelectControl
-									className="rtex-settings-type-select"
 									label={ sprintf(
 										/* translators: %d: Highlighter number. */
 										__( 'Type of highlighter %d', 'richtext-extension' ),
