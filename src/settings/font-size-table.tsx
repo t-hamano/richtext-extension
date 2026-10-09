@@ -161,7 +161,7 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 									/>
 								</Stack>
 							</td>
-							<td style={ { whiteSpace: 'nowrap' } }>
+							<td>
 								{ createInterpolateElement(
 									__(
 										'Hello World ! <span>Hello This World !</span> Hello World !',
