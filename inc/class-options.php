@@ -39,6 +39,10 @@ class Options {
 		// Register setting on `init` so that it is available in both admin screens and the REST API
 		add_action( 'init', array( $this, 'register_option' ) );
 
+		// Normalize the stored settings when reading them, so that an invalid stored value
+		// (e.g. edited directly in the database) does not break the REST API response
+		add_filter( 'option_' . self::OPTION_NAME, array( __CLASS__, 'sanitize' ) );
+
 		// Migrate stored settings after the setting is registered
 		add_action( 'init', array( $this, 'maybe_upgrade' ), 11 );
 	}
