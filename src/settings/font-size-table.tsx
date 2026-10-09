@@ -80,7 +80,7 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 									} }
 								/>
 							</td>
-							<td>
+							<td style={ { whiteSpace: 'nowrap' } }>
 								{ createInterpolateElement(
 									__(
 										'Hello World ! <span>Hello This World !</span> Hello World !',

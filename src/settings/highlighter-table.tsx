@@ -138,7 +138,7 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 									} }
 								/>
 							</td>
-							<td>
+							<td style={ { whiteSpace: 'nowrap' } }>
 								<span
 									style={ {
 										background: getHighlighterBackground( item ),
