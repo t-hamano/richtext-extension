@@ -7,7 +7,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { SnackbarNotices, store as noticesStore } from '@wordpress/notices';
-import { Card, CheckboxControl, Spinner, Stack } from '@wordpress/ui';
+import { Card, CheckboxControl, CollapsibleCard, Spinner, Stack } from '@wordpress/ui';
 
 /**
  * Internal dependencies
@@ -78,11 +78,11 @@ export default function App() {
 
 	return (
 		<Stack className="rtex-settings" direction="column" gap="lg">
-			<Card.Root>
-				<Card.Header>
+			<CollapsibleCard.Root defaultOpen>
+				<CollapsibleCard.Header>
 					<Card.Title render={ <h2 /> }>{ __( 'Highlighter', 'richtext-extension' ) }</Card.Title>
-				</Card.Header>
-				<Card.Content>
+				</CollapsibleCard.Header>
+				<CollapsibleCard.Content>
 					<ul className="rtex-settings-notes">
 						<li>
 							{ __(
@@ -98,13 +98,13 @@ export default function App() {
 						</li>
 					</ul>
 					<HighlighterTable items={ settings.highlighter } onChange={ updateHighlighter } />
-				</Card.Content>
-			</Card.Root>
-			<Card.Root>
-				<Card.Header>
+				</CollapsibleCard.Content>
+			</CollapsibleCard.Root>
+			<CollapsibleCard.Root defaultOpen>
+				<CollapsibleCard.Header>
 					<Card.Title render={ <h2 /> }>{ __( 'Font size', 'richtext-extension' ) }</Card.Title>
-				</Card.Header>
-				<Card.Content>
+				</CollapsibleCard.Header>
+				<CollapsibleCard.Content>
 					<ul className="rtex-settings-notes">
 						<li>
 							{ __(
@@ -120,13 +120,13 @@ export default function App() {
 						</li>
 					</ul>
 					<FontSizeTable items={ settings.font_size } onChange={ updateFontSize } />
-				</Card.Content>
-			</Card.Root>
-			<Card.Root>
-				<Card.Header>
+				</CollapsibleCard.Content>
+			</CollapsibleCard.Root>
+			<CollapsibleCard.Root defaultOpen>
+				<CollapsibleCard.Header>
 					<Card.Title render={ <h2 /> }>{ __( 'Underline', 'richtext-extension' ) }</Card.Title>
-				</Card.Header>
-				<Card.Content>
+				</CollapsibleCard.Header>
+				<CollapsibleCard.Content>
 					<CheckboxControl
 						label={ __( 'Enable', 'richtext-extension' ) }
 						description={ __(
@@ -138,13 +138,13 @@ export default function App() {
 							updateSettings( () => ( { underline_active: checked } ) )
 						}
 					/>
-				</Card.Content>
-			</Card.Root>
-			<Card.Root>
-				<Card.Header>
+				</CollapsibleCard.Content>
+			</CollapsibleCard.Root>
+			<CollapsibleCard.Root defaultOpen>
+				<CollapsibleCard.Header>
 					<Card.Title render={ <h2 /> }>{ __( 'Clear format', 'richtext-extension' ) }</Card.Title>
-				</Card.Header>
-				<Card.Content>
+				</CollapsibleCard.Header>
+				<CollapsibleCard.Content>
 					<CheckboxControl
 						label={ __( 'Enable', 'richtext-extension' ) }
 						checked={ settings.clear_format_active }
@@ -152,8 +152,8 @@ export default function App() {
 							updateSettings( () => ( { clear_format_active: checked } ) )
 						}
 					/>
-				</Card.Content>
-			</Card.Root>
+				</CollapsibleCard.Content>
+			</CollapsibleCard.Root>
 			<div>
 				<Button
 					__next40pxDefaultSize
