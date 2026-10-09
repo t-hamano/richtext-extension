@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { RangeControl } from '@wordpress/components';
+import { createInterpolateElement } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { InputControl, SwitchControl } from '@wordpress/ui';
 
@@ -81,12 +82,15 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 								/>
 							</td>
 							<td>
-								{ __( 'Hello World !', 'richtext-extension' ) }
-								<span style={ { fontSize: `${ item.size / 100 }em` } }>
-									{ ' ' }
-									{ __( 'Hello This World !', 'richtext-extension' ) }
-								</span>{ ' ' }
-								{ __( 'Hello World !', 'richtext-extension' ) }
+								{ createInterpolateElement(
+									__(
+										'Hello World ! <span>Hello This World !</span> Hello World !',
+										'richtext-extension'
+									),
+									{
+										span: <span style={ { fontSize: `${ item.size / 100 }em` } } />,
+									}
+								) }
 							</td>
 						</tr>
 					) ) }
