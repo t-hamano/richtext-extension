@@ -161,7 +161,7 @@ class Enqueue {
 		// Generate font size style
 		foreach ( $settings['font_size'] as $i => $font_size ) {
 			if ( $font_size['active'] ) {
-				$css .= ".rtex-font-size-{$i}{ font-size: {$font_size['size']}{$font_size['unit']};}";
+				$css .= ".rtex-font-size-{$i}{ font-size: {$font_size['size']};}";
 			}
 		}
 

@@ -62,6 +62,18 @@ function convertFontSize( size: number, from: FontSizeUnit, to: FontSizeUnit ): 
 	return Math.min( Math.max( rounded, min ), max );
 }
 
+/**
+ * Split a font size into its quantity and unit.
+ *
+ * @param size Font size with a unit, e.g. `1.3em`.
+ * @return Quantity and unit.
+ */
+function parseFontSize( size: string ): [ number, FontSizeUnit ] {
+	const [ quantity, unit ] = parseQuantityAndUnitFromRawValue( size, UNITS );
+
+	return [ quantity ?? FONT_SIZE_UNITS.em.min, ( unit ?? 'em' ) as FontSizeUnit ];
+}
+
 type FontSizeTableProps = {
 	items: FontSizeSetting[];
 	onChange: ( index: number, changes: Partial< FontSizeSetting > ) => void;
@@ -80,100 +92,101 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 					</tr>
 				</thead>
 				<tbody>
-					{ items.map( ( item, index ) => (
-						<tr key={ index }>
-							<td>
-								<SwitchControl
-									label={ sprintf(
-										/* translators: %d: Font size number. */
-										__( 'Enable font size %d', 'richtext-extension' ),
-										index + 1
-									) }
-									hideLabelFromVision
-									checked={ item.active }
-									onCheckedChange={ ( checked ) => onChange( index, { active: checked } ) }
-								/>
-							</td>
-							<td>
-								<InputControl
-									label={ sprintf(
-										/* translators: %d: Font size number. */
-										__( 'Title of font size %d', 'richtext-extension' ),
-										index + 1
-									) }
-									hideLabelFromVision
-									value={ item.title }
-									onValueChange={ ( value ) => onChange( index, { title: value } ) }
-								/>
-							</td>
-							<td>
-								<Stack direction="row" gap="sm" align="center">
-									<UnitControl
-										__next40pxDefaultSize
-										className="rtex-settings-unit-control"
+					{ items.map( ( item, index ) => {
+						const [ quantity, unit ] = parseFontSize( item.size );
+
+						return (
+							<tr key={ index }>
+								<td>
+									<SwitchControl
 										label={ sprintf(
 											/* translators: %d: Font size number. */
-											__( 'Size of font size %d', 'richtext-extension' ),
+											__( 'Enable font size %d', 'richtext-extension' ),
 											index + 1
 										) }
 										hideLabelFromVision
-										units={ UNITS }
-										min={ FONT_SIZE_UNITS[ item.unit ].min }
-										max={ FONT_SIZE_UNITS[ item.unit ].max }
-										value={ `${ item.size }${ item.unit }` }
-										onChange={ ( nextValue ) => {
-											const [ quantity, unit ] = parseQuantityAndUnitFromRawValue(
-												nextValue,
-												UNITS
-											);
-											if ( quantity === undefined || ! unit ) {
-												return;
-											}
-											// Changing the unit keeps the quantity, so convert the size instead.
-											if ( unit !== item.unit ) {
-												onChange( index, {
-													size: convertFontSize( item.size, item.unit, unit as FontSizeUnit ),
-													unit: unit as FontSizeUnit,
-												} );
-												return;
-											}
-											onChange( index, { size: quantity } );
-										} }
+										checked={ item.active }
+										onCheckedChange={ ( checked ) => onChange( index, { active: checked } ) }
 									/>
-									<RangeControl
-										className="rtex-settings-size-range"
+								</td>
+								<td>
+									<InputControl
 										label={ sprintf(
 											/* translators: %d: Font size number. */
-											__( 'Size of font size %d', 'richtext-extension' ),
+											__( 'Title of font size %d', 'richtext-extension' ),
 											index + 1
 										) }
 										hideLabelFromVision
-										withInputField={ false }
-										min={ FONT_SIZE_UNITS[ item.unit ].min }
-										max={ FONT_SIZE_UNITS[ item.unit ].max }
-										step={ FONT_SIZE_UNITS[ item.unit ].step }
-										value={ item.size }
-										onChange={ ( value ) => {
-											if ( value !== undefined ) {
-												onChange( index, { size: value } );
-											}
-										} }
+										value={ item.title }
+										onValueChange={ ( value ) => onChange( index, { title: value } ) }
 									/>
-								</Stack>
-							</td>
-							<td className="rtex-settings-font-size-preview">
-								{ createInterpolateElement(
-									__(
-										'Hello World ! <span>Hello This World !</span> Hello World !',
-										'richtext-extension'
-									),
-									{
-										span: <span style={ { fontSize: `${ item.size }${ item.unit }` } } />,
-									}
-								) }
-							</td>
-						</tr>
-					) ) }
+								</td>
+								<td>
+									<Stack direction="row" gap="sm" align="center">
+										<UnitControl
+											__next40pxDefaultSize
+											className="rtex-settings-unit-control"
+											label={ sprintf(
+												/* translators: %d: Font size number. */
+												__( 'Size of font size %d', 'richtext-extension' ),
+												index + 1
+											) }
+											hideLabelFromVision
+											units={ UNITS }
+											min={ FONT_SIZE_UNITS[ unit ].min }
+											max={ FONT_SIZE_UNITS[ unit ].max }
+											value={ item.size }
+											onChange={ ( nextValue ) => {
+												const [ nextQuantity, nextUnit ] = parseQuantityAndUnitFromRawValue(
+													nextValue,
+													UNITS
+												);
+												if ( nextQuantity === undefined || ! nextUnit ) {
+													return;
+												}
+												// Changing the unit keeps the quantity, so convert the size instead.
+												const size =
+													nextUnit === unit
+														? nextQuantity
+														: convertFontSize( quantity, unit, nextUnit as FontSizeUnit );
+												onChange( index, { size: `${ size }${ nextUnit }` } );
+											} }
+										/>
+										<RangeControl
+											className="rtex-settings-size-range"
+											label={ sprintf(
+												/* translators: %d: Font size number. */
+												__( 'Size of font size %d', 'richtext-extension' ),
+												index + 1
+											) }
+											hideLabelFromVision
+											withInputField={ false }
+											min={ FONT_SIZE_UNITS[ unit ].min }
+											max={ FONT_SIZE_UNITS[ unit ].max }
+											step={ FONT_SIZE_UNITS[ unit ].step }
+											value={ quantity }
+											onChange={ ( value ) => {
+												if ( value !== undefined ) {
+													onChange( index, { size: `${ value }${ unit }` } );
+												}
+											} }
+										/>
+									</Stack>
+								</td>
+								<td className="rtex-settings-font-size-preview">
+									{ createInterpolateElement(
+										__(
+											'Hello World ! <span>Hello This World !</span> Hello World !',
+											'richtext-extension'
+										),
+										{
+											span: <span style={ { fontSize: item.size } } />,
+										}
+									) }
+								</td>
+							</tr>
+						);
+					} ) }
 				</tbody>
 			</table>
 		</div>
