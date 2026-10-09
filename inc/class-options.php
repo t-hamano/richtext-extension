@@ -94,14 +94,16 @@ class Options {
 	 * @return array
 	 */
 	private static function get_schema() {
+		$default_settings = Config::get_default_settings();
+
 		return array(
 			'type'                 => 'object',
 			'additionalProperties' => false,
 			'properties'           => array(
 				'highlighter'         => array(
 					'type'     => 'array',
-					'minItems' => count( Config::$highlighter ),
-					'maxItems' => count( Config::$highlighter ),
+					'minItems' => count( $default_settings['highlighter'] ),
+					'maxItems' => count( $default_settings['highlighter'] ),
 					'items'    => array(
 						'type'                 => 'object',
 						'additionalProperties' => false,
@@ -135,8 +137,8 @@ class Options {
 				),
 				'font_size'           => array(
 					'type'     => 'array',
-					'minItems' => count( Config::$font_size ),
-					'maxItems' => count( Config::$font_size ),
+					'minItems' => count( $default_settings['font_size'] ),
+					'maxItems' => count( $default_settings['font_size'] ),
 					'items'    => array(
 						'type'                 => 'object',
 						'additionalProperties' => false,
