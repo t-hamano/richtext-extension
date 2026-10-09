@@ -9,8 +9,8 @@ import clsx from 'clsx';
 import { getActiveFormat, toggleFormat } from '@wordpress/rich-text';
 import { ToolbarDropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { BlockFormatControls } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { textColor as icon } from '@wordpress/icons';
+import { __, sprintf } from '@wordpress/i18n';
+import { check, textColor as icon } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -48,11 +48,8 @@ rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 										return (
 											<MenuItem
 												key={ item.className }
-												icon={ icon }
-												iconPosition="left"
-												className={ clsx( 'components-dropdown-menu__menu-item', {
-													'is-active': isSelected,
-												} ) }
+												icon={ isSelected ? check : null }
+												className="components-dropdown-menu__menu-item"
 												role="menuitemradio"
 												isSelected={ isSelected }
 												onClick={ () => {
@@ -60,7 +57,12 @@ rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 													onChange( toggleFormat( value, { type: formatName } ) );
 												} }
 											>
-												<span className={ item.className }>{ item.title }</span>
+												{ sprintf(
+													/* translators: 1: Font size title. 2: Font size with a unit, e.g. 1.3em. */
+													__( '%1$s (%2$s)', 'richtext-extension' ),
+													item.title,
+													item.size
+												) }
 											</MenuItem>
 										);
 									} ) }

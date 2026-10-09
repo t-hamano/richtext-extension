@@ -10,6 +10,7 @@ import { getActiveFormat, toggleFormat } from '@wordpress/rich-text';
 import { ToolbarDropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { BlockFormatControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import { check } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -48,11 +49,8 @@ rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 										return (
 											<MenuItem
 												key={ item.className }
-												icon={ icon }
-												iconPosition="left"
-												className={ clsx( 'components-dropdown-menu__menu-item', {
-													'is-active': isSelected,
-												} ) }
+												icon={ isSelected ? check : null }
+												className="components-dropdown-menu__menu-item"
 												role="menuitemradio"
 												isSelected={ isSelected }
 												onClick={ () => {
