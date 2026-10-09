@@ -67,10 +67,23 @@ class Enqueue {
 		}
 
 		$asset = include RTEX_PATH . '/build/settings.asset.php';
-		wp_enqueue_script( RTEX_NAMESPACE . '-settings', RTEX_URL . '/build/settings.js', $asset['dependencies'], $asset['version'], true );
+
+		wp_enqueue_script(
+			RTEX_NAMESPACE . '-settings',
+			RTEX_URL . '/build/settings.js',
+			$asset['dependencies'],
+			$asset['version'],
+			true
+		);
+
 		wp_set_script_translations( RTEX_NAMESPACE . '-settings', RTEX_NAMESPACE );
 
-		wp_enqueue_style( RTEX_NAMESPACE . '-settings', RTEX_URL . '/build/style-settings.css', array( 'wp-components', 'wp-theme' ), $asset['version'] );
+		wp_enqueue_style(
+			RTEX_NAMESPACE . '-settings',
+			RTEX_URL . '/build/style-settings.css',
+			array( 'wp-components', 'wp-theme' ),
+			$asset['version']
+		);
 		wp_style_add_data( RTEX_NAMESPACE . '-settings', 'rtl', 'replace' );
 
 		// Preload the settings so that the settings page can be rendered without waiting for the requests
