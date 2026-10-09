@@ -76,8 +76,8 @@ $default-scheme-color: #007cba;
 		&::-webkit-slider-thumb {
 			position: relative;
 			display: block;
-			width: 14px;
-			height: 14px;
+			width: var(--wpds-dimension-size-3xs);
+			height: var(--wpds-dimension-size-3xs);
 			cursor: pointer;
 			background-color: var(--wp-admin-theme-color, $default-scheme-color);
 			border: none;
