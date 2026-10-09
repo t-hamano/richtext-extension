@@ -3,7 +3,6 @@
  */
 import {
 	RangeControl,
-	// There is no stable equivalent of `UnitControl` in `@wordpress/components` or `@wordpress/ui`.
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
 	__experimentalUnitControl as UnitControl,
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
