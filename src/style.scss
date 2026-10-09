@@ -62,9 +62,9 @@ $default-scheme-color: #007cba;
 .rtex-range {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 2em 1em;
+	gap: var(--wpds-dimension-gap-xl) var(--wpds-dimension-gap-md);
 	align-items: center;
-	padding-top: 7px;
+	padding-top: var(--wpds-dimension-padding-sm);
 
 	[type="range"] {
 		flex: 1;
