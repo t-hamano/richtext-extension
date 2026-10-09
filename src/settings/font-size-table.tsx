@@ -64,7 +64,6 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 							</td>
 							<td>
 								<RangeControl
-									__next40pxDefaultSize
 									label={ sprintf(
 										/* translators: %d: Font size number. */
 										__( 'Size of font size %d', 'richtext-extension' ),

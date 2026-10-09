@@ -85,7 +85,6 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 							</td>
 							<td>
 								<RangeControl
-									__next40pxDefaultSize
 									label={ sprintf(
 										/* translators: %d: Highlighter number. */
 										__( 'Thickness of highlighter %d', 'richtext-extension' ),
@@ -104,7 +103,6 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 							</td>
 							<td>
 								<RangeControl
-									__next40pxDefaultSize
 									label={ sprintf(
 										/* translators: %d: Highlighter number. */
 										__( 'Opacity of highlighter %d', 'richtext-extension' ),
