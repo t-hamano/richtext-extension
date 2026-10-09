@@ -29,7 +29,7 @@ $default-scheme-color: #007cba;
 	th,
 	td {
 		padding: 0.5em 1em;
-		border: 1px solid var(--wpds-color-stroke-surface-neutral);
+		border: 1px solid var(--wpds-color-stroke-surface-neutral-strong);
 	}
 
 	th {
@@ -111,7 +111,7 @@ $default-scheme-color: #007cba;
 			align-items: center;
 			padding: 0 var(--wpds-dimension-padding-sm);
 			background: var(--wpds-color-background-surface-neutral-weak);
-			border-left: var(--wpds-color-stroke-surface-neutral) solid 1px;
+			border-left: var(--wpds-color-stroke-surface-neutral-strong) solid 1px;
 		}
 	}
 }
