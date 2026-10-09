@@ -46,7 +46,6 @@ class Enqueue {
 
 		$inline_css  = $this->get_inline_css();
 		$inline_css .= '.rtex-dropdown-popover .components-dropdown-menu__menu-item{justify-content:left;height:auto;}';
-		$inline_css .= '.rtex-dropdown-popover .components-dropdown-menu__menu-item svg{margin-right:8px;}';
 
 		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
 
@@ -194,6 +193,7 @@ class Enqueue {
 				$config['fontSize'][] = array(
 					'title'     => $font_size['title'],
 					'className' => 'rtex-font-size-' . $i,
+					'size'      => $font_size['size'],
 				);
 			}
 		}

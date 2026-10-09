@@ -48,8 +48,6 @@ rtexConf.highlighter.forEach( ( { title, className }, index ) => {
 										return (
 											<MenuItem
 												key={ item.className }
-												icon={ icon }
-												iconPosition="left"
 												className={ clsx( 'components-dropdown-menu__menu-item', {
 													'is-active': isSelected,
 												} ) }
