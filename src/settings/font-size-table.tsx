@@ -31,7 +31,7 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 					<tr>
 						<th style={ { width: 1 } }>{ __( 'Status', 'richtext-extension' ) }</th>
 						<th style={ { width: 200 } }>{ __( 'Title', 'richtext-extension' ) }</th>
-						<th style={ { minWidth: 150 } }>{ __( 'Size', 'richtext-extension' ) }</th>
+						<th style={ { width: 200 } }>{ __( 'Size', 'richtext-extension' ) }</th>
 						<th>{ __( 'Preview', 'richtext-extension' ) }</th>
 					</tr>
 				</thead>
