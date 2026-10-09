@@ -22,8 +22,8 @@ class Options {
 	 * Settable font size range per unit
 	 */
 	const FONT_SIZE_RANGES = array(
-		'em'  => array( 0.8, 3 ),
-		'rem' => array( 0.8, 3 ),
+		'em'  => array( 0.8, 6 ),
+		'rem' => array( 0.8, 6 ),
 		'px'  => array( 10, 72 ),
 	);
 
