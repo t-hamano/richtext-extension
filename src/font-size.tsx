@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { getActiveFormat, toggleFormat } from '@wordpress/rich-text';
+import { getActiveFormat } from '@wordpress/rich-text';
 import { ToolbarDropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
 import { BlockFormatControls } from '@wordpress/block-editor';
 import { __, sprintf } from '@wordpress/i18n';
@@ -16,7 +16,10 @@ import { check, textColor as icon } from '@wordpress/icons';
  * Internal dependencies
  */
 import { registerFormatType } from './register-format-type';
+import { toggleExclusiveFormat } from './toggle-exclusive-format';
 import type { FormatEditProps } from './types';
+
+const formatNames = rtexConf.fontSize.map( ( { className } ) => 'rtex/' + className );
 
 rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 	registerFormatType( 'rtex/' + className, {
@@ -25,9 +28,7 @@ rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 		className,
 		...( index === 0 && {
 			edit: ( { value, onChange }: FormatEditProps ) => {
-				const hasActive = rtexConf.fontSize.some(
-					( item ) => !! getActiveFormat( value, 'rtex/' + item.className )
-				);
+				const hasActive = formatNames.some( ( name ) => !! getActiveFormat( value, name ) );
 				return (
 					<BlockFormatControls>
 						<ToolbarDropdownMenu
@@ -54,7 +55,7 @@ rtexConf.fontSize.forEach( ( { title, className }, index ) => {
 												isSelected={ isSelected }
 												onClick={ () => {
 													onClose();
-													onChange( toggleFormat( value, { type: formatName } ) );
+													onChange( toggleExclusiveFormat( value, formatName, formatNames ) );
 												} }
 											>
 												{ sprintf(
