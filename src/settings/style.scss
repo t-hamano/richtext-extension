@@ -11,6 +11,8 @@
 
 .rtex-settings-table-wrap {
 	overflow-x: auto;
+	// Contain visually hidden labels so that they do not widen the page.
+	position: relative;
 }
 
 .rtex-settings-table {
