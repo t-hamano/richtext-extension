@@ -161,7 +161,7 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 									/>
 								</Stack>
 							</td>
-							<td>
+							<td className="rtex-settings-font-size-preview">
 								{ createInterpolateElement(
 									__(
 										'Hello World ! <span>Hello This World !</span> Hello World !',
