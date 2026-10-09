@@ -36,9 +36,9 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 			<table className="rtex-settings-table">
 				<thead>
 					<tr>
-						<th>{ __( 'Status', 'richtext-extension' ) }</th>
+						<th style={ { width: 1 } }>{ __( 'Status', 'richtext-extension' ) }</th>
 						<th style={ { width: 200 } }>{ __( 'Title', 'richtext-extension' ) }</th>
-						<th>{ __( 'Color', 'richtext-extension' ) }</th>
+						<th style={ { width: 1 } }>{ __( 'Color', 'richtext-extension' ) }</th>
 						<th style={ { minWidth: 150 } }>{ __( 'Thickness', 'richtext-extension' ) }</th>
 						<th style={ { minWidth: 150 } }>{ __( 'Opacity', 'richtext-extension' ) }</th>
 						<th style={ { minWidth: 160 } }>{ __( 'Type', 'richtext-extension' ) }</th>
