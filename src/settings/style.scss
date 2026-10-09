@@ -31,12 +31,13 @@
 	}
 }
 
-.rtex-settings-color-toggle.components-button {
-	justify-content: center;
-	width: var(--wpds-dimension-size-lg);
+.rtex-settings-color-toggle {
+	width: var(--wpds-dimension-size-md);
 	padding: 0;
+	border-radius: 50%;
 
 	.component-color-indicator {
+		display: block;
 		width: var(--wpds-dimension-size-md);
 		height: var(--wpds-dimension-size-md);
 	}

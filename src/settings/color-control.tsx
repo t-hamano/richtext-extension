@@ -1,7 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { Button, ColorIndicator, ColorPicker, Dropdown } from '@wordpress/components';
+import { ColorIndicator, ColorPicker, Dropdown } from '@wordpress/components';
+import { Button } from '@wordpress/ui';
 
 type ColorControlProps = {
 	label: string;
@@ -15,9 +16,10 @@ export default function ColorControl( { label, value, onChange }: ColorControlPr
 			popoverProps={ { placement: 'bottom-start' } }
 			renderToggle={ ( { isOpen, onToggle } ) => (
 				<Button
-					__next40pxDefaultSize
+					variant="unstyled"
+					size="compact"
 					className="rtex-settings-color-toggle"
-					label={ label }
+					aria-label={ label }
 					aria-expanded={ isOpen }
 					onClick={ onToggle }
 				>
