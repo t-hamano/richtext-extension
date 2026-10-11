@@ -13,3 +13,14 @@ jobs:
       build-command: |
         npm ci
         npm run plugin-zip
+        node -e '
+          const fs = require( "fs" );
+          const blueprint = JSON.parse( fs.readFileSync( ".wordpress-org/blueprints/blueprint.json", "utf8" ) );
+          for ( const step of blueprint.steps ) {
+            if ( step.step === "installPlugin" && step.pluginData?.slug === "richtext-extension" ) {
+              step.pluginData = { resource: "url", url: "{{ARTIFACT_URL:richtext-extension}}" };
+            }
+          }
+          fs.writeFileSync( "blueprint.json", JSON.stringify( blueprint ) );
+        '
+      blueprint-from-build: blueprint.json
