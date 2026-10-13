@@ -208,7 +208,8 @@ class Options_Test extends WP_UnitTestCase {
 		update_option( 'rtex_highlighter_type_0', 'stripe' );
 		update_option( 'rtex_font_size_size_0', '120' );
 		update_option( 'rtex_font_size_size_3', '250' );
-		update_option( 'rtex_underline_active', false );
+		// `false` is stored as an empty string in the database.
+		update_option( 'rtex_underline_active', '' );
 
 		$this->migrate_legacy_options();
 
