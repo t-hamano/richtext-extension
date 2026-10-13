@@ -2,6 +2,8 @@
 <ruleset name="WordPress Coding Standards based custom ruleset for your plugin">
 	<description>Generally-applicable sniffs for WordPress plugins.</description>
 	<rule ref="WordPress-Core" />
+	<rule ref="PHPCompatibilityWP" />
+	<config name="testVersion" value="8.0-" />
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/build/*</exclude-pattern>
