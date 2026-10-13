@@ -50,7 +50,12 @@ class Enqueue {
 		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
 
 		$asset = include RTEX_PATH . '/build/index.asset.php';
-		wp_enqueue_script( RTEX_NAMESPACE, RTEX_URL . '/build/index.js', $asset['dependencies'] );
+		wp_enqueue_script(
+			RTEX_NAMESPACE,
+			RTEX_URL . '/build/index.js',
+			$asset['dependencies'],
+			$asset['version']
+		);
 
 		wp_localize_script( RTEX_NAMESPACE, 'rtexConf', $this->create_editor_config() );
 
