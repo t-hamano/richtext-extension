@@ -21,6 +21,6 @@ composer.lock
 jest-puppeteer.config.js
 package-lock.json
 package.json
-phpcs.ruleset.xml
+phpcs.xml.dist
 README.md
 tsconfig.json
