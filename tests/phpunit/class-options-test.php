@@ -5,7 +5,6 @@
  * @package richtext-extension
  */
 
-use richtext_extension\Config;
 use richtext_extension\Options;
 
 class Options_Test extends WP_UnitTestCase {
@@ -30,12 +29,12 @@ class Options_Test extends WP_UnitTestCase {
 	}
 
 	public function test_sanitize_returns_defaults_for_non_array_value() {
-		$this->assertSame( Config::get_default_settings(), Options::sanitize( 'invalid' ) );
-		$this->assertSame( Config::get_default_settings(), Options::sanitize( false ) );
+		$this->assertSame( Options::get_default_settings(), Options::sanitize( 'invalid' ) );
+		$this->assertSame( Options::get_default_settings(), Options::sanitize( false ) );
 	}
 
 	public function test_sanitize_fills_in_missing_values() {
-		$defaults = Config::get_default_settings();
+		$defaults = Options::get_default_settings();
 		$settings = Options::sanitize(
 			array(
 				'highlighter' => array(
@@ -265,7 +264,7 @@ class Options_Test extends WP_UnitTestCase {
 	}
 
 	public function test_migrate_legacy_options_skips_when_already_migrated() {
-		$settings                         = Config::get_default_settings();
+		$settings                         = Options::get_default_settings();
 		$settings['font_size'][0]['size'] = '2em';
 		update_option( Options::OPTION_NAME, $settings );
 		update_option( 'rtex_font_size_size_0', '120' );

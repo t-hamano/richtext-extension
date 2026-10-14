@@ -2,7 +2,8 @@
  * WordPress dependencies
  */
 import domReady from '@wordpress/dom-ready';
-import { RichTextShortcut, RichTextToolbarButton } from '@wordpress/block-editor';
+import { select } from '@wordpress/data';
+import { RichTextToolbarButton } from '@wordpress/block-editor';
 import { unregisterFormatType, toggleFormat } from '@wordpress/rich-text';
 import { formatUnderline } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
@@ -11,53 +12,57 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { registerFormatType } from './register-format-type';
-import type { FormatEditProps } from './types';
+import type { FormatEditProps, FormatTypeSettings } from './types';
 
-const formatName = 'rtex/rtex-underline';
+const formatName = 'core/underline';
 const title = __( 'Underline', 'richtext-extension' );
 
 const deprecatedFormatName = 'rtex/rtex-underline-deprecated';
 
 domReady( () => {
-	if ( rtexConf.underlineActive ) {
-		unregisterFormatType( 'core/underline' );
-
-		registerFormatType( deprecatedFormatName, {
-			title: __( 'Underline (Deprecated)', 'richtext-extension' ),
-			tagName: 'u',
-			className: null,
-		} );
-
-		registerFormatType( formatName, {
-			title,
-			tagName: 'span',
-			className: null,
-			attributes: {
-				style: 'style',
-			},
-			edit( { isActive, value, onChange }: FormatEditProps ) {
-				const onToggle = () =>
-					onChange(
-						toggleFormat( value, {
-							type: formatName,
-							attributes: {
-								style: 'text-decoration: underline;',
-							},
-							title,
-						} as Parameters< typeof toggleFormat >[ 1 ] )
-					);
-				return (
-					<>
-						<RichTextShortcut type="primary" character="u" onUse={ onToggle } />
-						<RichTextToolbarButton
-							icon={ formatUnderline }
-							title={ title }
-							onClick={ onToggle }
-							isActive={ isActive }
-						/>
-					</>
-				);
-			},
-		} );
+	if ( ! rtexConf.underlineActive || ! select( 'core/rich-text' ).getFormatType( formatName ) ) {
+		return;
 	}
+
+	// Re-register `core/underline` with a toolbar button, keeping the original
+	// `edit` that handles the keyboard shortcut and the `formatUnderline` input event.
+	const {
+		name,
+		edit: OriginalEdit,
+		...settings
+	} = unregisterFormatType( formatName ) as FormatTypeSettings & { name: string };
+
+	registerFormatType( deprecatedFormatName, {
+		title: __( 'Underline (Deprecated)', 'richtext-extension' ),
+		tagName: 'u',
+		className: null,
+	} );
+
+	registerFormatType( name, {
+		...settings,
+		edit( props: FormatEditProps ) {
+			const { isActive, value, onChange } = props;
+			return (
+				<>
+					{ OriginalEdit && <OriginalEdit { ...props } /> }
+					<RichTextToolbarButton
+						icon={ formatUnderline }
+						title={ title }
+						onClick={ () =>
+							onChange(
+								toggleFormat( value, {
+									type: name,
+									attributes: {
+										style: 'text-decoration: underline;',
+									},
+									title,
+								} as Parameters< typeof toggleFormat >[ 1 ] )
+							)
+						}
+						isActive={ isActive }
+					/>
+				</>
+			);
+		},
+	} );
 } );
