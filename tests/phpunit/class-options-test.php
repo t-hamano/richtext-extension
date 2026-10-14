@@ -207,6 +207,29 @@ class Options_Test extends WP_UnitTestCase {
 		$this->assertFalse( $settings['clear_format_active'] );
 	}
 
+	public function test_get_settings_returns_defaults_when_not_stored() {
+		$this->assertSame( Options::get_default_settings(), Options::get_settings() );
+	}
+
+	public function test_get_settings_returns_sanitized_value() {
+		update_option( Options::OPTION_NAME, array( 'underline_active' => '0' ) );
+
+		$expected                     = Options::get_default_settings();
+		$expected['underline_active'] = false;
+
+		$this->assertSame( $expected, Options::get_settings() );
+	}
+
+	public function test_get_settings_reflects_option_changes() {
+		$this->assertTrue( Options::get_settings()['underline_active'] );
+
+		update_option( Options::OPTION_NAME, array( 'underline_active' => false ) );
+		$this->assertFalse( Options::get_settings()['underline_active'] );
+
+		delete_option( Options::OPTION_NAME );
+		$this->assertTrue( Options::get_settings()['underline_active'] );
+	}
+
 	public function test_migrate_legacy_options() {
 		update_option( 'rtex_highlighter_color_0', '#000000' );
 		update_option( 'rtex_highlighter_thickness_0', 50 );

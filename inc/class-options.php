@@ -33,6 +33,13 @@ class Options {
 	const HIGHLIGHTER_TYPES = array( 'solid', 'stripe', 'stripe-thin' );
 
 	/**
+	 * Settings reused within a request
+	 *
+	 * @var array|null
+	 */
+	private static $settings = null;
+
+	/**
 	 * Get default settings
 	 *
 	 * @return array
@@ -113,6 +120,11 @@ class Options {
 		// Normalize the stored settings when reading them, so that an invalid stored value
 		// (e.g. edited directly in the database) does not break the REST API response
 		add_filter( 'option_' . self::OPTION_NAME, array( __CLASS__, 'sanitize' ) );
+
+		// Clear the settings reused within a request when the option is changed
+		foreach ( array( 'add_option_', 'update_option_', 'delete_option_' ) as $hook ) {
+			add_action( $hook . self::OPTION_NAME, array( __CLASS__, 'clear_settings_cache' ) );
+		}
 
 		// Migrate stored settings after the setting is registered
 		add_action( 'init', array( $this, 'maybe_upgrade' ), 11 );
@@ -244,10 +256,25 @@ class Options {
 	/**
 	 * Get settings
 	 *
+	 * The stored value is already sanitized by the `option_rtex_settings` filter,
+	 * so the result is reused within a request until the option is changed.
+	 *
 	 * @return array
 	 */
 	public static function get_settings() {
-		return self::sanitize( get_option( self::OPTION_NAME ) );
+		if ( null === self::$settings ) {
+			$value          = get_option( self::OPTION_NAME );
+			self::$settings = is_array( $value ) ? $value : self::get_default_settings();
+		}
+
+		return self::$settings;
+	}
+
+	/**
+	 * Clear the settings reused within a request
+	 */
+	public static function clear_settings_cache() {
+		self::$settings = null;
 	}
 
 	/**
