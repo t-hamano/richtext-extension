@@ -25,13 +25,11 @@ if ( rtexConf.clearFormatActive ) {
 		edit( { isActive, value, onChange }: FormatEditProps ) {
 			const onToggle = () => {
 				const formatTypes = select( 'core/rich-text' ).getFormatTypes();
-				if ( 0 < formatTypes.length ) {
-					let newValue = value;
-					formatTypes.forEach( ( activeFormat: { name: string } ) => {
-						newValue = removeFormat( newValue, activeFormat.name );
-					} );
-					onChange( { ...newValue } );
-				}
+				let newValue = value;
+				formatTypes.forEach( ( activeFormat: { name: string } ) => {
+					newValue = removeFormat( newValue, activeFormat.name );
+				} );
+				onChange( newValue );
 			};
 
 			return (
