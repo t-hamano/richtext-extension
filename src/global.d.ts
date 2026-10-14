@@ -1,4 +1,4 @@
-// Global variables output by wp_localize_script
+// Global variables output by wp_add_inline_script
 declare const rtexConf: {
 	highlighter: { title: string; className: string }[];
 	fontSize: { title: string; className: string; size: string }[];

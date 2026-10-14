@@ -57,7 +57,11 @@ class Enqueue {
 			$asset['version']
 		);
 
-		wp_localize_script( RTEX_NAMESPACE, 'rtexConf', $this->create_editor_config() );
+		wp_add_inline_script(
+			RTEX_NAMESPACE,
+			sprintf( 'var rtexConf = %s;', wp_json_encode( $this->create_editor_config() ) ),
+			'before'
+		);
 
 		wp_set_script_translations( RTEX_NAMESPACE, RTEX_NAMESPACE );
 	}
