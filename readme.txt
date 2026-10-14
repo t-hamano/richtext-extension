@@ -46,6 +46,9 @@ Removes all formatting.
 
 == Changelog ==
 
+= Unreleased =
+* Change: Underline now extends the core `core/underline` format instead of replacing it. The `rtex/rtex-underline` format name no longer exists. Saved content is unchanged.
+
 = 3.1.0 =
 * Tested to WordPress 7.1
 * Drop support for WordPress 6.9
