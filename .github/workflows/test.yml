@@ -63,3 +63,40 @@ jobs:
 
       - name: Running PHPUnit
         run: npm run test:php
+
+  e2e:
+    name: E2E
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Use desired version of Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Npm install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Start wp-env
+        run: npm run wp-env-test start
+
+      - name: Running E2E tests
+        run: npm run test:e2e
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: e2e-artifacts
+          path: artifacts/test-results
+          if-no-files-found: ignore
