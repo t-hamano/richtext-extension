@@ -12,6 +12,7 @@ class Options_Test extends WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		delete_option( Options::OPTION_NAME );
+		rtex_reset_settings_cache();
 	}
 
 	/**
@@ -220,14 +221,12 @@ class Options_Test extends WP_UnitTestCase {
 		$this->assertSame( $expected, Options::get_settings() );
 	}
 
-	public function test_get_settings_reflects_option_changes() {
-		$this->assertTrue( Options::get_settings()['underline_active'] );
+	public function test_get_settings_reuses_settings_within_request() {
+		$settings = Options::get_settings();
 
 		update_option( Options::OPTION_NAME, array( 'underline_active' => false ) );
-		$this->assertFalse( Options::get_settings()['underline_active'] );
 
-		delete_option( Options::OPTION_NAME );
-		$this->assertTrue( Options::get_settings()['underline_active'] );
+		$this->assertSame( $settings, Options::get_settings() );
 	}
 
 	public function test_migrate_legacy_options() {

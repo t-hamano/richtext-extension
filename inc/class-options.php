@@ -121,11 +121,6 @@ class Options {
 		// (e.g. edited directly in the database) does not break the REST API response
 		add_filter( 'option_' . self::OPTION_NAME, array( __CLASS__, 'sanitize' ) );
 
-		// Clear the settings reused within a request when the option is changed
-		foreach ( array( 'add_option_', 'update_option_', 'delete_option_' ) as $hook ) {
-			add_action( $hook . self::OPTION_NAME, array( __CLASS__, 'clear_settings_cache' ) );
-		}
-
 		// Migrate stored settings after the setting is registered
 		add_action( 'init', array( $this, 'maybe_upgrade' ), 11 );
 	}
@@ -257,7 +252,7 @@ class Options {
 	 * Get settings
 	 *
 	 * The stored value is already sanitized by the `option_rtex_settings` filter,
-	 * so the result is reused within a request until the option is changed.
+	 * so the result is reused within a request.
 	 *
 	 * @return array
 	 */
@@ -268,13 +263,6 @@ class Options {
 		}
 
 		return self::$settings;
-	}
-
-	/**
-	 * Clear the settings reused within a request
-	 */
-	public static function clear_settings_cache() {
-		self::$settings = null;
 	}
 
 	/**
