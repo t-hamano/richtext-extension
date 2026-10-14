@@ -209,5 +209,3 @@ class Enqueue {
 		return $config;
 	}
 }
-
-new Enqueue();

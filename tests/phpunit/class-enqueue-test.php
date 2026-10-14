@@ -5,7 +5,6 @@
  * @package richtext-extension
  */
 
-use richtext_extension\Config;
 use richtext_extension\Enqueue;
 use richtext_extension\Options;
 
@@ -36,7 +35,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 	 * @dataProvider data_get_inline_css_highlighter
 	 */
 	public function test_get_inline_css_highlighter( $highlighter, $expected ) {
-		$settings = Config::get_default_settings();
+		$settings = Options::get_default_settings();
 
 		// Only output the first highlighter.
 		$settings['highlighter'][0] = array_merge( $settings['highlighter'][0], $highlighter );
@@ -114,7 +113,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_inline_css_font_size() {
-		$settings = Config::get_default_settings();
+		$settings = Options::get_default_settings();
 		foreach ( array_keys( $settings['highlighter'] ) as $i ) {
 			$settings['highlighter'][ $i ]['active'] = false;
 		}
