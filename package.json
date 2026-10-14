@@ -28,6 +28,8 @@
 		"readme.txt"
 	],
 	"devDependencies": {
+		"@playwright/test": "1.64.0",
+		"@types/node": "24.19.2",
 		"@types/wordpress__block-editor": "15.0.7",
 		"@wordpress/admin-ui": "2.12.0",
 		"@wordpress/base-styles": "13.3.0",
@@ -37,6 +39,7 @@
 		"@wordpress/core-data": "8.2.0",
 		"@wordpress/data": "10.57.0",
 		"@wordpress/dom-ready": "4.57.0",
+		"@wordpress/e2e-test-utils-playwright": "3.0.0",
 		"@wordpress/element": "9.0.0",
 		"@wordpress/env": "^11.17.0",
 		"@wordpress/i18n": "6.30.0",
@@ -69,6 +72,7 @@
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"format": "wp-scripts format",
 		"test:php": "wp-env --config .wp-env.test.json run cli --env-cwd=wp-content/plugins/richtext-extension vendor/bin/phpunit",
+		"test:e2e": "wp-scripts test-playwright",
 		"prepare": "husky"
 	},
 	"lint-staged": {
