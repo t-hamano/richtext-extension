@@ -17,8 +17,6 @@ import type { FormatEditProps, FormatTypeSettings } from './types';
 const formatName = 'core/underline';
 const title = __( 'Underline', 'richtext-extension' );
 
-const deprecatedFormatName = 'rtex/rtex-underline-deprecated';
-
 domReady( () => {
 	if ( ! rtexConf.underlineActive || ! select( 'core/rich-text' ).getFormatType( formatName ) ) {
 		return;
@@ -31,12 +29,6 @@ domReady( () => {
 		edit: OriginalEdit,
 		...settings
 	} = unregisterFormatType( formatName ) as FormatTypeSettings & { name: string };
-
-	registerFormatType( deprecatedFormatName, {
-		title: __( 'Underline (Deprecated)', 'richtext-extension' ),
-		tagName: 'u',
-		className: null,
-	} );
 
 	registerFormatType( name, {
 		...settings,
