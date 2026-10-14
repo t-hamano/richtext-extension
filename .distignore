@@ -3,6 +3,7 @@
 /.github
 /.husky
 /.wordpress-org
+/artifacts
 /node_modules
 /tests
 /vendor
