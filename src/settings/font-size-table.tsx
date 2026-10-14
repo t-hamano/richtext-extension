@@ -123,7 +123,6 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 								<td>
 									<Stack direction="row" gap="sm" align="center">
 										<UnitControl
-											__next40pxDefaultSize
 											className="rtex-settings-unit-control"
 											label={ sprintf(
 												/* translators: %d: Font size number. */
