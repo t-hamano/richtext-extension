@@ -6,6 +6,7 @@
 /artifacts
 /node_modules
 /test
+/tests
 /vendor
 .distignore
 .editorconfig
@@ -22,5 +23,6 @@ jest-puppeteer.config.js
 package-lock.json
 package.json
 phpcs.xml.dist
+phpunit.xml.dist
 README.md
 tsconfig.json

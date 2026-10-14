@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="tests/phpunit/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	convertDeprecationsToExceptions="true"
+>
+	<testsuites>
+		<testsuite name="richtext-extension">
+			<directory suffix="-test.php">./tests/phpunit/</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
