@@ -1,9 +1,5 @@
 // Global variables output by wp_add_inline_script
-declare const rtexConf: {
-	highlighter: { title: string; className: string }[];
-	fontSize: { title: string; className: string; size: string }[];
-	underlineActive: boolean;
-	clearFormatActive: boolean;
-};
+declare const rtexConf: import( './types' ).EditorConfig;
+declare const rtexSettingsConf: import( './types' ).SettingsPageConfig;
 
 declare module '*.scss';

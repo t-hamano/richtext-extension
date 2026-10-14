@@ -84,6 +84,15 @@ class Enqueue {
 			true
 		);
 
+		wp_add_inline_script(
+			RTEX_NAMESPACE . '-settings',
+			sprintf(
+				'var rtexSettingsConf = %s;',
+				wp_json_encode( array( 'fontSizeRanges' => Options::FONT_SIZE_RANGES ) )
+			),
+			'before'
+		);
+
 		wp_set_script_translations( RTEX_NAMESPACE . '-settings', RTEX_NAMESPACE );
 
 		wp_enqueue_style(

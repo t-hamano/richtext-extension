@@ -18,14 +18,23 @@ import { InputControl, Stack, SwitchControl } from '@wordpress/ui';
 import type { FontSizeSetting, FontSizeUnit } from './types';
 
 /**
- * Settable font size range and step per unit.
- * Keep the ranges in sync with `Options::FONT_SIZE_RANGES`.
+ * Settable font size step per unit.
  */
-const FONT_SIZE_UNITS: Record< FontSizeUnit, { min: number; max: number; step: number } > = {
-	em: { min: 0.8, max: 6, step: 0.01 },
-	rem: { min: 0.8, max: 6, step: 0.01 },
-	px: { min: 10, max: 72, step: 1 },
+const FONT_SIZE_STEPS: Record< FontSizeUnit, number > = {
+	em: 0.01,
+	rem: 0.01,
+	px: 1,
 };
+
+/**
+ * Settable font size range and step per unit. The ranges are passed from `Options::FONT_SIZE_RANGES`.
+ */
+const FONT_SIZE_UNITS = Object.fromEntries(
+	( Object.keys( FONT_SIZE_STEPS ) as FontSizeUnit[] ).map( ( unit ) => {
+		const [ min, max ] = rtexSettingsConf.fontSizeRanges[ unit ];
+		return [ unit, { min, max, step: FONT_SIZE_STEPS[ unit ] } ];
+	} )
+) as Record< FontSizeUnit, { min: number; max: number; step: number } >;
 
 const UNITS = ( Object.keys( FONT_SIZE_UNITS ) as FontSizeUnit[] ).map( ( unit ) => ( {
 	value: unit,
