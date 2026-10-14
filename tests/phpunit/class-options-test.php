@@ -12,6 +12,7 @@ class Options_Test extends WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		delete_option( Options::OPTION_NAME );
+		rtex_reset_settings_cache();
 	}
 
 	/**
@@ -205,6 +206,27 @@ class Options_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Title', $settings['highlighter'][0]['title'] );
 		$this->assertFalse( $settings['underline_active'] );
 		$this->assertFalse( $settings['clear_format_active'] );
+	}
+
+	public function test_get_settings_returns_defaults_when_not_stored() {
+		$this->assertSame( Options::get_default_settings(), Options::get_settings() );
+	}
+
+	public function test_get_settings_returns_sanitized_value() {
+		update_option( Options::OPTION_NAME, array( 'underline_active' => '0' ) );
+
+		$expected                     = Options::get_default_settings();
+		$expected['underline_active'] = false;
+
+		$this->assertSame( $expected, Options::get_settings() );
+	}
+
+	public function test_get_settings_reuses_settings_within_request() {
+		$settings = Options::get_settings();
+
+		update_option( Options::OPTION_NAME, array( 'underline_active' => false ) );
+
+		$this->assertSame( $settings, Options::get_settings() );
 	}
 
 	public function test_migrate_legacy_options() {

@@ -33,6 +33,13 @@ class Options {
 	const HIGHLIGHTER_TYPES = array( 'solid', 'stripe', 'stripe-thin' );
 
 	/**
+	 * Settings reused within a request
+	 *
+	 * @var array|null
+	 */
+	private static $settings = null;
+
+	/**
 	 * Get default settings
 	 *
 	 * @return array
@@ -244,10 +251,18 @@ class Options {
 	/**
 	 * Get settings
 	 *
+	 * The stored value is already sanitized by the `option_rtex_settings` filter,
+	 * so the result is reused within a request.
+	 *
 	 * @return array
 	 */
 	public static function get_settings() {
-		return self::sanitize( get_option( self::OPTION_NAME ) );
+		if ( null === self::$settings ) {
+			$value          = get_option( self::OPTION_NAME );
+			self::$settings = is_array( $value ) ? $value : self::get_default_settings();
+		}
+
+		return self::$settings;
 	}
 
 	/**

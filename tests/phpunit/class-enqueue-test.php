@@ -19,6 +19,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 	 */
 	private function get_inline_css( $settings ) {
 		update_option( Options::OPTION_NAME, $settings );
+		rtex_reset_settings_cache();
 
 		$reflection = new ReflectionClass( Enqueue::class );
 		$method     = $reflection->getMethod( 'get_inline_css' );
