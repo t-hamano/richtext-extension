@@ -34,7 +34,7 @@ test.describe( 'Settings', () => {
 		await page.getByRole( 'textbox', { name: 'Title of highlighter 1' } ).fill( 'Custom marker' );
 		await page.getByRole( 'spinbutton', { name: 'Size of font size 1' } ).fill( '2' );
 		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
-		await expect( page.getByText( 'Settings saved.' ) ).toBeVisible();
+		await expect( page.getByTestId( 'snackbar' ) ).toContainText( 'Settings saved.' );
 
 		// Editor.
 		await admin.createNewPost();
@@ -81,7 +81,7 @@ test.describe( 'Settings', () => {
 		await page.getByRole( 'switch', { name: 'Underline', exact: true } ).click();
 		await page.getByRole( 'switch', { name: 'Clear format', exact: true } ).click();
 		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
-		await expect( page.getByText( 'Settings saved.' ) ).toBeVisible();
+		await expect( page.getByTestId( 'snackbar' ) ).toContainText( 'Settings saved.' );
 
 		await admin.createNewPost();
 		await editor.insertBlock( {
