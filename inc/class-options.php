@@ -33,6 +33,74 @@ class Options {
 	const HIGHLIGHTER_TYPES = array( 'solid', 'stripe', 'stripe-thin' );
 
 	/**
+	 * Get default settings
+	 *
+	 * @return array
+	 */
+	public static function get_default_settings() {
+		return array(
+			'highlighter'         => array(
+				array(
+					'active'    => true,
+					'title'     => __( 'Marker ( Yellow )', 'richtext-extension' ),
+					'color'     => '#ffff66',
+					'thickness' => 40,
+					'opacity'   => 70,
+					'type'      => 'solid',
+				),
+				array(
+					'active'    => true,
+					'title'     => __( 'Marker ( Red )', 'richtext-extension' ),
+					'color'     => '#ff7f7f',
+					'thickness' => 40,
+					'opacity'   => 40,
+					'type'      => 'solid',
+				),
+				array(
+					'active'    => true,
+					'title'     => __( 'Background ( Yellow )', 'richtext-extension' ),
+					'color'     => '#ffff66',
+					'thickness' => 100,
+					'opacity'   => 70,
+					'type'      => 'solid',
+				),
+				array(
+					'active'    => true,
+					'title'     => __( 'Background ( Red )', 'richtext-extension' ),
+					'color'     => '#ff7f7f',
+					'thickness' => 100,
+					'opacity'   => 40,
+					'type'      => 'solid',
+				),
+			),
+			'font_size'           => array(
+				array(
+					'active' => true,
+					'title'  => __( 'Extra small', 'richtext-extension' ),
+					'size'   => '0.8em',
+				),
+				array(
+					'active' => true,
+					'title'  => __( 'Small', 'richtext-extension' ),
+					'size'   => '0.9em',
+				),
+				array(
+					'active' => true,
+					'title'  => __( 'Large', 'richtext-extension' ),
+					'size'   => '1.3em',
+				),
+				array(
+					'active' => true,
+					'title'  => __( 'Extra large', 'richtext-extension' ),
+					'size'   => '1.6em',
+				),
+			),
+			'underline_active'    => true,
+			'clear_format_active' => true,
+		);
+	}
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -86,7 +154,7 @@ class Options {
 			array(
 				'type'              => 'object',
 				'label'             => __( 'RichText Extension Settings', 'richtext-extension' ),
-				'default'           => Config::get_default_settings(),
+				'default'           => self::get_default_settings(),
 				'sanitize_callback' => array( __CLASS__, 'sanitize' ),
 				'show_in_rest'      => array(
 					'schema' => self::get_schema(),
@@ -101,7 +169,7 @@ class Options {
 	 * @return array
 	 */
 	private static function get_schema() {
-		$default_settings = Config::get_default_settings();
+		$default_settings = self::get_default_settings();
 
 		return array(
 			'type'                 => 'object',
@@ -193,7 +261,7 @@ class Options {
 	 */
 	public static function sanitize( $value ) {
 		$value    = is_array( $value ) ? $value : array();
-		$settings = Config::get_default_settings();
+		$settings = self::get_default_settings();
 
 		foreach ( $settings['highlighter'] as $i => $default_item ) {
 			$item = self::get_item( $value, 'highlighter', $i, $default_item );
@@ -320,7 +388,7 @@ class Options {
 			return;
 		}
 
-		$settings            = Config::get_default_settings();
+		$settings            = self::get_default_settings();
 		$legacy_option_names = array();
 
 		$get_legacy_option = static function ( $option_name, $default_value ) use ( &$legacy_option_names ) {
@@ -371,5 +439,3 @@ class Options {
 		}
 	}
 }
-
-new Options();
