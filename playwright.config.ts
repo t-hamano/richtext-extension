@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 /**
  * WordPress dependencies
@@ -15,4 +15,18 @@ export default defineConfig( {
 		...baseConfig.webServer,
 		command: 'npm run wp-env-test start',
 	},
+	projects: [
+		{
+			name: 'chromium',
+			use: { ...devices[ 'Desktop Chrome' ] },
+		},
+		{
+			name: 'firefox',
+			use: { ...devices[ 'Desktop Firefox' ] },
+		},
+		{
+			name: 'webkit',
+			use: { ...devices[ 'Desktop Safari' ] },
+		},
+	],
 } );
