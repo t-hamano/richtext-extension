@@ -7,6 +7,10 @@ on:
       - main
   workflow_call:
 
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
 # Cancels all previous workflow runs for pull requests that have not completed.
 concurrency:
   # The concurrency group contains the workflow name and the branch name for pull requests
@@ -17,6 +21,9 @@ concurrency:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
 
     name: Lint
 
@@ -28,6 +35,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Npm install
         run: npm ci
@@ -40,18 +48,20 @@ jobs:
 
   php-unit-test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 15
     strategy:
       matrix:
         php: ['8.2', '8.4', '8.5']
         wp: ['WordPress', 'WordPress#7.1']
-        # Short labels for job names.
         include:
           - wp: WordPress
-            wp-label: WP trunk
+            label: WP trunk
           - wp: WordPress#7.1
-            wp-label: WP 7.1
+            label: WP 7.1
 
-    name: PHP Unit / PHP ${{ matrix.php }} / ${{ matrix.wp-label }}
+    name: PHP Unit / PHP ${{ matrix.php }} / ${{ matrix.label }}
 
     steps:
       - name: Checkout
@@ -61,6 +71,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Npm install
         run: npm ci
@@ -78,6 +89,9 @@ jobs:
 
   e2e-test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 60
     strategy:
       matrix:
         include:
@@ -85,32 +99,32 @@ jobs:
           # so all browsers run on the latest PHP only.
           - php: '8.2'
             wp: WordPress
-            wp-label: WP trunk
+            label: WP trunk
             browsers: chromium
           - php: '8.2'
             wp: WordPress#7.1
-            wp-label: WP 7.1
+            label: WP 7.1
             browsers: chromium
 
           - php: '8.4'
             wp: WordPress
-            wp-label: WP trunk
+            label: WP trunk
             browsers: chromium
           - php: '8.4'
             wp: WordPress#7.1
-            wp-label: WP 7.1
+            label: WP 7.1
             browsers: chromium
 
           - php: '8.5'
             wp: WordPress
-            wp-label: WP trunk
+            label: WP trunk
             browsers: chromium firefox webkit
           - php: '8.5'
             wp: WordPress#7.1
-            wp-label: WP 7.1
+            label: WP 7.1
             browsers: chromium firefox webkit
 
-    name: E2E / PHP ${{ matrix.php }} / ${{ matrix.wp-label }}
+    name: E2E / PHP ${{ matrix.php }} / ${{ matrix.label }}
 
     steps:
       - name: Checkout
@@ -120,6 +134,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Npm install and build
         run: |
@@ -133,6 +148,7 @@ jobs:
         run: |
           WP_ENV_CORE=WordPress/${{ matrix.wp }} WP_ENV_PHP_VERSION=${{ matrix.php }} npm run wp-env-test start
           npm run wp-env-test run cli wp core version
+          npm run wp-env-test run cli wp cli info
 
       - name: Running e2e tests
         run: npm run test:e2e -- $(printf -- '--project=%s ' ${{ matrix.browsers }})
@@ -141,8 +157,8 @@ jobs:
 
       - name: Archive debug artifacts
         uses: actions/upload-artifact@v7
-        if: always()
+        if: failure()
         with:
-          name: failures-artifacts-php${{ matrix.php }}-${{ matrix.wp-label == 'WP trunk' && 'trunk' || '7.1' }}
+          name: failures-artifacts-${{ matrix.php }}-${{ matrix.wp }}
           path: artifacts
           if-no-files-found: ignore
