@@ -46,8 +46,10 @@ test.describe( 'Format styles', () => {
 	test( 'should be applied in the site editor', async ( { admin, editor } ) => {
 		await admin.visitSiteEditor( { canvas: 'edit' } );
 
-		await expect( editor.canvas.locator( 'style#richtext-extension-inline-css' ) ).toHaveCount( 1 );
-		await expect( editor.canvas.locator( 'style#richtext-extension-inline-css' ) ).toContainText(
+		const style = editor.canvas.locator( 'style#richtext-extension-inline-css' );
+		await expect( style ).toHaveCount( 1 );
+		// Playwright's text assertions ignore the contents of <style> elements.
+		expect( await style.evaluate( ( element ) => element.textContent ) ).toContain(
 			'.rtex-highlighter-0'
 		);
 	} );
