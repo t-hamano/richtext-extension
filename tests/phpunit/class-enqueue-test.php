@@ -59,7 +59,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 					'thickness' => 40,
 					'opacity'   => 70,
 				),
-				'.rtex-highlighter-0{background: linear-gradient(transparent 60%, rgba(255, 255, 102, 0.7) 60%);}',
+				'.rtex-highlighter-0{background: linear-gradient(transparent 60%, #ffff66b3 60%);}',
 			),
 			'stripe'               => array(
 				array(
@@ -68,7 +68,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 					'thickness' => 40,
 					'opacity'   => 40,
 				),
-				'.rtex-highlighter-0{background: repeating-linear-gradient(-45deg, rgba(255, 127, 127, 0.4) 0, rgba(255, 127, 127, 0.4) 3px, transparent 3px, transparent 6px) no-repeat bottom/100% 40%;}',
+				'.rtex-highlighter-0{background: repeating-linear-gradient(-45deg, #ff7f7f66 0, #ff7f7f66 3px, transparent 3px, transparent 6px) no-repeat bottom/100% 40%;}',
 			),
 			'stripe-thin'          => array(
 				array(
@@ -77,7 +77,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 					'thickness' => 40,
 					'opacity'   => 40,
 				),
-				'.rtex-highlighter-0{background: repeating-linear-gradient(-45deg, rgba(255, 127, 127, 0.4) 0, rgba(255, 127, 127, 0.4) 2px, transparent 2px, transparent 4px) no-repeat bottom/100% 40%;}',
+				'.rtex-highlighter-0{background: repeating-linear-gradient(-45deg, #ff7f7f66 0, #ff7f7f66 2px, transparent 2px, transparent 4px) no-repeat bottom/100% 40%;}',
 			),
 			'solid, thickness 100' => array(
 				array(
@@ -86,7 +86,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 					'thickness' => 100,
 					'opacity'   => 70,
 				),
-				'.rtex-highlighter-0{background: rgba(255, 255, 102, 0.7);}',
+				'.rtex-highlighter-0{background: #ffff66b3;}',
 			),
 			'solid, opacity 100'   => array(
 				array(
@@ -95,7 +95,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 					'thickness' => 40,
 					'opacity'   => 100,
 				),
-				'.rtex-highlighter-0{background: linear-gradient(transparent 60%, #ffff66 60%);}',
+				'.rtex-highlighter-0{background: linear-gradient(transparent 60%, #ffff66ff 60%);}',
 			),
 			'stripe, opacity 100'  => array(
 				array(
@@ -104,7 +104,7 @@ class Enqueue_Test extends WP_UnitTestCase {
 					'thickness' => 100,
 					'opacity'   => 100,
 				),
-				'.rtex-highlighter-0{background: repeating-linear-gradient(-45deg, #ff7f7f 0, #ff7f7f 3px, transparent 3px, transparent 6px) no-repeat bottom/100% 100%;}',
+				'.rtex-highlighter-0{background: repeating-linear-gradient(-45deg, #ff7f7fff 0, #ff7f7fff 3px, transparent 3px, transparent 6px) no-repeat bottom/100% 100%;}',
 			),
 			'inactive'             => array(
 				array( 'active' => false ),
