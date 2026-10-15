@@ -12,7 +12,6 @@ import type { HighlighterSetting } from './types';
  */
 export function getHighlighterBackground( highlighter: HighlighterSetting ): string {
 	const { opacity, thickness, type } = highlighter;
-	// Append the opacity to the hex color as the alpha channel (#rrggbbaa).
 	const alpha = Math.round( ( opacity * 255 ) / 100 );
 	const color = highlighter.color + alpha.toString( 16 ).padStart( 2, '0' );
 

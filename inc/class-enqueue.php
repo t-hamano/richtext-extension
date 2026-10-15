@@ -114,7 +114,6 @@ class Enqueue {
 				$thickness    = $highlighter['thickness'];
 				$type         = $highlighter['type'];
 
-				// Append the opacity to the hex color as the alpha channel (#rrggbbaa).
 				$color = $highlighter['color'] . sprintf( '%02x', round( $highlighter['opacity'] * 255 / 100 ) );
 
 				// Generate gradient value
