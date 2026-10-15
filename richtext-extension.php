@@ -3,7 +3,7 @@
  * Plugin Name: RichText Extension
  * Description: Adds useful decoration features to the Gutenberg RichText editor toolbar.
  * Requires at least: 7.1
- * Requires PHP: 8.0
+ * Requires PHP: 8.2
  * Version: 3.1.0
  * Author: Aki Hamano
  * Author URI: https://github.com/t-hamano
