@@ -13,40 +13,30 @@ class Enqueue {
 	 * Constructor
 	 */
 	public function __construct() {
-		// Enqueue front-end scripts
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		// Enqueue format styles for the front end and the editor content
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
 
 		// Enqueue block editor scripts
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_scripts' ) );
 
 		// Enqueue option page scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_option_scripts' ) );
-
-		// Add inline CSS to iframe editor instances in WordPress 5.9
-		add_filter( 'block_editor_settings_all', array( $this, 'add_iframe_inline_css' ) );
 	}
 
 	/**
-	 * Enqueue front-end scripts
+	 * Enqueue format styles for the front end and the editor content
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_block_assets() {
 		wp_register_style( RTEX_NAMESPACE, false );
 		wp_enqueue_style( RTEX_NAMESPACE );
 
-		$inline_css = $this->get_inline_css();
-		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
+		wp_add_inline_style( RTEX_NAMESPACE, $this->get_inline_css() );
 	}
 
 	/**
 	 * Enqueue block editor scripts
 	 */
 	public function enqueue_editor_scripts() {
-		wp_register_style( RTEX_NAMESPACE, false );
-		wp_enqueue_style( RTEX_NAMESPACE );
-
-		$inline_css = $this->get_inline_css();
-		wp_add_inline_style( RTEX_NAMESPACE, $inline_css );
-
 		$asset = include RTEX_PATH . '/build/index.asset.php';
 		wp_enqueue_script(
 			RTEX_NAMESPACE,
@@ -106,15 +96,6 @@ class Enqueue {
 			sprintf( 'wp.apiFetch.use( wp.apiFetch.createPreloadingMiddleware( %s ) );', wp_json_encode( $preload_data ) ),
 			'after'
 		);
-	}
-
-	/**
-	 * Add inline CSS to iframe editor instances in WordPress 5.9
-	 */
-	public function add_iframe_inline_css( $settings ) {
-		$inline_css           = $this->get_inline_css();
-		$settings['styles'][] = array( 'css' => $inline_css );
-		return $settings;
 	}
 
 	/**
