@@ -112,19 +112,9 @@ class Enqueue {
 			if ( $highlighter['active'] ) {
 				$css_selector = ".rtex-highlighter-{$i}";
 				$thickness    = $highlighter['thickness'];
-				$color_hex    = $highlighter['color'];
 				$type         = $highlighter['type'];
-				$opacity      = $highlighter['opacity'] / 100;
 
-				// Generate rgba value
-				if ( 1 === $opacity ) {
-					$color = $color_hex;
-				} else {
-					$r     = hexdec( substr( $color_hex, 1, 2 ) );
-					$g     = hexdec( substr( $color_hex, 3, 2 ) );
-					$b     = hexdec( substr( $color_hex, 5, 2 ) );
-					$color = "rgba({$r}, {$g}, {$b}, {$opacity})";
-				}
+				$color = $highlighter['color'] . sprintf( '%02x', round( $highlighter['opacity'] * 255 / 100 ) );
 
 				// Generate gradient value
 				if ( 'solid' === $type ) {
