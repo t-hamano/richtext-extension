@@ -61,9 +61,6 @@ export const registerFormatDropdown = < T extends DropdownItem >(
 								toggleProps={ {
 									className: clsx( { 'is-pressed': hasActive } ),
 								} }
-								popoverProps={ {
-									className: 'rtex-dropdown-popover',
-								} }
 							>
 								{ ( { onClose } ) => (
 									<MenuGroup>
