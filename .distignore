@@ -12,6 +12,8 @@
 eslint.config.js
 .gitignore
 .markdownlint.json
+.npmrc
+.nvmrc
 .prettierrc.js
 .stylelintrc.js
 .stylelintignore
