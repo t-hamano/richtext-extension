@@ -55,7 +55,6 @@
 	"scripts": {
 		"wp-env": "wp-env",
 		"wp-env-test": "wp-env --config .wp-env.test.json",
-		"stop": "wp-env stop",
 		"start": "wp-scripts start index=./src/index.ts settings=./src/settings/index.tsx",
 		"build": "wp-scripts build index=./src/index.ts settings=./src/settings/index.tsx",
 		"plugin-zip": "npm run build && wp-scripts plugin-zip",
@@ -63,13 +62,14 @@
 		"lint": "npm run lint:css && npm run lint:js && npm run lint:types && npm run lint:php && npm run lint:md-docs && npm run lint:pkg-json",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
-		"lint:types": "tsc --noEmit",
+		"lint:types": "tsc",
 		"lint:php": "vendor/bin/phpcs",
 		"lint:md-docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"format": "wp-scripts format",
 		"test:php": "wp-env --config .wp-env.test.json run cli --env-cwd=wp-content/plugins/richtext-extension vendor/bin/phpunit",
 		"test:e2e": "wp-scripts test-playwright",
+		"test:e2e:debug": "wp-scripts test-playwright --debug",
 		"prepare": "husky"
 	},
 	"lint-staged": {
