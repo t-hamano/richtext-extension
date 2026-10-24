@@ -11,8 +11,10 @@
 .editorconfig
 eslint.config.js
 .gitignore
+.markdownlint.json
 .prettierrc.js
 .stylelintrc.js
+.stylelintignore
 .wp-env.json
 .wp-env.test.json
 composer.json
@@ -21,6 +23,6 @@ package-lock.json
 package.json
 phpcs.xml.dist
 phpunit.xml.dist
-playwright.config.ts
+playwright.config.js
 README.md
 tsconfig.json
