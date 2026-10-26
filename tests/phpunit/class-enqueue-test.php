@@ -24,11 +24,6 @@ class Enqueue_Test extends WP_UnitTestCase {
 		$reflection = new ReflectionClass( Enqueue::class );
 		$method     = $reflection->getMethod( 'get_inline_css' );
 
-		// Private methods are invokable without this since PHP 8.1.
-		if ( PHP_VERSION_ID < 80100 ) {
-			$method->setAccessible( true );
-		}
-
 		return $method->invoke( $reflection->newInstanceWithoutConstructor() );
 	}
 

@@ -35,10 +35,5 @@ require "{$rtex_tests_dir}/includes/bootstrap.php";
 function rtex_reset_settings_cache() {
 	$property = new ReflectionProperty( richtext_extension\Options::class, 'settings' );
 
-	// Private properties are accessible without this since PHP 8.1.
-	if ( PHP_VERSION_ID < 80100 ) {
-		$property->setAccessible( true );
-	}
-
 	$property->setValue( null, null );
 }
