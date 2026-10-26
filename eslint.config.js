@@ -27,6 +27,7 @@ module.exports = [
 			'@wordpress/components-no-unsafe-button-disabled': 'error',
 			'@wordpress/components-no-missing-40px-size-prop': 'error',
 			'@wordpress/react-no-unsafe-timeout': 'error',
+			'@wordpress/use-recommended-components': [ 'error', { allowUseWithCaution: true } ],
 			'@wordpress/dependency-group': 'error',
 			'@wordpress/i18n-text-domain': [
 				'error',
