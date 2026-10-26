@@ -25,6 +25,8 @@ module.exports = [
 			'@wordpress/wp-global-usage': 'error',
 			'@wordpress/data-no-store-string-literals': 'error',
 			'@wordpress/components-no-unsafe-button-disabled': 'error',
+			'@wordpress/components-no-missing-40px-size-prop': 'error',
+			'@wordpress/react-no-unsafe-timeout': 'error',
 			'@wordpress/dependency-group': 'error',
 			'@wordpress/i18n-text-domain': [
 				'error',
