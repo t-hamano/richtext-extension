@@ -70,4 +70,8 @@ module.exports = [
 			],
 		},
 	},
+	...defaultConfig.configs[ 'test-playwright' ].map( ( config ) => ( {
+		...config,
+		files: [ 'tests/e2e/**/*.ts' ],
+	} ) ),
 ];
