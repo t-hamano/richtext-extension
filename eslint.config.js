@@ -9,6 +9,9 @@ module.exports = [
 	},
 	...defaultConfig.configs.recommended,
 	{
+		linterOptions: {
+			reportUnusedDisableDirectives: 'error',
+		},
 		languageOptions: {
 			globals: {
 				rtexConf: 'readonly',
@@ -16,14 +19,39 @@ module.exports = [
 		},
 		rules: {
 			'react/jsx-boolean-value': 'error',
-			'import/no-unresolved': 'off',
 			'import/no-extraneous-dependencies': 'off',
 			'react/jsx-curly-brace-presence': [ 'error', { props: 'never', children: 'never' } ],
+			'jsdoc/escape-inline-tags': 'error',
+			'@wordpress/wp-global-usage': 'error',
 			'@wordpress/dependency-group': 'error',
 			'@wordpress/i18n-text-domain': [
 				'error',
 				{
 					allowedTextDomain: 'richtext-extension',
+				},
+			],
+		},
+	},
+	{
+		files: [ '**/*.ts', '**/*.tsx' ],
+		rules: {
+			'@typescript-eslint/consistent-type-imports': [
+				'error',
+				{
+					prefer: 'type-imports',
+					disallowTypeAnnotations: false,
+				},
+			],
+			'@typescript-eslint/no-restricted-imports': [
+				'error',
+				{
+					paths: [
+						{
+							name: 'react',
+							message: 'Please use React API through `@wordpress/element` instead.',
+							allowTypeImports: true,
+						},
+					],
 				},
 			],
 		},
