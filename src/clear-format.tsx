@@ -3,7 +3,7 @@
  */
 import { select } from '@wordpress/data';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { removeFormat } from '@wordpress/rich-text';
+import { removeFormat, store as richTextStore } from '@wordpress/rich-text';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -24,7 +24,7 @@ if ( rtexConf.clearFormatActive ) {
 
 		edit( { isActive, value, onChange }: FormatEditProps ) {
 			const onToggle = () => {
-				const formatTypes = select( 'core/rich-text' ).getFormatTypes();
+				const formatTypes = select( richTextStore ).getFormatTypes();
 				let newValue = value;
 				formatTypes.forEach( ( activeFormat: { name: string } ) => {
 					newValue = removeFormat( newValue, activeFormat.name );

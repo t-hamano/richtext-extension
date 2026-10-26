@@ -4,7 +4,7 @@
 import domReady from '@wordpress/dom-ready';
 import { select } from '@wordpress/data';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { unregisterFormatType, toggleFormat } from '@wordpress/rich-text';
+import { unregisterFormatType, toggleFormat, store as richTextStore } from '@wordpress/rich-text';
 import { formatUnderline } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
@@ -18,7 +18,7 @@ const formatName = 'core/underline';
 const title = __( 'Underline', 'richtext-extension' );
 
 domReady( () => {
-	if ( ! rtexConf.underlineActive || ! select( 'core/rich-text' ).getFormatType( formatName ) ) {
+	if ( ! rtexConf.underlineActive || ! select( richTextStore ).getFormatType( formatName ) ) {
 		return;
 	}
 
