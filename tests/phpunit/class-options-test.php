@@ -21,11 +21,6 @@ class Options_Test extends WP_UnitTestCase {
 	private function migrate_legacy_options() {
 		$method = new ReflectionMethod( Options::class, 'migrate_legacy_options' );
 
-		// Private methods are invokable without this since PHP 8.1.
-		if ( PHP_VERSION_ID < 80100 ) {
-			$method->setAccessible( true );
-		}
-
 		$method->invoke( null );
 	}
 
