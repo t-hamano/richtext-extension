@@ -1,13 +1,12 @@
 /**
  * WordPress dependencies
  */
-import { Button } from '@wordpress/components';
 import { store as coreStore, useEntityRecord } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { SnackbarNotices, store as noticesStore } from '@wordpress/notices';
-import { Card, CollapsibleCard, Spinner, Stack, SwitchControl } from '@wordpress/ui';
+import { Button, Card, CollapsibleCard, Spinner, Stack, SwitchControl } from '@wordpress/ui';
 
 /**
  * Internal dependencies
@@ -150,14 +149,7 @@ export default function App() {
 				</CollapsibleCard.Content>
 			</CollapsibleCard.Root>
 			<div>
-				<Button
-					__next40pxDefaultSize
-					variant="primary"
-					isBusy={ isSaving }
-					disabled={ ! hasEdits || isSaving }
-					accessibleWhenDisabled
-					onClick={ onSave }
-				>
+				<Button loading={ isSaving } disabled={ ! hasEdits || isSaving } onClick={ onSave }>
 					{ __( 'Save Changes', 'richtext-extension' ) }
 				</Button>
 			</div>
