@@ -4,7 +4,7 @@
 import { ColorIndicator, ColorPicker } from '@wordpress/components';
 import { useDebounce, useEvent } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { Button, Popover } from '@wordpress/ui';
+import { Button, Popover, VisuallyHidden } from '@wordpress/ui';
 
 type ColorControlProps = {
 	label: string;
@@ -45,6 +45,7 @@ export default function ColorControl( { label, value, onChange }: ColorControlPr
 				<ColorIndicator colorValue={ isOpen ? color : value } />
 			</Popover.Trigger>
 			<Popover.Popup positioner={ <Popover.Positioner side="bottom" align="start" /> }>
+				<VisuallyHidden render={ <Popover.Title /> }>{ label }</VisuallyHidden>
 				<ColorPicker
 					color={ color }
 					onChange={ ( nextColor ) => {
