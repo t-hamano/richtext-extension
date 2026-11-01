@@ -1,10 +1,10 @@
 /**
  * WordPress dependencies
  */
-import { ColorIndicator, ColorPicker, Dropdown } from '@wordpress/components';
+import { ColorIndicator, ColorPicker } from '@wordpress/components';
 import { useDebounce, useEvent } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { Button } from '@wordpress/ui';
+import { Button, Popover } from '@wordpress/ui';
 
 type ColorControlProps = {
 	label: string;
@@ -16,32 +16,35 @@ export default function ColorControl( { label, value, onChange }: ColorControlPr
 	// Keep the color locally while picking, as updating the entity record on every
 	// pointer move makes the picker jittery. The change is propagated with a delay.
 	const [ color, setColor ] = useState( value );
+	const [ isOpen, setIsOpen ] = useState( false );
 	const handleChange = useEvent( onChange );
 	const debouncedOnChange = useDebounce( handleChange, 100 );
 
 	return (
-		<Dropdown
-			popoverProps={ { placement: 'bottom-start' } }
-			onToggle={ ( willOpen ) => {
+		<Popover.Root
+			open={ isOpen }
+			onOpenChange={ ( willOpen ) => {
 				if ( willOpen ) {
 					setColor( value );
 				} else {
 					debouncedOnChange.flush();
 				}
+				setIsOpen( willOpen );
 			} }
-			renderToggle={ ( { isOpen, onToggle } ) => (
-				<Button
-					variant="unstyled"
-					size="compact"
-					className="rtex-settings-color-toggle"
-					aria-label={ label }
-					aria-expanded={ isOpen }
-					onClick={ onToggle }
-				>
-					<ColorIndicator colorValue={ isOpen ? color : value } />
-				</Button>
-			) }
-			renderContent={ () => (
+		>
+			<Popover.Trigger
+				render={
+					<Button
+						variant="unstyled"
+						size="compact"
+						className="rtex-settings-color-toggle"
+						aria-label={ label }
+					/>
+				}
+			>
+				<ColorIndicator colorValue={ isOpen ? color : value } />
+			</Popover.Trigger>
+			<Popover.Popup positioner={ <Popover.Positioner side="bottom" align="start" /> }>
 				<ColorPicker
 					color={ color }
 					onChange={ ( nextColor ) => {
@@ -49,7 +52,7 @@ export default function ColorControl( { label, value, onChange }: ColorControlPr
 						debouncedOnChange( nextColor );
 					} }
 				/>
-			) }
-		/>
+			</Popover.Popup>
+		</Popover.Root>
 	);
 }
