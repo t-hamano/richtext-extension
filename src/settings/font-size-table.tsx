@@ -84,12 +84,16 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 			<table className="rtex-settings-table">
 				<thead>
 					<tr>
-						<th style={ { width: 1 } }>{ __( 'Status', 'richtext-extension' ) }</th>
-						<th style={ { width: 200 } }>
-							{ _x( 'Title', 'table column header', 'richtext-extension' ) }
+						<th style={ { width: 1 } }>
+							{ _x( 'Status', 'settings page table header label', 'richtext-extension' ) }
 						</th>
-						<th style={ { width: 250 } }>{ __( 'Size', 'richtext-extension' ) }</th>
-						<th>{ __( 'Preview', 'richtext-extension' ) }</th>
+						<th style={ { width: 200 } }>
+							{ _x( 'Title', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { width: 250 } }>
+							{ _x( 'Size', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th>{ _x( 'Preview', 'settings page table header label', 'richtext-extension' ) }</th>
 					</tr>
 				</thead>
 				<tbody>
