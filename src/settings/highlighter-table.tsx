@@ -36,17 +36,25 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 			<table className="rtex-settings-table">
 				<thead>
 					<tr>
-						<th style={ { width: 1 } }>{ __( 'Status', 'richtext-extension' ) }</th>
+						<th style={ { width: 1 } }>
+							{ _x( 'Status', 'settings page table header label', 'richtext-extension' ) }
+						</th>
 						<th style={ { width: 200 } }>
-							{ _x( 'Title', 'table column header', 'richtext-extension' ) }
+							{ _x( 'Title', 'settings page table header label', 'richtext-extension' ) }
 						</th>
-						<th style={ { width: 1 } }>{ __( 'Color', 'richtext-extension' ) }</th>
-						<th style={ { width: 200 } }>{ __( 'Thickness', 'richtext-extension' ) }</th>
-						<th style={ { width: 200 } }>{ __( 'Opacity', 'richtext-extension' ) }</th>
+						<th style={ { width: 1 } }>
+							{ _x( 'Color', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { width: 200 } }>
+							{ _x( 'Thickness', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { width: 200 } }>
+							{ _x( 'Opacity', 'settings page table header label', 'richtext-extension' ) }
+						</th>
 						<th style={ { minWidth: 160 } }>
-							{ _x( 'Type', 'table column header', 'richtext-extension' ) }
+							{ _x( 'Type', 'settings page table header label', 'richtext-extension' ) }
 						</th>
-						<th>{ __( 'Preview', 'richtext-extension' ) }</th>
+						<th>{ _x( 'Preview', 'settings page table header label', 'richtext-extension' ) }</th>
 					</tr>
 				</thead>
 				<tbody>
