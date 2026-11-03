@@ -9,7 +9,7 @@ import {
 	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
 } from '@wordpress/components';
 import { createInterpolateElement } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf, _x } from '@wordpress/i18n';
 import { InputControl, Stack, SwitchControl } from '@wordpress/ui';
 
 /**
@@ -85,7 +85,9 @@ export default function FontSizeTable( { items, onChange }: FontSizeTableProps )
 				<thead>
 					<tr>
 						<th style={ { width: 1 } }>{ __( 'Status', 'richtext-extension' ) }</th>
-						<th style={ { width: 200 } }>{ __( 'Title', 'richtext-extension' ) }</th>
+						<th style={ { width: 200 } }>
+							{ _x( 'Title', 'table column header', 'richtext-extension' ) }
+						</th>
 						<th style={ { width: 250 } }>{ __( 'Size', 'richtext-extension' ) }</th>
 						<th>{ __( 'Preview', 'richtext-extension' ) }</th>
 					</tr>
