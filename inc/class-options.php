@@ -83,22 +83,22 @@ class Options {
 			'font_size'           => array(
 				array(
 					'active' => true,
-					'title'  => __( 'Extra small', 'richtext-extension' ),
+					'title'  => _x( 'Extra small', 'font size', 'richtext-extension' ),
 					'size'   => '0.8em',
 				),
 				array(
 					'active' => true,
-					'title'  => __( 'Small', 'richtext-extension' ),
+					'title'  => _x( 'Small', 'font size', 'richtext-extension' ),
 					'size'   => '0.9em',
 				),
 				array(
 					'active' => true,
-					'title'  => __( 'Large', 'richtext-extension' ),
+					'title'  => _x( 'Large', 'font size', 'richtext-extension' ),
 					'size'   => '1.3em',
 				),
 				array(
 					'active' => true,
-					'title'  => __( 'Extra large', 'richtext-extension' ),
+					'title'  => _x( 'Extra large', 'font size', 'richtext-extension' ),
 					'size'   => '1.6em',
 				),
 			),

@@ -3,7 +3,7 @@
  */
 import { RangeControl } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf, _x } from '@wordpress/i18n';
 import { InputControl, SelectControl, SwitchControl } from '@wordpress/ui';
 
 /**
@@ -21,11 +21,11 @@ type HighlighterTableProps = {
 export default function HighlighterTable( { items, onChange }: HighlighterTableProps ) {
 	const typeItems = useMemo(
 		() => [
-			{ value: 'solid', label: __( 'Solid', 'richtext-extension' ) },
-			{ value: 'stripe', label: __( 'Stripe', 'richtext-extension' ) },
+			{ value: 'solid', label: _x( 'Solid', 'highlighter type', 'richtext-extension' ) },
+			{ value: 'stripe', label: _x( 'Stripe', 'highlighter type', 'richtext-extension' ) },
 			{
 				value: 'stripe-thin',
-				label: __( 'Stripe (Thin)', 'richtext-extension' ),
+				label: _x( 'Stripe (Thin)', 'highlighter type', 'richtext-extension' ),
 			},
 		],
 		[]
@@ -36,13 +36,25 @@ export default function HighlighterTable( { items, onChange }: HighlighterTableP
 			<table className="rtex-settings-table">
 				<thead>
 					<tr>
-						<th style={ { width: 1 } }>{ __( 'Status', 'richtext-extension' ) }</th>
-						<th style={ { width: 200 } }>{ __( 'Title', 'richtext-extension' ) }</th>
-						<th style={ { width: 1 } }>{ __( 'Color', 'richtext-extension' ) }</th>
-						<th style={ { width: 200 } }>{ __( 'Thickness', 'richtext-extension' ) }</th>
-						<th style={ { width: 200 } }>{ __( 'Opacity', 'richtext-extension' ) }</th>
-						<th style={ { minWidth: 160 } }>{ __( 'Type', 'richtext-extension' ) }</th>
-						<th>{ __( 'Preview', 'richtext-extension' ) }</th>
+						<th style={ { width: 1 } }>
+							{ _x( 'Status', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { width: 200 } }>
+							{ _x( 'Title', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { width: 1 } }>
+							{ _x( 'Color', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { width: 200 } }>
+							{ _x( 'Thickness', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { width: 200 } }>
+							{ _x( 'Opacity', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th style={ { minWidth: 160 } }>
+							{ _x( 'Type', 'settings page table header label', 'richtext-extension' ) }
+						</th>
+						<th>{ _x( 'Preview', 'settings page table header label', 'richtext-extension' ) }</th>
 					</tr>
 				</thead>
 				<tbody>
