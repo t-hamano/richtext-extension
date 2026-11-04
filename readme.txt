@@ -3,8 +3,8 @@ Contributors: wildworks
 Tags: gutenberg,rich text,highlighter,formatting
 Donate link: https://www.paypal.me/thamanoJP
 Requires at least: 7.1
-Tested up to: 7.1
-Stable tag: 3.1.0
+Tested up to: 7.2
+Stable tag: 3.2.0
 Requires PHP: 8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -47,6 +47,20 @@ Remove all formatting from the selected text.
 5. Block toolbar (Font size)
 
 == Changelog ==
+
+= 3.2.0 =
+* Tested to WordPress 7.2
+* Drop support for WordPress 7.0
+* Drop support for PHP 8.0 and 8.1
+* Add: Support for em, rem, and px units in font sizes
+* Enhancement: Rebuild the settings page
+* Enhancement: Improve the look of the highlighter and font size dropdown items
+* Enhancement: Add translation context to ambiguous strings
+* Change: Disabling underline in the settings also disables its keyboard shortcut
+* Change: Migrate settings to a new format
+* Remove: Deprecated underline format used before version 2.0.0
+* Fix: Multiple font sizes or highlighters are applied to the same text
+* Doc: Update banners and screenshots
 
 = 3.1.0 =
 * Tested to WordPress 7.1
