@@ -9,33 +9,33 @@ Adds useful decoration features to the Gutenberg RichText editor toolbar.
 
 ### Highlighter
 
-![Highlighter](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-4.png)
+![Highlighter in the block toolbar](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-4.png)
 
-![Highlighter](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-1.png)
+![Highlighter settings](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-1.png)
 
-Draw a marker on the inline text. You can set the color, thickness, and opacity of the marker to you can create various marker styles. Up to four types of settings can be made.
+Draw a marker on inline text. You can set the color, thickness, opacity, and type of the marker to create various marker styles. You can configure up to four highlighters.
 
 ### Font size
 
-![Font size](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-5.png)
+![Font size in the block toolbar](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-5.png)
 
-![Font size](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-2.png)
+![Font size settings](https://raw.githubusercontent.com/t-hamano/richtext-extension/main/.wordpress-org/screenshot-2.png)
 
-Change inline text size. The size is specified as a percentage of the base font size, and up to four types of settings can be made.
+Change the size of inline text. You can specify the size in em, rem, or px, and configure up to four font sizes.
 
 ### Underline
 
-Create underline.
+Add an underline button to the block toolbar.
 
-**Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.**
+**Note: The underline markup has changed since version 2.0.0. If existing underlines do not work, try clearing the format.**
 
 ### Clear format
 
-Removes all formatting.
+Remove all formatting from the selected text.
 
 ## How to build
 
-Download this folder in your plugins directory.
+Clone this repository into your `wp-content/plugins` directory, then build the plugin:
 
 ```sh
 npm install
@@ -44,4 +44,4 @@ npm run build
 
 ## Author
 
-[Aki Hamano (Github)](https://github.com/t-hamano)
+[Aki Hamano (GitHub)](https://github.com/t-hamano)
