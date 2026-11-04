@@ -4,7 +4,7 @@
 import { test, expect } from '@wordpress/e2e-test-utils-playwright';
 
 test.describe( 'Settings', () => {
-	let originalSettings: unknown;
+	let originalSettings: Record< string, unknown >;
 
 	test.beforeAll( async ( { requestUtils } ) => {
 		const siteSettings = await requestUtils.rest( { path: '/wp/v2/settings' } );
@@ -103,5 +103,36 @@ test.describe( 'Settings', () => {
 		await editor.clickBlockToolbarButton( 'More' );
 		await expect( page.getByRole( 'menuitem', { name: 'Underline', exact: true } ) ).toBeHidden();
 		await expect( page.getByRole( 'menuitem', { name: 'Clear format' } ) ).toBeHidden();
+	} );
+
+	test( 'should disable the underline keyboard shortcut when underline is disabled', async ( {
+		admin,
+		editor,
+		pageUtils,
+		requestUtils,
+	} ) => {
+		await requestUtils.rest( {
+			path: '/wp/v2/settings',
+			method: 'POST',
+			data: { rtex_settings: { ...originalSettings, underline_active: false } },
+		} );
+
+		await admin.createNewPost();
+		await editor.insertBlock( {
+			name: 'core/paragraph',
+			attributes: { content: 'Hello world' },
+		} );
+		await editor.canvas.getByRole( 'document', { name: 'Block: Paragraph' } ).click();
+		await pageUtils.pressKeys( 'primary+a' );
+		await pageUtils.pressKeys( 'primary+u' );
+		// Apply bold to make sure that the underline shortcut has been handled.
+		await pageUtils.pressKeys( 'primary+b' );
+
+		await expect.poll( editor.getBlocks ).toMatchObject( [
+			{
+				name: 'core/paragraph',
+				attributes: { content: '<strong>Hello world</strong>' },
+			},
+		] );
 	} );
 } );
