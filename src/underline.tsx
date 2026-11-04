@@ -18,7 +18,14 @@ const formatName = 'core/underline';
 const title = __( 'Underline', 'richtext-extension' );
 
 domReady( () => {
-	if ( ! rtexConf.underlineActive || ! select( richTextStore ).getFormatType( formatName ) ) {
+	if ( ! select( richTextStore ).getFormatType( formatName ) ) {
+		return;
+	}
+
+	// Unregister `core/underline` so that the keyboard shortcut and the
+	// `formatUnderline` input event do not apply underlines either.
+	if ( ! rtexConf.underlineActive ) {
+		unregisterFormatType( formatName );
 		return;
 	}
 

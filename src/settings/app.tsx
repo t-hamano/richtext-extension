@@ -130,7 +130,7 @@ export default function App() {
 						<SwitchControl
 							label={ __( 'Underline', 'richtext-extension' ) }
 							description={ __(
-								'Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.',
+								'When disabled, the keyboard shortcut for underline is also disabled. Note: The underline specifications have changed from version 2.0.0. Try clearing the format if existing underlines do not work.',
 								'richtext-extension'
 							) }
 							checked={ settings.underline_active }
