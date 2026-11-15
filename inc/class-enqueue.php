@@ -27,7 +27,8 @@ class Enqueue {
 	 * Enqueue format styles for the front end and the editor content
 	 */
 	public function enqueue_block_assets() {
-		wp_register_style( RTEX_NAMESPACE, false );
+		// It has no file, so there is no version to bust the cache for.
+		wp_register_style( RTEX_NAMESPACE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( RTEX_NAMESPACE );
 
 		wp_add_inline_style( RTEX_NAMESPACE, $this->get_inline_css() );
@@ -42,7 +43,8 @@ class Enqueue {
 			RTEX_NAMESPACE,
 			RTEX_URL . '/build/index.js',
 			$asset['dependencies'],
-			$asset['version']
+			$asset['version'],
+			array( 'in_footer' => false )
 		);
 
 		wp_add_inline_script(
