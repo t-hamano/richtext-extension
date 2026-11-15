@@ -7,6 +7,9 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
+// This file is loaded inside uninstall_plugin(), so these variables are not global.
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+
 $options = array(
 	'rtex_settings',
 	'rtex_version',
@@ -34,3 +37,4 @@ $options[] = 'rtex_clear_format_active';
 foreach ( $options as $key ) {
 	delete_option( $key );
 }
+// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
